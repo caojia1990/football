@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.eastng.football.entity.match.Match;
-import com.eastng.football.service.match.dao.MatchDao;
+import com.eastng.football.service.match.mapper.MatchMapper;
 
 public class MatchTest {
 	
@@ -37,7 +37,7 @@ public class MatchTest {
 	public void selectMatch(){
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			MatchDao matchDao = session.getMapper(MatchDao.class);
+			MatchMapper matchDao = session.getMapper(MatchMapper.class);
 			Match match = matchDao.selectMatch("123");
 			System.out.println(match);
 		} finally {

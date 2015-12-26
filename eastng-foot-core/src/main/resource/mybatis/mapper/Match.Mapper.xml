@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cib.edu.service.user.dao.impl.PmsUserDaoImpl">
+<mapper namespace="com.eastng.football.service.match.mapper.MatchMapper">
 
-	<!-- 用户信息表 -->
-	<sql id="pms_user"> pms_user </sql>
+	<!-- 比赛信息表 -->
+	<sql id="match"> t_match </sql>
 
-	<resultMap id="beanMap" type="PmsUser">
+	<resultMap id="matchMap" type="match">
 		<id column="id" property="id" />
 		<result column="version" property="version" />
 		<result column="main_user_id" property="mainUserId" />
