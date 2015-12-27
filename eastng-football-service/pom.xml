@@ -30,6 +30,13 @@
 	  <artifactId>esatng-football-config</artifactId>
 	  <version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	
+  	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>1.2.3</version>
+	</dependency>
+	
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

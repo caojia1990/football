@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eastng.football.service.match.mapper.MatchMapper">
+<mapper namespace="com.eastng.football.service.match.persistence.MatchMapper">
 
 	<!-- 比赛信息表 -->
 	<sql id="match"> t_match </sql>
 
 	<resultMap id="matchMap" type="match">
-		<id column="id" property="id" />
-		<result column="version" property="version" />
-		<result column="main_user_id" property="mainUserId" />
-		<result column="user_no" property="userNo" />
-		<result column="user_pwd" property="userPwd" />
-		<result column="create_time" property="createTime" />
-		<result column="user_name" property="userName" />
-		<result column="email" property="email" />
-		<result column="mobile_no" property="mobileNo" />
-		<result column="status" property="status" />
-		<result column="user_type" property="userType" />
-		<result column="last_login_time" property="lastLoginTime" />
-		<result column="is_changed_pwd" property="isChangedPwd" javaType="Boolean" jdbcType="INTEGER"/>
-		<result column="pwd_error_count" property="pwdErrorCount" />
-		<result column="pwd_error_time" property="pwdErrorTime" />
-		<result column="remark" property="remark" />
+		<id column="ID" property="id" />
+		<result column="MATCH_NO" property="matchNo" />
+		<result column="HOST_TEAM_NO" property="hostTeamNo" />
+		<result column="HOST_SHORT_NAME" property="hostShortName" />
+		<result column="GUEST_TEAM_NO" property="guestTeamNo" />
+		<result column="GUEST_SHORT_NAME" property="guestShortName" />
+		<result column="EVENT_ID" property="eventId" />
+		<result column="SEASON_NAME" property="seasonName" />
+		<result column="MATCH_TIME" property="matchTime" />
+		<result column="ROUND" property="round" />
+		<result column="HOST_GOAL" property="hostGoal" />
+		<result column="GUEST_GOAL" property="guestGoal" />
+		<result column="HALF_TIME_HOST_GOAL" property="halfTimehostGoal" />
+		<result column="HALF_TIME_GUEST_GOAL" property="halfTimeGuestGoal" />
+		<result column="MATCH_STATUS" property="matchStatus" />
 	</resultMap>
 	
-	<insert id="insert" parameterType="PmsUser" keyProperty="id" useGeneratedKeys="true">
-		insert into <include refid="pms_user"/> (version, create_time, main_user_id, user_name, user_no,user_pwd, 
-		email, mobile_no, status, user_type, last_login_time, is_changed_pwd, pwd_error_count, pwd_error_time,remark) 
-		values (0, NOW(), #{mainUserId}, #{userName}, #{userNo},#{userPwd}, #{email}, #{mobileNo}, #{status}, #{userType}, 
-		#{lastLoginTime}, #{isChangedPwd,javaType=Boolean,jdbcType=INTEGER}, 0, #{pwdErrorTime}, #{remark})
+	<insert id="saveMatch" parameterType="match" >
+		insert into T_MATCH(
+		    ID,
+		    MATCH_NO,
+		    HOST_TEAM_NO,
+		    HOST_SHORT_NAME,
+		    GUEST_TEAM_NO,
+		    GUEST_SHORT_NAME,
+		    EVENT_ID,
+		    SEASON_NAME,
+		    MATCH_TIME,
+		    ROUND,
+		    HOST_GOAL,
+		    GUEST_GOAL,
+		    HALF_TIME_HOST_GOAL,
+		    HALF_TIME_GUEST_GOAL,
+		    MATCH_STATUS
+		)values(
+		    #{id},
+		    #{matchNo},
+		    #{hostTeamNo},
+		    #{hostShortName},
+		    #{guestTeamNo},
+		    #{guestShortName},
+		    #{eventId},
+		    #{seasonName},
+		    #{matchTime},
+		    #{round},
+		    #{hostGoal},
+		    #{guestGoal},
+		    #{halfTimeHostGoal},
+		    #{halfTimeGuestGoal},
+		    #{matchStatus})
 	</insert>
 	
-	<update id="update" parameterType="PmsUser">
+	<!-- <update id="update" parameterType="PmsUser">
 		update <include refid="pms_user"/>
 		<set>			
 			version = #{version}+1,
@@ -72,11 +99,11 @@
   	</delete>
 
 	<sql id="condition_sql">
-		<!-- Equal query -->
+		Equal query
 		<if test="mainUserId != null and mainUserId != ''"> and main_user_id = #{mainUserId}</if>
 		<if test="status != null and status != ''"> and status = #{status}</if>
 		<if test="userNo != null and userNo != ''"> and user_no = #{userNo}</if>
-		<!-- Like query -->
+		Like query
 		<if test="userName != null and userName != ''"> and user_name like CONCAT(CONCAT('%', #{userName}), '%')</if>
 	</sql>
 	
@@ -96,6 +123,6 @@
 		<where>
 			<include refid="condition_sql"/>
 		</where>
-	</select>
+	</select> -->
 	
 </mapper>

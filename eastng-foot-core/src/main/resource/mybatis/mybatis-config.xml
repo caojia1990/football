@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
 	<properties>
 		<property name="username" value="root"/>
 	</properties>
@@ -28,7 +27,7 @@
 	
 	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
 	<typeAliases>
-		<typeAlias type="match" alias="com.eastng.football.entity.match.Match"/>
+		<typeAlias type="com.eastng.football.entity.match.Match" alias="match"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -36,7 +35,7 @@
 	    <transactionManager type="JDBC"/>
 	    <dataSource type="POOLED">
 	      <property name="driver" value="com.mysql.jdbc.Driver"/>
-	      <property name="url" value="jdbc:mysql://localhost:3306/football"/>
+	      <property name="url" value="jdbc:mysql://localhost:3306/football?useUnicode=true&amp;characterEncoding=utf-8"/>
 	      <property name="username" value="${username}"/>
 	      <property name="password" value=""/>
 	    </dataSource>
@@ -45,7 +44,8 @@
   
     <!-- 映射资源文件 -->
 	<mappers>
-		<mapper class="com.eastng.football.service.match.dao.MatchDao"/>		 
+		<mapper class="com.eastng.football.service.match.persistence.MatchMapper"/>	
+		<mapper resource="mybatis/mapper/Match.Mapper.xml"/>	 
 	</mappers>
 
 

@@ -1,10 +1,10 @@
-package com.eastng.football.service.match.mapper.impl;
+package com.eastng.football.service.match.persistence.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.eastng.football.entity.match.Match;
-import com.eastng.football.service.match.mapper.MatchMapper;
+import com.eastng.football.service.match.persistence.MatchMapper;
 
 /**
  * 比赛数据操作实现类
@@ -15,9 +15,10 @@ public class MatchMapperImpl implements MatchMapper {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public Integer savaMatch(Match match) {
-		this.sqlSession.insert("MatchDaoImpl.saveMatch", match);
-		return null;
+	public Integer saveMatch(Match match) {
+		MatchMapper matchDao = sqlSession.getMapper(MatchMapper.class);
+		Integer result = matchDao.saveMatch(match);
+		return result;
 	}
 	
 	/**
