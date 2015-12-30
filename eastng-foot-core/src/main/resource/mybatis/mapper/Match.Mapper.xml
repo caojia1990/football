@@ -58,6 +58,28 @@
 		    #{matchStatus})
 	</insert>
 	
+	<select id="">
+		select ID,
+		    MATCH_NO,
+		    HOST_TEAM_NO,
+		    HOST_SHORT_NAME,
+		    GUEST_TEAM_NO,
+		    GUEST_SHORT_NAME,
+		    EVENT_ID,
+		    SEASON_NAME,
+		    MATCH_TIME,
+		    ROUND,
+		    HOST_GOAL,
+		    GUEST_GOAL,
+		    HALF_TIME_HOST_GOAL,
+		    HALF_TIME_GUEST_GOAL,
+		    MATCH_STATUS
+		from T_MATCH
+		<where>
+			<if test="matchNo">MATCH_NO = #{matchNo}</if>
+			<if test="hostTeamNo">HOST_TEAM_NO = #{hostTeamNo}</if>
+		</where>
+	</select>
 	<!-- <update id="update" parameterType="PmsUser">
 		update <include refid="pms_user"/>
 		<set>			

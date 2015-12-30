@@ -1,5 +1,7 @@
 package com.eastng.football.service.match.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Select;
 
 import com.eastng.football.entity.match.Match;
@@ -18,10 +20,17 @@ public interface MatchMapper {
 	Integer saveMatch(Match match);
 	
 	/**
+	 * 根据条件查询赛程信息
+	 * @param match
+	 * @return 赛程信息列表
+	 */
+	List<Match> queryMatchByCondition(Match match);
+	
+	/**
 	 * 根据比赛编号查询比赛详细信息，采用注解方式映射
 	 * @param matchNo
 	 * @return
 	 */
-	@Select("select * from t_match where id = #{matchNo}")
+	@Select("select * from t_match where match_no = #{matchNo}")
 	Match selectMatch(String matchNo);
 }
