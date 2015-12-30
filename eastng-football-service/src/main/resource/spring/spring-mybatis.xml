@@ -41,16 +41,23 @@
         
     </bean>
 		
-	<!-- 将数据源映射到sqlSessionFactory中 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 将数据源映射到SessionFactory中 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!-- SqlSession模板类实例 -->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="0" ref="sessionFactory" />
 	</bean>
+	
+	<!-- 注册映射器  不能和sqlSessionFactory同名  会导致properties文件加载不到-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="com.eastng.football.service.match.persistence" />
+	    <property name="sqlSessionFactoryBeanName" value="sessionFactory" />
+	</bean>
+    
 
 	<!--======= 事务配置 Begin ================= -->
 	<!-- 事务管理器（由Spring管理MyBatis的事务） -->
