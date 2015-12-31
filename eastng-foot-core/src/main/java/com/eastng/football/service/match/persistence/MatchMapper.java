@@ -1,6 +1,7 @@
 package com.eastng.football.service.match.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
@@ -24,7 +25,7 @@ public interface MatchMapper {
 	 * @param match
 	 * @return 赛程信息列表
 	 */
-	List<Match> queryMatchByCondition(Match match);
+	List<Match> queryMatchByCondition(Map<String,Object> map);
 	
 	/**
 	 * 根据比赛编号查询比赛详细信息，采用注解方式映射

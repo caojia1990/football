@@ -1,5 +1,8 @@
 package com.eastng.football.service.match.bussinessImpl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +10,8 @@ import com.eastng.football.entity.match.Match;
 import com.eastng.football.service.api.match.MatchService;
 import com.eastng.football.service.match.persistence.MatchMapper;
 import com.eastng.football.service.vo.MatchVO;
+import com.eastng.football.service.vo.QueryMatchParamVO;
+import com.eastng.football.util.BeanUtils;
 
 @Service("matchService")
 public class MtachServiceImpl implements MatchService {
@@ -14,9 +19,16 @@ public class MtachServiceImpl implements MatchService {
 	@Autowired
 	private MatchMapper matchMapper;
 
-	public void queryMatchSchedule() {
-		// TODO Auto-generated method stub
-
+	/**
+	 * 根据条件查询比赛信息
+	 * @param paramVO
+	 * @return
+	 */
+	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO) {
+		Map<String,Object> paramMap = BeanUtils.bean2Map(paramVO);
+		List<Match> list = this.matchMapper.queryMatchByCondition(paramMap);
+		System.out.println(list);
+		return null;
 	}
 
 	public void querySeasonListByEventId(String eventId) {
@@ -35,7 +47,6 @@ public class MtachServiceImpl implements MatchService {
 	}
 
 	public Integer saveMatch(MatchVO matchVO){
-		
 		Match match = new Match();
 		match.setMatchNo(matchVO.getMatchNo());
 		match.setEventId(matchVO.getEventId());

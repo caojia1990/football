@@ -18,7 +18,7 @@
 		<result column="ROUND" property="round" />
 		<result column="HOST_GOAL" property="hostGoal" />
 		<result column="GUEST_GOAL" property="guestGoal" />
-		<result column="HALF_TIME_HOST_GOAL" property="halfTimehostGoal" />
+		<result column="HALF_TIME_HOST_GOAL" property="halfTimeHostGoal" />
 		<result column="HALF_TIME_GUEST_GOAL" property="halfTimeGuestGoal" />
 		<result column="MATCH_STATUS" property="matchStatus" />
 	</resultMap>
@@ -58,7 +58,7 @@
 		    #{matchStatus})
 	</insert>
 	
-	<select id="">
+	<select id="queryMatchByCondition" parameterType="map" resultMap="matchMap">
 		select ID,
 		    MATCH_NO,
 		    HOST_TEAM_NO,
@@ -78,6 +78,13 @@
 		<where>
 			<if test="matchNo">MATCH_NO = #{matchNo}</if>
 			<if test="hostTeamNo">HOST_TEAM_NO = #{hostTeamNo}</if>
+			<if test="guestTeamNo">GUEST_TEAM_NO = #{guestTeamNo}</if>
+			<if test="eventId">EVENT_ID = #{eventId}</if>
+			<if test="seasonName">SEASON_NAME = #{seasonName}</if>
+			<if test="beginDate">MATCH_TIME >= #{beginDate}</if>
+			<if test="endDate"><![CDATA[MATCH_TIME <= ]]>#{endDate}</if>
+			<if test="round">ROUND = #{round}</if>
+			<if test="matchStatus">MATCH_STATUS = #{matchStatus}</if>
 		</where>
 	</select>
 	<!-- <update id="update" parameterType="PmsUser">

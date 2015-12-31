@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eastng.football.service.api.match.MatchService;
 import com.eastng.football.service.vo.MatchVO;
+import com.eastng.football.service.vo.QueryMatchParamVO;
 
 
 public class MatchTest {
@@ -56,6 +57,13 @@ public class MatchTest {
 		//比赛时间
 		match.setMatchTime(new Date());
 		this.matchService.saveMatch(match);
+	}
+	
+	@Test
+	public void queryMatchTest(){
+		QueryMatchParamVO paramVO = new QueryMatchParamVO();
+		paramVO.setGuestTeamNo("002");
+		this.matchService.queryMatchSchedule(paramVO);
 	}
 
 }

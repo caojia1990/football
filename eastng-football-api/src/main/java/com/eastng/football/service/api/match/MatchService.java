@@ -1,6 +1,9 @@
 package com.eastng.football.service.api.match;
 
+import java.util.List;
+
 import com.eastng.football.service.vo.MatchVO;
+import com.eastng.football.service.vo.QueryMatchParamVO;
 
 /**
  * 赛事服务接口
@@ -14,10 +17,13 @@ public interface MatchService {
 	 * @return
 	 */
 	public Integer saveMatch(MatchVO matchVO);
+	
 	/**
-	 * 根据条件查询赛程信息
+	 * 根据条件查询比赛信息
+	 * @param paramVO
+	 * @return
 	 */
-	public void queryMatchSchedule();
+	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
 
 	/**
 	 * 根据赛事种类ID查询联赛或杯赛信息
