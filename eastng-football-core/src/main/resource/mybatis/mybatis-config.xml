@@ -44,7 +44,7 @@
   
     <!-- 映射资源文件 -->
 	<mappers>
-		<!-- <mapper class="com.eastng.football.service.match.persistence.MatchMapper"/>	 -->
+		<mapper class="com.eastng.football.service.match.persistence.MatchMapper"/>	
 		<mapper resource="mybatis/mapper/Match.Mapper.xml"/>	 
 	</mappers>
 
