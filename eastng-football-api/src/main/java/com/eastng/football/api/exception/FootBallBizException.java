@@ -1,4 +1,4 @@
-package com.eastng.football.service.exception;
+package com.eastng.football.api.exception;
 
 public class FootBallBizException extends Exception {
 

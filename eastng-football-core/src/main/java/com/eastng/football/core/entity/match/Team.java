@@ -1,4 +1,4 @@
-package com.eastng.football.entity.match;
+package com.eastng.football.core.entity.match;
 
 import java.io.Serializable;
 

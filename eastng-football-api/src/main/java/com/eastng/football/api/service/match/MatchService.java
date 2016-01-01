@@ -1,9 +1,10 @@
-package com.eastng.football.service.api.match;
+package com.eastng.football.api.service.match;
 
 import java.util.List;
 
-import com.eastng.football.service.vo.MatchVO;
-import com.eastng.football.service.vo.QueryMatchParamVO;
+import com.eastng.football.api.vo.MatchVO;
+import com.eastng.football.api.vo.QueryMatchParamVO;
+
 
 /**
  * 赛事服务接口

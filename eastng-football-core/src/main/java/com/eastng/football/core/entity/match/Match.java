@@ -1,21 +1,19 @@
-package com.eastng.football.service.vo;
+package com.eastng.football.core.entity.match;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 比赛详情VO类
  * @author caojia
  */
-public class MatchVO implements Serializable {
+public class Match {
 
 	/**
-	 * 可序列化
+	 * ID
 	 */
-	private static final long serialVersionUID = -5281543521352306212L;
-	
+	private Integer id;
+
 	/**
-	 * 比赛编号(后台自动生成)
+	 * 比赛编号
 	 */
 	private String matchNo;
 	
@@ -83,16 +81,30 @@ public class MatchVO implements Serializable {
 	 * 比赛状态    0：未开始  1：比赛中  2：已结束
 	 */
 	private String matchStatus;
+	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
     
 	/**
-	 * 比赛编号(后台自动生成)
+	 * @return the matchNo
 	 */
 	public String getMatchNo() {
 		return matchNo;
 	}
 
 	/**
-	 * 比赛编号(后台自动生成)
+	 * @param matchNo the matchNo to set
 	 */
 	public void setMatchNo(String matchNo) {
 		this.matchNo = matchNo;
@@ -279,5 +291,6 @@ public class MatchVO implements Serializable {
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;
 	}
+	
 	
 }

@@ -1,11 +1,11 @@
-package com.eastng.football.service.match.persistence;
+package com.eastng.football.core.service.match.persistence;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.eastng.football.entity.match.Match;
+import com.eastng.football.core.entity.match.Match;
 
 /**
  * 比赛Mapper接口

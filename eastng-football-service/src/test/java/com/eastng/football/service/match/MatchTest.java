@@ -7,9 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.eastng.football.service.api.match.MatchService;
-import com.eastng.football.service.vo.MatchVO;
-import com.eastng.football.service.vo.QueryMatchParamVO;
+import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.vo.MatchVO;
+import com.eastng.football.api.vo.QueryMatchParamVO;
 
 
 public class MatchTest {
@@ -17,6 +17,7 @@ public class MatchTest {
 	ClassPathXmlApplicationContext context = null;
 	
 	MatchService matchService = null;
+	
 	@Before
 	public void init(){
 		System.out.println("******************* Service Test Begin******************");

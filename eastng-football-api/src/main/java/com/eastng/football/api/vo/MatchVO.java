@@ -1,19 +1,21 @@
-package com.eastng.football.service.vo;
+package com.eastng.football.api.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 查询比赛信息入参VO类
+ * 比赛详情VO类
  * @author caojia
- *
  */
-public class QueryMatchParamVO implements Serializable {
-
-	private static final long serialVersionUID = -2307041514218024596L;
+public class MatchVO implements Serializable {
 
 	/**
-	 * 比赛编号(若传，则结果唯一)
+	 * 可序列化
+	 */
+	private static final long serialVersionUID = -5281543521352306212L;
+	
+	/**
+	 * 比赛编号(后台自动生成)
 	 */
 	private String matchNo;
 	
@@ -48,34 +50,49 @@ public class QueryMatchParamVO implements Serializable {
     private String seasonName;
     
     /**
-     * 开始时间
+     * 比赛时间
      */
-    private Date beginDate;
-    
-    /**
-     * 结束时间
-     */
-    private Date endDate;
+    private Date matchTime;
     
     /**
      * 轮次
      */
     private Integer round;
-	
+    
     /**
+     * 主队进球
+     */
+    private Integer hostGoal;
+    
+    /**
+     * 客队进球
+     */
+	private Integer guestGoal;
+	
+	/**
+	 * 半场主队进球
+	 */
+	private Integer halfTimeHostGoal;
+	
+	/**
+	 * 半场客队进球
+	 */
+	private Integer halfTimeGuestGoal;
+	
+	/**
 	 * 比赛状态    0：未开始  1：比赛中  2：已结束
 	 */
 	private String matchStatus;
-
+    
 	/**
-	 * @return the matchNo
+	 * 比赛编号(后台自动生成)
 	 */
 	public String getMatchNo() {
 		return matchNo;
 	}
 
 	/**
-	 * @param matchNo the matchNo to set
+	 * 比赛编号(后台自动生成)
 	 */
 	public void setMatchNo(String matchNo) {
 		this.matchNo = matchNo;
@@ -166,6 +183,20 @@ public class QueryMatchParamVO implements Serializable {
 	}
 
 	/**
+	 * @return the matchTime
+	 */
+	public Date getMatchTime() {
+		return matchTime;
+	}
+
+	/**
+	 * @param matchTime the matchTime to set
+	 */
+	public void setMatchTime(Date matchTime) {
+		this.matchTime = matchTime;
+	}
+
+	/**
 	 * @return the round
 	 */
 	public Integer getRound() {
@@ -177,6 +208,62 @@ public class QueryMatchParamVO implements Serializable {
 	 */
 	public void setRound(Integer round) {
 		this.round = round;
+	}
+
+	/**
+	 * @return the hostGoal
+	 */
+	public Integer getHostGoal() {
+		return hostGoal;
+	}
+
+	/**
+	 * @param hostGoal the hostGoal to set
+	 */
+	public void setHostGoal(Integer hostGoal) {
+		this.hostGoal = hostGoal;
+	}
+
+	/**
+	 * @return the guestGoal
+	 */
+	public Integer getGuestGoal() {
+		return guestGoal;
+	}
+
+	/**
+	 * @param guestGoal the guestGoal to set
+	 */
+	public void setGuestGoal(Integer guestGoal) {
+		this.guestGoal = guestGoal;
+	}
+
+	/**
+	 * @return the halfTimeHostGoal
+	 */
+	public Integer getHalfTimeHostGoal() {
+		return halfTimeHostGoal;
+	}
+
+	/**
+	 * @param halfTimeHostGoal the halfTimeHostGoal to set
+	 */
+	public void setHalfTimeHostGoal(Integer halfTimeHostGoal) {
+		this.halfTimeHostGoal = halfTimeHostGoal;
+	}
+
+	/**
+	 * @return the halfTimeGuestGoal
+	 */
+	public Integer getHalfTimeGuestGoal() {
+		return halfTimeGuestGoal;
+	}
+
+	/**
+	 * @param halfTimeGuestGoal the halfTimeGuestGoal to set
+	 */
+	public void setHalfTimeGuestGoal(Integer halfTimeGuestGoal) {
+		this.halfTimeGuestGoal = halfTimeGuestGoal;
 	}
 
 	/**
@@ -192,45 +279,5 @@ public class QueryMatchParamVO implements Serializable {
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;
 	}
-
-	/**
-	 * @return the beginDate
-	 */
-	public Date getBeginDate() {
-		return beginDate;
-	}
-
-	/**
-	 * @param beginDate the beginDate to set
-	 */
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
-
-	/**
-	 * @return the endDate
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "QueryMatchParamVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName="
-				+ hostShortName + ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", eventId="
-				+ eventId + ", seasonName=" + seasonName + ", beginDate=" + beginDate + ", endDate=" + endDate
-				+ ", round=" + round + ", matchStatus=" + matchStatus + "]";
-	}
-
 	
 }

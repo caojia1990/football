@@ -6,11 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eastng.football.entity.match.Match;
-import com.eastng.football.service.api.match.MatchService;
-import com.eastng.football.service.match.persistence.MatchMapper;
-import com.eastng.football.service.vo.MatchVO;
-import com.eastng.football.service.vo.QueryMatchParamVO;
+import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.vo.MatchVO;
+import com.eastng.football.api.vo.QueryMatchParamVO;
+import com.eastng.football.core.entity.match.Match;
+import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.util.BeanUtils;
 
 @Service("matchService")

@@ -11,8 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.eastng.football.entity.match.Match;
-import com.eastng.football.service.match.persistence.MatchMapper;
+import com.eastng.football.core.entity.match.Match;
+import com.eastng.football.core.service.match.persistence.MatchMapper;
 
 public class MatchTest {
 	

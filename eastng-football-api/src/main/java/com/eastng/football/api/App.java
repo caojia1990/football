@@ -1,4 +1,4 @@
-package com.eastng.football.service;
+package com.eastng.football.api;
 
 /**
  * Hello world!
