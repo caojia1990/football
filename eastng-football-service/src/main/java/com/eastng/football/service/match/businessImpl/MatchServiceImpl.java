@@ -1,4 +1,4 @@
-package com.eastng.football.service.match.bussinessImpl;
+package com.eastng.football.service.match.businessImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.util.BeanUtils;
 
 @Service("matchService")
-public class MtachServiceImpl implements MatchService {
+public class MatchServiceImpl implements MatchService {
 	
 	@Autowired
 	private MatchMapper matchMapper;
@@ -65,6 +65,11 @@ public class MtachServiceImpl implements MatchService {
 
 	}
 
+	/**
+	 * 保存比赛信息
+	 * @param matchVO
+	 * @return
+	 */
 	public Integer saveMatch(MatchVO matchVO){
 		Match match = new Match();
 		match.setMatchNo(matchVO.getMatchNo());

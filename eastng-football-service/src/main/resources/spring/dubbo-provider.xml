@@ -16,6 +16,7 @@
 	<dubbo:protocol name="dubbo" port="20880" 	/>
 		
 	<!-- 用户服务接口 -->
-	<dubbo:service interface="com.cib.edu.user.api.service.PmsUserService" ref="pmsUserService" />
+	<dubbo:service interface="com.eastng.football.api.service.match.MatchService" ref="matchService" />
+	<bean id="matchService" class="com.eastng.football.service.match.businessImpl.MatchServiceImpl"/>
 
 </beans>  
