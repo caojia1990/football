@@ -1,5 +1,6 @@
 package com.eastng.football.service.match.bussinessImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,26 @@ public class MtachServiceImpl implements MatchService {
 	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO) {
 		Map<String,Object> paramMap = BeanUtils.bean2Map(paramVO);
 		List<Match> list = this.matchMapper.queryMatchByCondition(paramMap);
-		System.out.println(list);
-		return null;
+		List<MatchVO> resultList = new ArrayList<MatchVO>();
+		for(Match match:list){
+			MatchVO matchVO = new MatchVO();
+			matchVO.setEventId(match.getEventId());
+			matchVO.setGuestGoal(match.getGuestGoal());
+			matchVO.setGuestShortName(match.getHostShortName());
+			matchVO.setGuestTeamNo(match.getHostTeamNo());
+			matchVO.setHalfTimeGuestGoal(match.getHalfTimeHostGoal());
+			matchVO.setHalfTimeHostGoal(match.getHalfTimeHostGoal());
+			matchVO.setHostGoal(match.getHostGoal());
+			matchVO.setHostShortName(match.getHostShortName());
+			matchVO.setHostTeamNo(match.getHostTeamNo());
+			matchVO.setMatchNo(match.getMatchNo());
+			matchVO.setMatchStatus(match.getMatchStatus());
+			matchVO.setMatchTime(match.getMatchTime());
+			matchVO.setRound(match.getRound());
+			matchVO.setSeasonName(match.getSeasonName());
+			resultList.add(matchVO);
+		}
+		return resultList;
 	}
 
 	public void querySeasonListByEventId(String eventId) {
