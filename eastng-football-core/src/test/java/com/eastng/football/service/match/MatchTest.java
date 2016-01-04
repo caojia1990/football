@@ -38,8 +38,8 @@ public class MatchTest {
 	public void selectMatch(){
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			MatchMapper matchDao = session.getMapper(MatchMapper.class);
-			Match match = matchDao.selectMatch("123");
+			MatchMapper matchMapper = session.getMapper(MatchMapper.class);
+			Match match = matchMapper.selectMatch("123");
 			System.out.println(match);
 		} finally {
 			session.close();

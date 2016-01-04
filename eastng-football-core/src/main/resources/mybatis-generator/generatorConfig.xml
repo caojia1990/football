@@ -30,7 +30,10 @@
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <table schema="football" tableName="T_TEAM" domainObjectName="Team" >
+	<!-- 去掉Example辅助类 -->
+    <table schema="football" tableName="T_LEAGUE_INFO" domainObjectName="LeagueInfo" 
+    	enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
+    	enableUpdateByExample="false" selectByExampleQueryId="false">
       <!-- <property name="useActualColumnNames" value="true"/>
       <generatedKey column="ID" sqlStatement="DB2" identity="true" />
       <columnOverride column="DATE_FIELD" property="startDate" />
