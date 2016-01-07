@@ -3,6 +3,7 @@ package com.eastng.football.service.match;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.eastng.football.core.entity.match.Match;
+import com.eastng.football.core.entity.match.MatchExample;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
 
 public class MatchTest {
@@ -71,7 +73,7 @@ public class MatchTest {
 		//比赛状态
 		match.setMatchStatus("1");
 		//比赛类型
-		match.setEventId(1);
+		match.setLeagueNo("123");
 		//赛季名称
 		match.setSeasonName("15-16赛季");
 		//比赛时间
@@ -85,5 +87,24 @@ public class MatchTest {
 		} finally {
 			session.close();
 		}
+	}
+	
+	@Test
+	public void selectMatchByExample(){
+		SqlSession session = sqlSessionFactory.openSession();
+		MatchExample example = new MatchExample();
+		example.setOrderByClause("ROUND");
+		example.createCriteria().andLeagueNoEqualTo("123")
+			.andSeasonNameEqualTo("1231");
+		try {
+			MatchMapper matchMapper = session.getMapper(MatchMapper.class);
+			List<Match> list = matchMapper.selectByExample(example);
+			matchMapper.deleteByExample(example);
+			System.out.println(list);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		
 	}
 }

@@ -40,9 +40,9 @@ public class MatchVO implements Serializable {
     private String guestShortName;
     
     /**
-     * 赛事ID
+     * 赛事编号
      */
-    private Integer eventId;
+    private String leagueNo;
     
     /**
      * 赛季名称
@@ -155,17 +155,17 @@ public class MatchVO implements Serializable {
 	}
 
 	/**
-	 * @return the eventId
+	 * @return the leagueNo
 	 */
-	public Integer getEventId() {
-		return eventId;
+	public String getLeagueNo() {
+		return leagueNo;
 	}
 
 	/**
-	 * @param eventId the eventId to set
+	 * @param leagueNo the leagueNo to set
 	 */
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setLeagueNo(String leagueNo) {
+		this.leagueNo = leagueNo;
 	}
 
 	/**
@@ -267,14 +267,14 @@ public class MatchVO implements Serializable {
 	}
 
 	/**
-	 * @return the matchStatus
+	 * 比赛状态    0：未开始  1：比赛中  2：已结束
 	 */
 	public String getMatchStatus() {
 		return matchStatus;
 	}
 
 	/**
-	 * @param matchStatus the matchStatus to set
+	 * 比赛状态    0：未开始  1：比赛中  2：已结束
 	 */
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;

@@ -2,6 +2,7 @@ package com.eastng.football.api.service.match;
 
 import java.util.List;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.vo.MatchVO;
 import com.eastng.football.api.vo.QueryMatchParamVO;
 
@@ -13,11 +14,12 @@ import com.eastng.football.api.vo.QueryMatchParamVO;
 public interface MatchService {
 	
 	/**
-	 * 保存比赛信息
+	 * 保存赛程信息
 	 * @param matchVO
 	 * @return
+	 * @throws FootBallBizException 
 	 */
-	public Integer saveMatch(MatchVO matchVO);
+	public Integer saveMatch(MatchVO matchVO) throws FootBallBizException;
 	
 	/**
 	 * 根据条件查询比赛信息
@@ -45,4 +47,12 @@ public interface MatchService {
 	 * @param guestTeamId
 	 */
 	public void queryMatchHistoryByTeams(String hostTeamId,String guestTeamId);
+	
+	/**
+	 * 更新积分榜
+	 * @param leagueNo 联赛编号
+	 * @param seasonName 赛季名称
+	 * @throws FootBallBizException 
+	 */
+	public void updateScoreBoard(String leagueNo,String seasonName) throws FootBallBizException;
 }

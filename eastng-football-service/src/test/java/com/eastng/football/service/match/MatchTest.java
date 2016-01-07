@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.vo.MatchVO;
 import com.eastng.football.api.vo.QueryMatchParamVO;
@@ -50,14 +51,19 @@ public class MatchTest {
 		//客队半场进球
 		match.setHalfTimeGuestGoal(1);
 		//比赛状态
-		match.setMatchStatus("1");
+		//match.setMatchStatus("1");
 		//比赛类型
-		match.setEventId(1);
+		match.setLeagueNo("123");
 		//赛季名称
 		match.setSeasonName("15-16赛季");
 		//比赛时间
 		match.setMatchTime(new Date());
-		this.matchService.saveMatch(match);
+		try {
+			this.matchService.saveMatch(match);
+		} catch (FootBallBizException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

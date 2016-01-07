@@ -34,6 +34,14 @@
     from t_league_info
     where ID = #{id,jdbcType=BIGINT}
   </select>
+  
+  <select id="selectByLeagueNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_league_info
+    where LEAGUE_NO = #{leagueNo,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     <!--
       WARNING - @mbggenerated

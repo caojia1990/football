@@ -38,9 +38,9 @@ public class Match {
     private String guestShortName;
     
     /**
-     * 赛事ID
+     * 赛事种类编号
      */
-    private Integer eventId;
+    private String leagueNo;
     
     /**
      * 赛季名称
@@ -97,42 +97,42 @@ public class Match {
 	}
     
 	/**
-	 * @return the matchNo
+	 * 比赛编号
 	 */
 	public String getMatchNo() {
 		return matchNo;
 	}
 
 	/**
-	 * @param matchNo the matchNo to set
+	 * 比赛编号
 	 */
 	public void setMatchNo(String matchNo) {
 		this.matchNo = matchNo;
 	}
 
 	/**
-	 * @return the hostTeamNo
+	 * 主队球队编号
 	 */
 	public String getHostTeamNo() {
 		return hostTeamNo;
 	}
 
 	/**
-	 * @param hostTeamNo the hostTeamNo to set
+	 * 主队球队编号
 	 */
 	public void setHostTeamNo(String hostTeamNo) {
 		this.hostTeamNo = hostTeamNo;
 	}
 
 	/**
-	 * @return the hostShortName
+	 * 主队简称
 	 */
 	public String getHostShortName() {
 		return hostShortName;
 	}
 
 	/**
-	 * @param hostShortName the hostShortName to set
+	 * 主队简称
 	 */
 	public void setHostShortName(String hostShortName) {
 		this.hostShortName = hostShortName;
@@ -166,18 +166,19 @@ public class Match {
 		this.guestShortName = guestShortName;
 	}
 
+
 	/**
-	 * @return the eventId
+	 * @return the leagueNo
 	 */
-	public Integer getEventId() {
-		return eventId;
+	public String getLeagueNo() {
+		return leagueNo;
 	}
 
 	/**
-	 * @param eventId the eventId to set
+	 * @param leagueNo the leagueNo to set
 	 */
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setLeagueNo(String leagueNo) {
+		this.leagueNo = leagueNo;
 	}
 
 	/**

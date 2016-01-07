@@ -31,9 +31,9 @@
     </javaClientGenerator>
 
 	<!-- 去掉Example辅助类 -->
-    <table schema="football" tableName="T_LEAGUE_INFO" domainObjectName="LeagueInfo" 
-    	enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
-    	enableUpdateByExample="false" selectByExampleQueryId="false">
+	<!-- enableSelectByExample="true" enableDeleteByExample="false" enableCountByExample="false"
+    	enableUpdateByExample="false" selectByExampleQueryId="false" --> 
+    <table schema="football" tableName="T_MATCH" domainObjectName="Match" >
       <!-- <property name="useActualColumnNames" value="true"/>
       <generatedKey column="ID" sqlStatement="DB2" identity="true" />
       <columnOverride column="DATE_FIELD" property="startDate" />
