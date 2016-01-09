@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+  <!-- 驱动物理路径 -->
   <classPathEntry location="C:\Users\lenovo\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
 
   <context id="MysqlTables" targetRuntime="MyBatis3">
@@ -17,7 +18,7 @@
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <javaModelGenerator targetPackage="com.eastng.football.core.entity.match" targetProject="D:\project\football\eastng-football-core\src\main\java">
+    <javaModelGenerator targetPackage="com.eastng.football.core.entity.lottery" targetProject="D:\project\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
@@ -26,14 +27,14 @@
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.match.persistence"  targetProject="D:\project\football\eastng-football-core\src\main\java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.lottery.persistence"  targetProject="D:\project\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
 	<!-- 去掉Example辅助类 -->
 	<!-- enableSelectByExample="true" enableDeleteByExample="false" enableCountByExample="false"
     	enableUpdateByExample="false" selectByExampleQueryId="false" --> 
-    <table schema="football" tableName="T_MATCH" domainObjectName="Match" >
+    <table schema="football" tableName="T_ODDS" domainObjectName="Odds" >
       <!-- <property name="useActualColumnNames" value="true"/>
       <generatedKey column="ID" sqlStatement="DB2" identity="true" />
       <columnOverride column="DATE_FIELD" property="startDate" />

@@ -29,17 +29,11 @@ public interface MatchService {
 	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
 
 	/**
-	 * 根据赛事种类ID查询联赛或杯赛信息
-	 * @param eventId
+	 * 根据比赛编号查询比赛详情
+	 * @param matchNo
+	 * @return
 	 */
-	public void querySeasonListByEventId(String eventId);
-	
-	/**
-	 * 根据条件查询赛季详情
-	 * @param eventId
-	 * @param seasonName
-	 */
-	public void querySeasonInfoByCondition(String eventId,String seasonName);
+	public MatchVO queryMatchByMatchNo(String matchNo);
 	
 	/**
 	 * 查询两队历史交战记录

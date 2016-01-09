@@ -35,7 +35,7 @@ public interface MatchMapper {
 	 * @return
 	 */
 	@Select("select * from t_match where match_no = #{matchNo}")
-	Match selectMatch(String matchNo);
+	Match selectMatchByMatchNo(String matchNo);
 	
 	/**
 	 * Mybatis-Generator生成的复杂查询方法

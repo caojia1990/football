@@ -41,7 +41,7 @@ public class MatchTest {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
 			MatchMapper matchMapper = session.getMapper(MatchMapper.class);
-			Match match = matchMapper.selectMatch("123");
+			Match match = matchMapper.selectMatchByMatchNo("123");
 			System.out.println(match);
 		} finally {
 			session.close();

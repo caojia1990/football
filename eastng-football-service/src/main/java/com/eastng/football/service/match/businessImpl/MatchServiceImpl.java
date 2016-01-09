@@ -75,20 +75,6 @@ public class MatchServiceImpl implements MatchService {
 		return resultList;
 	}
 
-	public void querySeasonListByEventId(String eventId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void querySeasonInfoByCondition(String eventId, String seasonName) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void queryMatchHistoryByTeams(String hostTeamId, String guestTeamId) {
-		// TODO Auto-generated method stub
-
-	}
 
 	/**
 	 * 保存比赛信息
@@ -158,8 +144,25 @@ public class MatchServiceImpl implements MatchService {
 				season.setTeamNo(match.getHostTeamNo());
 				season.setTeamShortName(match.getHostShortName());
 				season.setRound(match.getRound());
-				
+				int point = 0;
+				if(match.getHostGoal()>match.getGuestGoal()){
+					point = 3;
+				}
 			}
 		}
+	}
+
+	public void queryMatchHistoryByTeams(String hostTeamId, String guestTeamId) {
+		
+	}
+
+	/**
+	 * 根据比赛编号查询比赛详情
+	 * @param matchNo
+	 * @return
+	 */
+	public MatchVO queryMatchByMatchNo(String matchNo) {
+		this.matchMapper.selectMatchByMatchNo("123");
+		return null;
 	}
 }
