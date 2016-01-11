@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eastng.football.api.service.match.LeagueInfoService;
-import com.eastng.football.api.vo.LeagueInfoVO;
+import com.eastng.football.api.vo.match.LeagueInfoVO;
 
 public class LeagueInfoTest {
 

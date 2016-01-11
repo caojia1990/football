@@ -3,8 +3,8 @@ package com.eastng.football.api.service.match;
 import java.util.List;
 
 import com.eastng.football.api.exception.FootBallBizException;
-import com.eastng.football.api.vo.MatchVO;
-import com.eastng.football.api.vo.QueryMatchParamVO;
+import com.eastng.football.api.vo.match.MatchVO;
+import com.eastng.football.api.vo.match.QueryMatchParamVO;
 
 
 /**

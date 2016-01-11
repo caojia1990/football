@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.TeamService;
-import com.eastng.football.api.vo.TeamVO;
+import com.eastng.football.api.vo.match.TeamVO;
 
 public class TeamTest {
 	

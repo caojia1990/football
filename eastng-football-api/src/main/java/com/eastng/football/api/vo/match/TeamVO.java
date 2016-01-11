@@ -1,4 +1,4 @@
-package com.eastng.football.api.vo;
+package com.eastng.football.api.vo.match;
 
 import java.io.Serializable;
 import java.util.Date;

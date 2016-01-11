@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eastng.football.api.service.match.LeagueInfoService;
-import com.eastng.football.api.vo.LeagueInfoVO;
+import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.core.entity.match.LeagueInfo;
 import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
 

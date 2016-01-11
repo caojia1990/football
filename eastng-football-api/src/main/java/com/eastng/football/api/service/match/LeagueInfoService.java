@@ -1,6 +1,6 @@
 package com.eastng.football.api.service.match;
 
-import com.eastng.football.api.vo.LeagueInfoVO;
+import com.eastng.football.api.vo.match.LeagueInfoVO;
 
 /**
  * 赛事类型服务接口

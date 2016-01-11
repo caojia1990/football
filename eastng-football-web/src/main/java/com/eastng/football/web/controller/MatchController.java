@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eastng.football.api.service.match.MatchService;
-import com.eastng.football.api.vo.MatchVO;
+import com.eastng.football.api.vo.match.MatchVO;
 
 @Controller
 public class MatchController {

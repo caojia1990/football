@@ -9,8 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.MatchService;
-import com.eastng.football.api.vo.MatchVO;
-import com.eastng.football.api.vo.QueryMatchParamVO;
+import com.eastng.football.api.vo.match.MatchVO;
+import com.eastng.football.api.vo.match.QueryMatchParamVO;
 
 
 public class MatchTest {

@@ -8,13 +8,14 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.util.StringUtils;
 
 import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.MatchService;
-import com.eastng.football.api.vo.MatchVO;
-import com.eastng.football.api.vo.QueryMatchParamVO;
+import com.eastng.football.api.vo.match.MatchVO;
+import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.core.entity.match.LeagueInfo;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
@@ -105,13 +106,18 @@ public class MatchServiceImpl implements MatchService {
 		Match match = new Match();
 		match.setMatchNo(matchVO.getMatchNo());
 		match.setLeagueNo(leagueNo);
+		match.setMatchStatus(matchStatus);
 		match.setGuestGoal(matchVO.getGuestGoal());
 		match.setGuestShortName(matchVO.getGuestShortName());
 		match.setGuestTeamNo(matchVO.getGuestTeamNo());
 		match.setHalfTimeGuestGoal(matchVO.getHalfTimeGuestGoal());
 		match.setHostGoal(match.getHostGoal());
 		match.setHostShortName(match.getHostShortName());
-		match.setMatchStatus(matchStatus);
+		match.setRound(matchVO.getRound());
+		match.setSeasonName(matchVO.getSeasonName());
+		match.setHalfTimeHostGoal(matchVO.getHalfTimeHostGoal());
+		match.setHalfTimeGuestGoal(matchVO.getHalfTimeGuestGoal());
+		match.setMatchTime(matchVO.getMatchTime());
 		int result = this.matchMapper.saveMatch(match);
 		
 		return null;
