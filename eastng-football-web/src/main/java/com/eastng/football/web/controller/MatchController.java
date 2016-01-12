@@ -19,5 +19,8 @@ public class MatchController {
 	public MatchVO queryMatchByMatchNo(String matchNo){
 		return this.matchService.queryMatchByMatchNo("123");
 	}
+	
+	
+	
 
 }

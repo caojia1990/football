@@ -7,6 +7,9 @@
         <dependent-module archiveName="eastng-football-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eastng-football-api/eastng-football-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="esatng-football-config-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/esatng-football-config/esatng-football-config">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="eastng-football-web"/>
         <property name="java-output-path" value="/eastng-football-web/target/classes"/>
     </wb-module>
