@@ -23,6 +23,13 @@
     
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
     
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- 设置上传文件的最大尺寸为1MB -->  
+	    <property name="maxUploadSize">  
+	        <value>1048576</value>  
+	    </property>  
+	</bean>
+	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 	    <property name="viewResolvers">
 	        <list>

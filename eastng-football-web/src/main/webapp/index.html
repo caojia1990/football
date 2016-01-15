@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Football Lottery Dream</title>
-	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="css/demo.css">
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<meta charset="UTF-8">
+<title>Football Lottery Dream</title>
+<link rel="stylesheet" type="text/css"
+	href="css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
+<script type="text/javascript">
+
+	function ajaxFileUpload(){
+		$("#file1").fileupload({
+			url:"uploadMatchSchedule",
+			done:function(data){
+				alert(data);
+			}
+		});
+	}
+</script>
+
 </head>
 <body>
-	
-	<div style="margin:20px 0"></div>
-	<div class="easyui-calendar" style="width:250px;height:250px;"></div>	
-	
+
+	<div style="margin: 20px 0"></div>
+	<div class="easyui-calendar" style="width: 250px; height: 250px;"></div>
+
+	<div style="margin: 20px 0;"></div>
+	<form action="" method="post" enctype="multipart/form-data">
+		<div class="easyui-panel" title="Upload File"
+			style="width: 400px; padding: 30px 70px 50px 70px">
+			<div style="margin-bottom: 20px">
+				<div>Name:</div>
+				<input class="easyui-textbox" style="width: 100%">
+			</div>
+			<div style="margin-bottom: 20px">
+				<div>File1:</div>
+				<input class="easyui-filebox" name="file1" id="file1"
+					data-options="prompt:'Choose a file...'" style="width: 100%">
+			</div>
+			<div>
+				<a href="javascript:ajaxFileUpload()" class="easyui-linkbutton" style="width: 100%">Upload</a>
+			</div>
+		</div>
+	</form>
 </body>
 </html>

@@ -524,76 +524,11 @@
 			<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
 			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
 			<if test="beginDate">and MATCH_TIME &gt;= #{beginDate}</if>
-			<if test="endDate">and <![CDATA[MATCH_TIME <= ]]>#{endDate}</if>
+			<if test="endDate">and <![CDATA[MATCH_TIME < ]]>#{endDate}</if>
 			<if test="round">and ROUND = #{round}</if>
 			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
 		</where>
 	</select>
-	<!-- <update id="update" parameterType="PmsUser">
-		update <include refid="pms_user"/>
-		<set>			
-			version = #{version}+1,
-			main_user_id = #{mainUserId},
-			user_name =  #{userName},
-			user_no =  #{userNo},
-			user_pwd = #{userPwd},
-			email = #{email},
-			mobile_no = #{mobileNo},
-			status = #{status},
-			user_type = #{userType},
-			last_login_time = #{lastLoginTime},
-			is_changed_pwd = #{isChangedPwd,javaType=Boolean,jdbcType=INTEGER},
-			pwd_error_count = #{pwdErrorCount},
-			pwd_error_time = #{pwdErrorTime},
-			remark = #{remark}
-		</set>
-		<where>
-			ID = #{id} and VERSION = #{version}
-		</where>
-	</update>
 	
-	
-  	<select id="getById" parameterType="long" resultMap="beanMap">
-    	select * from <include refid="pms_user"/> where id = #{id}
-  	</select>
-  	
-  	<select id="findByUserNo" parameterType="string" resultMap="beanMap">
-    	select * from <include refid="pms_user"/> where user_no= #{userNo}
-  	</select>
-  	
-  	<select id="listAll" resultMap="beanMap">
-    	select * from <include refid="pms_user"/> order by id
-  	</select>
-  	
-  	<delete id="deleteById" parameterType="long">
-    	delete from <include refid="pms_user"/> where id = #{id}
-  	</delete>
-
-	<sql id="condition_sql">
-		Equal query
-		<if test="mainUserId != null and mainUserId != ''"> and main_user_id = #{mainUserId}</if>
-		<if test="status != null and status != ''"> and status = #{status}</if>
-		<if test="userNo != null and userNo != ''"> and user_no = #{userNo}</if>
-		Like query
-		<if test="userName != null and userName != ''"> and user_name like CONCAT(CONCAT('%', #{userName}), '%')</if>
-	</sql>
-	
-	<select id="listPage" parameterType="java.util.Map"  resultMap="beanMap">
-		select * from  
-		<include refid="pms_user"/>
-		
-		<where>
-			<include refid="condition_sql" />
-		</where>
-		order by id desc 
-		limit #{pageFirst} , #{pageSize} 
-	</select>
-	
-	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
-		select count(1) from <include refid="pms_user"/>
-		<where>
-			<include refid="condition_sql"/>
-		</where>
-	</select> -->
 	
 </mapper>

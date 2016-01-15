@@ -1,5 +1,7 @@
 package com.eastng.football.service.match.businessImpl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class TeamServiceImpl implements TeamService {
 		
 		Team record = new Team();
 		//球队编号
-		record.setTeamNo(paramVO.getTeamNo());
+		record.setTeamNo(UUID.randomUUID().toString());
 		 /**球队类型  0：国家队；1：俱乐部 */
 		record.setTeamType(paramVO.getTeamType());
 		//球队全称
