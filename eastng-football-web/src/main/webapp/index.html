@@ -8,19 +8,23 @@
 <link rel="stylesheet" type="text/css" href="css/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="css/demo.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.ajaxfileupload.js"></script>
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="js/jquery.fileupload.js"></script>
-<script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
 <script type="text/javascript">
-
-	function ajaxFileUpload(){
-		$("#file1").fileupload({
-			url:"uploadMatchSchedule",
-			done:function(data){
-				alert(data);
-			}
-		});
+	function applyAjaxFileUpload(){
+		 $.ajaxFileUpload({
+		        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
+		        url:'uploadMatchSchedule',
+		        secureuri:false,                       //是否启用安全提交,默认为false
+		        fileElementId:'fileUpLoad',           //文件选择框的id属性
+		        dataType:'text',                       //服务器返回的格式,可以是json或xml等
+		        success:function(data, status){        //服务器响应成功时的处理函数
+		        	alert(data);
+		        },
+		        error:function(data, status, e){ //服务器响应失败时的处理函数
+		        	alert(status);
+		        }
+		    });
 	}
 </script>
 
@@ -40,11 +44,11 @@
 			</div>
 			<div style="margin-bottom: 20px">
 				<div>File1:</div>
-				<input class="easyui-filebox" name="file1" id="file1"
+				<input class="easyui-filebox" name="file" id="fileUpLoad"
 					data-options="prompt:'Choose a file...'" style="width: 100%">
 			</div>
 			<div>
-				<a href="javascript:ajaxFileUpload()" class="easyui-linkbutton" style="width: 100%">Upload</a>
+				<a href="javascript:applyAjaxFileUpload()" class="easyui-linkbutton" style="width: 100%">Upload</a>
 			</div>
 		</div>
 	</form>

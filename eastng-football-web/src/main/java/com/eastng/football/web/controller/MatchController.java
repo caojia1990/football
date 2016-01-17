@@ -11,6 +11,8 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,16 +49,16 @@ public class MatchController {
 		return this.matchService.queryMatchSchedule(paramVO);
 	}
 	
-	@RequestMapping("uploadMatchSchedule")
+	@RequestMapping(value="uploadMatchSchedule",method=RequestMethod.POST)
 	@ResponseBody
-	public String handleFormUpload(MultipartFile file1, HttpServletRequest request) { //请求参数一定要与form中的参数名对应
-        System.out.println(file1.getSize());
-        if (!file1.isEmpty()) {
+	public String handleFormUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) { //请求参数一定要与form中的参数名对应
+        System.out.println(file.getSize());
+        if (!file.isEmpty()) {
             String path = request.getSession().getServletContext().getRealPath("/") + "/upload/";
             System.out.println(path);
-            File file = new File(path + new Date().getTime() + ".xlsx"); //新建一个文件
+            File file1 = new File(path + new Date().getTime() + ".xlsx"); //新建一个文件
             try {
-                FileUtils.copyInputStreamToFile(file1.getInputStream(), file);
+                FileUtils.copyInputStreamToFile(file.getInputStream(), file1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
