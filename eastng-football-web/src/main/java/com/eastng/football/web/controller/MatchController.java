@@ -2,6 +2,7 @@ package com.eastng.football.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
+import com.eastng.football.api.vo.match.TeamVO;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -33,6 +36,9 @@ public class MatchController {
 	
 	@Autowired
 	private MatchService matchService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	@RequestMapping("queryMatchByMatchNo")
 	@ResponseBody
@@ -71,6 +77,20 @@ public class MatchController {
 					System.out.println(cell.getContents());
 				}
 			}
+			
+			List<TeamVO> list = new ArrayList<TeamVO>();
+			sheet = workbook.getSheet(1);
+			for(int i = 1;i<sheet.getRows();i++){
+				TeamVO teamVO = new TeamVO();
+				//球队简称
+				teamVO.setShortName(sheet.getCell(0, i).getContents());
+				//球队英文名称
+				teamVO.setTeamNameEng(sheet.getCell(1, i).getContents());
+				/**球队类型  0：国家队；1：俱乐部 */
+				teamVO.setTeamType("1");
+				list.add(teamVO);
+			}
+			int record = this.teamService.saveTeams(list);
 		} catch (BiffException e1) {
 			
 			e1.printStackTrace();

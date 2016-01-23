@@ -19,4 +19,7 @@
 	<dubbo:service interface="com.eastng.football.api.service.match.MatchService" ref="matchService" />
 	<bean id="matchService" class="com.eastng.football.service.match.businessImpl.MatchServiceImpl"/>
 
+	<!-- 球队服务接口 -->
+	<dubbo:service interface="com.eastng.football.api.service.match.TeamService" ref="teamService" />
+	<bean id="teamService" class="com.eastng.football.service.match.businessImpl.TeamServiceImpl"/>
 </beans>  

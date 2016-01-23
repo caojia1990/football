@@ -93,4 +93,11 @@ public interface TeamMapper {
      * @mbggenerated Sun Jan 03 13:46:51 CST 2016
      */
     int updateByPrimaryKey(Team record);
+    
+    /**
+     * 批量插入球队记录
+     * @param list
+     * @return
+     */
+    int batchInsert(List<Team> list);
 }

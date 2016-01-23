@@ -348,4 +348,14 @@
       ESTABLISH_DATE = #{establishDate,jdbcType=DATE}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 批量插入球队信息 -->
+  <insert id="batchInsert" parameterType="java.util.List">
+  	insert into T_TEAM(TEAM_NO,TEAM_NAME,SHORT_NAME,TEAM_NAME_ENG,TEAM_TYPE,CONTINENT,COUNTRY,ESTABLISH_DATE)
+  	values
+  	<foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.teamNo},#{item.teamName},#{item.shortName},#{item.teamNameEng},
+        #{item.teamType},#{item.continent},#{item.country},#{item.establishDate})  
+    </foreach>
+  </insert>
 </mapper>

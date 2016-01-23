@@ -12,12 +12,12 @@ public class ExcelUtil {
 
 	public static void main(String[] args) throws BiffException, IOException {
 		
-		String fileName = "C:/Users/lenovo/Desktop/合约订单购物车数据字典.xls";
+		String fileName = "C:/Users/lenovo/Desktop/match.xls";
 		File file = new File(fileName);
 		
 		Workbook workbook = Workbook.getWorkbook(file);
 		
-		Sheet sheet = workbook.getSheet(0);
+		Sheet sheet = workbook.getSheet(1);
 		
 		for(int i = 0;i<sheet.getRows();i++){
 			for(int j = 0;j<sheet.getColumns();j++){
