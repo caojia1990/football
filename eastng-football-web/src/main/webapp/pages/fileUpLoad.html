@@ -8,7 +8,7 @@
 			function applyAjaxFileUpload(){
 				 $.ajaxFileUpload({
 				        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-				        url:'uploadMatchSchedule',
+				        url:'../uploadMatchSchedule2',
 				        secureuri:false,                       //是否启用安全提交,默认为false
 				        fileElementId:'file',           //文件选择框的id属性
 				        dataType:'text',                       //服务器返回的格式,可以是json或xml等
@@ -24,10 +24,10 @@
     </head>
     <body>
         <h1>Please upload a file</h1>
-        <form method="post" action="/form" enctype="multipart/form-data">
+        <form method="post" action="" enctype="multipart/form-data">
             <input type="text" name="name"/>
-            <input type="file" name="file"/>
-            <input type="button" onclick="applyAjaxFileUpload()"/>
+            <input type="file" name="file" id="file"/>
+            <a href="javascript:applyAjaxFileUpload()" class="easyui-linkbutton" style="width: 100%">Upload</a>
         </form>
     </body>
 </html>

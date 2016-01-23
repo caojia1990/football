@@ -1,11 +1,13 @@
 package com.eastng.football.web.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 @Controller
 public class MatchController {
@@ -53,6 +61,38 @@ public class MatchController {
 	@ResponseBody
 	public String handleFormUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) { //请求参数一定要与form中的参数名对应
         System.out.println(file.getSize());
+        
+        try {
+			Workbook workbook = Workbook.getWorkbook(file.getInputStream());
+			Sheet sheet = workbook.getSheet(0);
+			for(int i = 0;i<sheet.getRows();i++){
+				for(int j = 0;j<sheet.getColumns();j++){
+					Cell cell = sheet.getCell(j, i);
+					System.out.println(cell.getContents());
+				}
+			}
+		} catch (BiffException e1) {
+			
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			
+			e1.printStackTrace();
+		}
+        return "success";
+    }
+	
+	@RequestMapping(value="uploadMatchSchedule2",method=RequestMethod.POST)
+	@ResponseBody
+	public String uploadMatchSchedual(HttpServletRequest request,HttpServletResponse response){
+		try {
+			request.getInputStream();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        // 获得文件：     
+        MultipartFile file = multipartRequest.getFile("file");    
         if (!file.isEmpty()) {
             String path = request.getSession().getServletContext().getRealPath("/") + "/upload/";
             System.out.println(path);
@@ -64,6 +104,6 @@ public class MatchController {
             }
         }
         return "success";
-    }
+	}
 
 }

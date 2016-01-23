@@ -14,9 +14,9 @@
 	function applyAjaxFileUpload(){
 		 $.ajaxFileUpload({
 		        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-		        url:'uploadMatchSchedule',
+		        url:'uploadMatchSchedule2',
 		        secureuri:false,                       //是否启用安全提交,默认为false
-		        fileElementId:'fileUpLoad',           //文件选择框的id属性
+		        fileElementId:'filebox_file_id_1',           //文件选择框的id属性
 		        dataType:'text',                       //服务器返回的格式,可以是json或xml等
 		        success:function(data, status){        //服务器响应成功时的处理函数
 		        	alert(data);
@@ -44,7 +44,7 @@
 			</div>
 			<div style="margin-bottom: 20px">
 				<div>File1:</div>
-				<input class="easyui-filebox" name="file" id="fileUpLoad"
+				<input class="easyui-filebox" name="file" id="file"
 					data-options="prompt:'Choose a file...'" style="width: 100%">
 			</div>
 			<div>

@@ -58,20 +58,7 @@ public class MatchServiceImpl implements MatchService {
 		List<MatchVO> resultList = new ArrayList<MatchVO>();
 		for(Match match:list){
 			MatchVO matchVO = new MatchVO();
-			matchVO.setLeagueNo(match.getLeagueNo());
-			matchVO.setGuestGoal(match.getGuestGoal());
-			matchVO.setGuestShortName(match.getHostShortName());
-			matchVO.setGuestTeamNo(match.getHostTeamNo());
-			matchVO.setHalfTimeGuestGoal(match.getHalfTimeHostGoal());
-			matchVO.setHalfTimeHostGoal(match.getHalfTimeHostGoal());
-			matchVO.setHostGoal(match.getHostGoal());
-			matchVO.setHostShortName(match.getHostShortName());
-			matchVO.setHostTeamNo(match.getHostTeamNo());
-			matchVO.setMatchNo(match.getMatchNo());
-			matchVO.setMatchStatus(match.getMatchStatus());
-			matchVO.setMatchTime(match.getMatchTime());
-			matchVO.setRound(match.getRound());
-			matchVO.setSeasonName(match.getSeasonName());
+			BeanUtils.copyProperties(match, matchVO);
 			resultList.add(matchVO);
 		}
 		return resultList;
