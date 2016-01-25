@@ -26,6 +26,7 @@ import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.core.service.match.persistence.TeamCupSeasonMapper;
 import com.eastng.football.core.service.match.persistence.TeamLeagueSeasonMapper;
 import com.eastng.football.util.BeanUtils;
+import com.eastng.football.util.GenerateCodeUtil;
 
 @Service("matchService")
 public class MatchServiceImpl implements MatchService {
@@ -92,20 +93,8 @@ public class MatchServiceImpl implements MatchService {
         }
 		
 		Match match = new Match();
-		match.setMatchNo(UUID.randomUUID().toString());
-		match.setLeagueNo(leagueNo);
-		match.setMatchStatus(matchStatus);
-		match.setGuestGoal(matchVO.getGuestGoal());
-		match.setGuestShortName(matchVO.getGuestShortName());
-		match.setGuestTeamNo(matchVO.getGuestTeamNo());
-		match.setHalfTimeGuestGoal(matchVO.getHalfTimeGuestGoal());
-		match.setHostGoal(match.getHostGoal());
-		match.setHostShortName(match.getHostShortName());
-		match.setRound(matchVO.getRound());
-		match.setSeasonName(matchVO.getSeasonName());
-		match.setHalfTimeHostGoal(matchVO.getHalfTimeHostGoal());
-		match.setHalfTimeGuestGoal(matchVO.getHalfTimeGuestGoal());
-		match.setMatchTime(matchVO.getMatchTime());
+		BeanUtils.copyProperties(matchVO, match);
+		match.setMatchNo("");
 		int result = this.matchMapper.saveMatch(match);
 		
 		return null;

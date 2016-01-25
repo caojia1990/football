@@ -16,4 +16,8 @@ public class CommonConstant {
 	public static final String LEAGUE_INFO_EVENT_TYPE_LEAGUE = "0";
 	/**赛事类型：杯赛*/
 	public static final String LEAGUE_INFO_EVENT_TYPE_CUP = "1";
+	/**球队类型：国家队 */
+	public static final String TEAM_TYPE_COUNTRY = "0";
+	/**球队类型：俱乐部 */
+	public static final String TEAM_TYPE_CLUB = "1";
 }
