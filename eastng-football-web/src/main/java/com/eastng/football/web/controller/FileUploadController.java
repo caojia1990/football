@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.TeamVO;
@@ -33,6 +34,8 @@ public class FileUploadController {
 	@Autowired
 	private TeamService teamService;
 	
+	@Autowired
+	private DistrictService districtService;
 	
 	@RequestMapping(value="uploadMatchSchedule",method=RequestMethod.POST)
 	@ResponseBody
@@ -115,7 +118,7 @@ public class FileUploadController {
 				
 				list.add(districtVO);
 			}
-			
+			districtService.saveDistricts(list);
 			
 		} catch (BiffException e1) {
 			e1.printStackTrace();

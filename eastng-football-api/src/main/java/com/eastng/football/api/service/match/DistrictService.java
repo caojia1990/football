@@ -24,4 +24,10 @@ public interface DistrictService {
 	 */
 	public Integer saveDistricts(List<DistrictVO> districtVOs);
 	
+	/**
+	 * 根据父节点Id查询子节点
+	 * @param pid
+	 * @return
+	 */
+	public List<DistrictVO> queryDistrictByPid(String pid);
 }

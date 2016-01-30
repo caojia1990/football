@@ -47,5 +47,5 @@
 	    </property>
 	</bean>
 	
-	<import resource="classpath:application-context-consumer.xml" />
+	<import resource="classpath:dubbo-consumer.xml" />
 </beans>

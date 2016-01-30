@@ -93,4 +93,6 @@ public interface DistrictMapper {
      * @mbggenerated Mon Jan 25 22:43:53 CST 2016
      */
     int updateByPrimaryKey(District record);
+    
+    int batchInsert(List<District> records);
 }

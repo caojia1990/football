@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.TeamService;
+import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.api.vo.match.TeamVO;
+import com.eastng.football.web.view.Tree;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -39,6 +42,9 @@ public class MatchController {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private DistrictService districtService;
 	
 	@RequestMapping("queryMatchByMatchNo")
 	@ResponseBody
@@ -63,5 +69,21 @@ public class MatchController {
 		return this.matchService.queryMatchSchedule(paramVO);
 	}
 	
-
+	@RequestMapping("queryDistrictByPid")
+	@ResponseBody
+    public List<Tree> queryDistrictByPid(@RequestParam(value="id",required = false)String pid ,HttpServletRequest request){
+    	List<DistrictVO> list = this.districtService.queryDistrictByPid(pid);
+    	List<Tree> trees = new ArrayList<Tree>();
+    	for(DistrictVO districtVO:list){
+    		Tree tree = new Tree();
+    		tree.setId(districtVO.getDistrictNo());
+    		tree.setText(districtVO.getDistrictName());
+    		if(!districtVO.getDistrictLevel().equals("3")){
+    			tree.setState("closed");
+    		}
+    		trees.add(tree);
+    	}
+    	return trees;
+    }
+	
 }

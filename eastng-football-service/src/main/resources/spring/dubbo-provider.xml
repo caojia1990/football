@@ -16,10 +16,15 @@
 	<dubbo:protocol name="dubbo" port="20880" 	/>
 		
 	<!-- 赛事服务接口 -->
-	<dubbo:service interface="com.eastng.football.api.service.match.MatchService" ref="matchService" />
+	<dubbo:service interface="com.eastng.football.api.service.match.MatchService" ref="matchService" retries="0"/>
 	<bean id="matchService" class="com.eastng.football.service.match.businessImpl.MatchServiceImpl"/>
 
 	<!-- 球队服务接口 -->
-	<dubbo:service interface="com.eastng.football.api.service.match.TeamService" ref="teamService" />
+	<dubbo:service interface="com.eastng.football.api.service.match.TeamService" ref="teamService" retries="0"/>
 	<bean id="teamService" class="com.eastng.football.service.match.businessImpl.TeamServiceImpl"/>
+	
+	<!-- 地区服务接口 -->
+	<dubbo:service interface="com.eastng.football.api.service.match.DistrictService" ref="districtService" retries="0"/>
+	<bean id="districtService" class="com.eastng.football.service.match.businessImpl.DistrictServiceImpl"/>
+	
 </beans>  

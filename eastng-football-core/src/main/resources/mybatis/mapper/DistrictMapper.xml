@@ -300,4 +300,14 @@
       FIRST_LETTER = #{firstLetter,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+  
+   <!-- 批量插入地区信息 -->
+  <insert id="batchInsert" parameterType="java.util.List">
+  	insert into T_DISTRICT(DISTRICT_NO,DISTRICT_NAME,DISTRICT_LEVEL,PARENT_DISTRICT_NO,FIRST_LETTER)
+  	values
+  	<foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.districtNo},#{item.districtName},#{item.districtLevel},#{item.parentDistrictNo},
+        #{item.firstLetter})  
+    </foreach>
+  </insert>
 </mapper>
