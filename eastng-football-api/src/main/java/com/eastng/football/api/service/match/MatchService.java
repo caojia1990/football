@@ -49,4 +49,5 @@ public interface MatchService {
 	 * @throws FootBallBizException 
 	 */
 	public void updateScoreBoard(String leagueNo,String seasonName) throws FootBallBizException;
+	
 }

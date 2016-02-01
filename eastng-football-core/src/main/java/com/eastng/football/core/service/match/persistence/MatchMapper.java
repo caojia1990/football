@@ -67,5 +67,12 @@ public interface MatchMapper {
      * @mbggenerated Thu Jan 07 16:51:55 CST 2016
      */
     int updateByExample(@Param("record") Match record, @Param("example") MatchExample example);
+    
+    /**
+     * 批量插入
+     * @param records
+     * @return
+     */
+    int batchInsert(List<Match> records);
 
 }

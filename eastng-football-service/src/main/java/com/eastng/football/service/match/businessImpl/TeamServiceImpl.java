@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.TeamVO;
 import com.eastng.football.core.entity.match.Team;
+import com.eastng.football.core.entity.match.TeamExample;
 import com.eastng.football.core.service.match.persistence.TeamMapper;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.football.util.GenerateCodeUtil;
@@ -27,23 +28,8 @@ public class TeamServiceImpl implements TeamService {
 	public Integer saveTeam(TeamVO paramVO) {
 		
 		Team record = new Team();
-		//球队编号
-		record.setTeamNo(paramVO.getTeamNo());
-		 /**球队类型  0：国家队；1：俱乐部 */
-		record.setTeamType(paramVO.getTeamType());
-		//球队全称
-		record.setTeamName(paramVO.getTeamName());
-		//球队简称
-		record.setShortName(paramVO.getShortName());
-		//球队英文名称
-		record.setTeamNameEng(paramVO.getTeamNameEng());
-		//建立时间
-		record.setEstablishDate(paramVO.getEstablishDate());
-		//所属洲
-		record.setContinent(paramVO.getContinent());
-		//所属国家
-		record.setCountry(paramVO.getCountry());
-		
+		BeanUtils.copyProperties(paramVO, record);
+		record.setTeamNo(GenerateCodeUtil.generateTeamNo());
 		Integer result = this.teamMapper.insertSelective(record);
 		return result;
 	}
@@ -61,6 +47,18 @@ public class TeamServiceImpl implements TeamService {
 		}
 		int i = this.teamMapper.batchInsert(teams);
 		return i;
+	}
+
+	/**
+	 * 根据球队简称查询球队信息
+	 */
+	public TeamVO queryTeamByName(String teamName) {
+		TeamExample example = new TeamExample();
+		example.createCriteria().andShortNameEqualTo(teamName);
+		Team record = this.teamMapper.selectByExample(example).get(0);
+		TeamVO teamVO = new TeamVO();
+		BeanUtils.copyProperties(record, teamVO);
+		return teamVO;
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.DistrictVO;
+import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.TeamVO;
 
 import jxl.Sheet;
@@ -37,7 +40,7 @@ public class FileUploadController {
 	@Autowired
 	private DistrictService districtService;
 	
-	@RequestMapping(value="uploadMatchSchedule",method=RequestMethod.POST)
+	@RequestMapping(value="uploadTeams",method=RequestMethod.POST)
 	@ResponseBody
 	public String handleFormUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) { //请求参数一定要与form中的参数名对应
         
@@ -61,6 +64,10 @@ public class FileUploadController {
 				teamVO.setTeamNameEng(sheet.getCell(1, i).getContents());
 				/**球队类型  0：国家队；1：俱乐部 */
 				teamVO.setTeamType("1");
+				//洲
+				teamVO.setContinent(sheet.getCell(2, i).getContents());
+				//地区
+				teamVO.setCountry(sheet.getCell(3, i).getContents());
 				list.add(teamVO);
 			}
 			int record = this.teamService.saveTeams(list);
@@ -72,7 +79,7 @@ public class FileUploadController {
         return "success";
     }
 	
-	@RequestMapping(value="uploadMatchSchedule2",method=RequestMethod.POST)
+	/*@RequestMapping(value="uploadMatchSchedule2",method=RequestMethod.POST)
 	@ResponseBody
 	public String uploadMatchSchedual(HttpServletRequest request,HttpServletResponse response){
 		try {
@@ -95,7 +102,7 @@ public class FileUploadController {
             }
         }
         return "success";
-	}
+	}*/
 	
 	@RequestMapping(value="uploadDistrict",method=RequestMethod.POST)
 	@ResponseBody
@@ -128,4 +135,64 @@ public class FileUploadController {
 		return "sueecss";
 	}
 
+	@RequestMapping(value="uploadMatchSchedule",method=RequestMethod.POST)
+	@ResponseBody
+	public String uploadMatchSchedual(@RequestParam(value="file",required=false) MultipartFile file,HttpServletRequest request,HttpServletResponse response){
+		try {
+			Workbook workbook = Workbook.getWorkbook(file.getInputStream());
+			Sheet sheet = workbook.getSheet(3);
+			List<MatchVO> list = new ArrayList<MatchVO>();
+			for(int i = 1;i<sheet.getRows();i++){
+				
+				MatchVO matchVO = new MatchVO();
+				String beginTime = sheet.getCell(0, i).getContents()+sheet.getCell(1, i).getContents();
+				System.out.println(beginTime);
+				//轮次
+				String round = sheet.getCell(2, i).getContents();
+				matchVO.setRound(Integer.parseInt(round));
+				
+				//主队简称
+				String hostShortName = sheet.getCell(3, i).getContents();
+				matchVO.setHostShortName(hostShortName);
+				TeamVO hostTeamVO = this.teamService.queryTeamByName(hostShortName);
+				//主队编号
+				matchVO.setHostTeamNo(hostTeamVO.getTeamNo());
+				
+				//客队简称
+				String guestShortName = sheet.getCell(3, i).getContents();
+				matchVO.setGuestShortName(guestShortName);
+				TeamVO guestTeamVO = this.teamService.queryTeamByName(guestShortName);
+				//客队编号
+				matchVO.setGuestTeamNo(guestTeamVO.getTeamNo());
+				//比分
+				String goal = sheet.getCell(4, i).getContents();
+				if(!StringUtils.isEmpty(goal)){
+					int s = goal.indexOf("-");
+					String hostGoal = goal.substring(0, s);
+					String guestGoal = goal.substring(s+1);
+					if(!StringUtils.isEmpty(hostGoal)){
+						matchVO.setHostGoal(Integer.parseInt(hostGoal));
+					}
+					if(!StringUtils.isEmpty(guestGoal)){
+						matchVO.setGuestGoal(Integer.parseInt(guestGoal));
+					}
+					//赛季名称
+					matchVO.setSeasonName("2015/2016");
+					//联赛编号
+					matchVO.setLeagueNo("001005001");
+					//状态
+					matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
+				}
+				list.add(matchVO);
+			}
+
+			
+		} catch (BiffException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+        return "success";
+	}
 }

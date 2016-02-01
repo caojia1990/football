@@ -279,5 +279,17 @@ public class MatchVO implements Serializable {
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MatchVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName=" + hostShortName
+				+ ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", leagueNo=" + leagueNo
+				+ ", seasonName=" + seasonName + ", matchTime=" + matchTime + ", round=" + round + ", hostGoal="
+				+ hostGoal + ", guestGoal=" + guestGoal + ", halfTimeHostGoal=" + halfTimeHostGoal
+				+ ", halfTimeGuestGoal=" + halfTimeGuestGoal + ", matchStatus=" + matchStatus + "]";
+	}
 	
 }

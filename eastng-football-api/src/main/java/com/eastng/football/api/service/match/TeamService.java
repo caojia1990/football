@@ -9,4 +9,6 @@ public interface TeamService {
 	public Integer saveTeam(TeamVO paramVO);
 
 	public Integer saveTeams(List<TeamVO> list);
+	
+	public TeamVO queryTeamByName(String teamName);
 }

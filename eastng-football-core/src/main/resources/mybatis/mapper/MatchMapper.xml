@@ -530,5 +530,20 @@
 		</where>
 	</select>
 	
-	
+	<!-- 批量插入球队信息 -->
+  <insert id="batchInsert" parameterType="java.util.List">
+  	insert into t_match (MATCH_NO, HOST_TEAM_NO, 
+      HOST_SHORT_NAME, GUEST_TEAM_NO, GUEST_SHORT_NAME, 
+      LEAGUE_NO, SEASON_NAME, MATCH_TIME, 
+      ROUND, HOST_GOAL, GUEST_GOAL, 
+      HALF_TIME_HOST_GOAL, HALF_TIME_GUEST_GOAL, MATCH_STATUS
+      )
+  	values
+  	<foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.matchNo},#{item.hostTeamNo},#{item.hostShortName},#{item.guestTeamNo},
+        #{item.guestShortName},#{item.leagueNo},#{item.seasonName},#{item.matchTime},
+        #{item.round},#{item.hostGoal},#{item.guestGoal},#{item.halfTimeHostGoal},
+        #{item.halfTimeGuestGoal},#{item.matchStatus})  
+    </foreach>
+  </insert>
 </mapper>

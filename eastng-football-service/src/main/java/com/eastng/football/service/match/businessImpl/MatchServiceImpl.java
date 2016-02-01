@@ -100,6 +100,15 @@ public class MatchServiceImpl implements MatchService {
 		return null;
 	}
 	
+	public Integer saveMatchList(List<MatchVO> list){
+		List<Match> records = new ArrayList<Match>();
+		for(MatchVO matchVO:list){
+			Match record = new Match();
+			BeanUtils.copyProperties(matchVO, record);
+			record.setMatchNo(GenerateCodeUtil.generateMatchNo("YC"));
+		}
+		return this.matchMapper.batchInsert(records);
+	}
 	/**
 	 * 更新积分榜
 	 * @param leagueNo 联赛编号

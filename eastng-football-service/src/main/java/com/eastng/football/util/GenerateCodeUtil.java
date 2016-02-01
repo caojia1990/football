@@ -36,5 +36,26 @@ public class GenerateCodeUtil {
 		return sb.toString();
 		
 	}
+    
+    public static String generateMatchNo(String prefix){
+		StringBuilder sb = new StringBuilder();
+
+        /* 拼装日期 */
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dateStr = sdf.format(new Date());
+		
+        /* 生成9位随机数 */
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setGroupingUsed(false);
+        Random random = new Random();
+        int randomInt = random.nextInt(MAX_RANDOM_RANGE); // 小于1000000000的随机整数
+        formatter.setMinimumIntegerDigits(MAX_INTEGER_DIGITS_NINE);  //最多九位
+        String randomIntStr = formatter.format(randomInt);
+        
+        sb.append(prefix);
+        sb.append(dateStr);
+        sb.append(randomIntStr);
+		return sb.toString();
+	}
 
 }
