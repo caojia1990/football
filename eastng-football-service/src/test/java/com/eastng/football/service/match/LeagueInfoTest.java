@@ -23,7 +23,7 @@ ClassPathXmlApplicationContext context = null;
         leagueInfoService= (LeagueInfoService) context.getBean("leagueInfoService");
 	}
 	
-	@Test
+	//@Test
 	public void saveLeagueInfo(){
 		this.deleteAll();
 		

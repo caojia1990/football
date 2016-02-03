@@ -20,6 +20,7 @@ import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.core.entity.match.LeagueInfo;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
+import com.eastng.football.core.entity.match.MatchExample.Criteria;
 import com.eastng.football.core.entity.match.TeamLeagueSeason;
 import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
@@ -54,8 +55,18 @@ public class MatchServiceImpl implements MatchService {
 		
 		logger.info("查询比赛信息列表入参："+paramVO.toString());
 		
-		Map<String,Object> paramMap = BeanUtils.bean2Map(paramVO);
-		List<Match> list = this.matchMapper.queryMatchByCondition(paramMap);
+		MatchExample example = new MatchExample();
+		Criteria criteria = example.createCriteria();
+		//开始时间
+		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
+			criteria.andMatchTimeGreaterThanOrEqualTo(paramVO.getBeginDate());
+		}
+		//结束时间
+		if(!StringUtils.isEmpty(paramVO.getEndDate())){
+			criteria.andMatchTimeLessThan(paramVO.getEndDate());
+		}
+		
+		List<Match> list = this.matchMapper.selectByExample(example);
 		List<MatchVO> resultList = new ArrayList<MatchVO>();
 		for(Match match:list){
 			MatchVO matchVO = new MatchVO();
@@ -106,6 +117,7 @@ public class MatchServiceImpl implements MatchService {
 			Match record = new Match();
 			BeanUtils.copyProperties(matchVO, record);
 			record.setMatchNo(GenerateCodeUtil.generateMatchNo("YC"));
+			records.add(record);
 		}
 		return this.matchMapper.batchInsert(records);
 	}

@@ -21,9 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.eastng.football.api.service.match.DistrictService;
+import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.DistrictVO;
+import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.api.vo.match.TeamVO;
@@ -45,6 +47,9 @@ public class MatchController {
 	
 	@Autowired
 	private DistrictService districtService;
+	
+	@Autowired
+	private LeagueInfoService leagueInfoService; 
 	
 	@RequestMapping("queryMatchByMatchNo")
 	@ResponseBody
@@ -78,11 +83,23 @@ public class MatchController {
     		Tree tree = new Tree();
     		tree.setId(districtVO.getDistrictNo());
     		tree.setText(districtVO.getDistrictName());
-    		if(!districtVO.getDistrictLevel().equals("3")){
-    			tree.setState("closed");
-    		}
+    		tree.setState("closed");
     		trees.add(tree);
     	}
+    	//如果地区没有查到就查联赛信息
+    	if(trees.size()<1){
+    		List<LeagueInfoVO> infoVOs = new ArrayList<LeagueInfoVO>();
+    		LeagueInfoVO infoVO = new LeagueInfoVO();
+    		infoVO.setCountry(pid);
+    		infoVOs = this.leagueInfoService.queryLeagueInfoByCondition(infoVO);
+    		for(LeagueInfoVO vo:infoVOs){
+    			Tree tree = new Tree();
+    			tree.setId(vo.getLeagueNo());
+    			tree.setText(vo.getLeagueShortName());
+    			trees.add(tree);
+    		}
+    	}
+    	
     	return trees;
     }
 	

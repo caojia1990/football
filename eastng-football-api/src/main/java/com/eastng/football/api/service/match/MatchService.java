@@ -22,6 +22,13 @@ public interface MatchService {
 	public Integer saveMatch(MatchVO matchVO) throws FootBallBizException;
 	
 	/**
+	 * 保存赛程信息列表
+	 * @param list
+	 * @return
+	 */
+	public Integer saveMatchList(List<MatchVO> list);
+	
+	/**
 	 * 根据条件查询比赛信息
 	 * @param paramVO
 	 * @return

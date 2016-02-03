@@ -2,6 +2,8 @@ package com.eastng.football.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.service.match.DistrictService;
+import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.MatchVO;
@@ -39,6 +42,9 @@ public class FileUploadController {
 	
 	@Autowired
 	private DistrictService districtService;
+	
+	@Autowired
+	private MatchService matchService;
 	
 	@RequestMapping(value="uploadTeams",method=RequestMethod.POST)
 	@ResponseBody
@@ -147,6 +153,14 @@ public class FileUploadController {
 				MatchVO matchVO = new MatchVO();
 				String beginTime = sheet.getCell(0, i).getContents()+sheet.getCell(1, i).getContents();
 				System.out.println(beginTime);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm");
+				try {
+					Date beginDate = sdf.parse(beginTime);
+					matchVO.setMatchTime(beginDate);
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return "日期转换失败";
+				}
 				//轮次
 				String round = sheet.getCell(2, i).getContents();
 				matchVO.setRound(Integer.parseInt(round));
@@ -159,7 +173,7 @@ public class FileUploadController {
 				matchVO.setHostTeamNo(hostTeamVO.getTeamNo());
 				
 				//客队简称
-				String guestShortName = sheet.getCell(3, i).getContents();
+				String guestShortName = sheet.getCell(5, i).getContents();
 				matchVO.setGuestShortName(guestShortName);
 				TeamVO guestTeamVO = this.teamService.queryTeamByName(guestShortName);
 				//客队编号
@@ -168,25 +182,27 @@ public class FileUploadController {
 				String goal = sheet.getCell(4, i).getContents();
 				if(!StringUtils.isEmpty(goal)){
 					int s = goal.indexOf("-");
-					String hostGoal = goal.substring(0, s);
-					String guestGoal = goal.substring(s+1);
-					if(!StringUtils.isEmpty(hostGoal)){
-						matchVO.setHostGoal(Integer.parseInt(hostGoal));
+					if(s>-1){
+						String hostGoal = goal.substring(0, s);
+						String guestGoal = goal.substring(s+1);
+						if(!StringUtils.isEmpty(hostGoal)){
+							matchVO.setHostGoal(Integer.parseInt(hostGoal));
+						}
+						if(!StringUtils.isEmpty(guestGoal)){
+							matchVO.setGuestGoal(Integer.parseInt(guestGoal));
+						}
 					}
-					if(!StringUtils.isEmpty(guestGoal)){
-						matchVO.setGuestGoal(Integer.parseInt(guestGoal));
-					}
-					//赛季名称
-					matchVO.setSeasonName("2015/2016");
-					//联赛编号
-					matchVO.setLeagueNo("001005001");
-					//状态
-					matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 				}
+				//赛季名称
+				matchVO.setSeasonName("2015/2016");
+				//联赛编号
+				matchVO.setLeagueNo("001005001");
+				//状态
+				matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 				list.add(matchVO);
 			}
 
-			
+			this.matchService.saveMatchList(list);
 		} catch (BiffException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {

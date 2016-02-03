@@ -1,5 +1,7 @@
 package com.eastng.football.api.service.match;
 
+import java.util.List;
+
 import com.eastng.football.api.vo.match.LeagueInfoVO;
 
 /**
@@ -19,5 +21,12 @@ public interface LeagueInfoService {
 	 * 删除所有数据
 	 */
 	public Integer deleteAll();
+	
+	/**
+	 * 根据条件查询联赛信息
+	 * @param leagueInfoVO
+	 * @return
+	 */
+	public List<LeagueInfoVO> queryLeagueInfoByCondition(LeagueInfoVO leagueInfoVO); 
 	
 }

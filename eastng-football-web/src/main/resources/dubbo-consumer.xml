@@ -18,4 +18,7 @@
 	<!-- 地区服务接口 -->
 	<dubbo:reference id="districtService" interface="com.eastng.football.api.service.match.DistrictService" check="false"/>
 	
+	<!-- 赛事服务接口 -->
+	<dubbo:reference id="leagueInfoService" interface="com.eastng.football.api.service.match.LeagueInfoService" check="false"/>
+	
 </beans>
