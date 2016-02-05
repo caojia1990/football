@@ -40,7 +40,7 @@ public class QueryMatchParamVO implements Serializable {
     /**
      * 赛事ID
      */
-    private Integer eventId;
+    private String leagueNo;
     
     /**
      * 赛季名称
@@ -137,18 +137,19 @@ public class QueryMatchParamVO implements Serializable {
 		this.guestShortName = guestShortName;
 	}
 
+
 	/**
-	 * @return the eventId
+	 * @return the leagueNo
 	 */
-	public Integer getEventId() {
-		return eventId;
+	public String getLeagueNo() {
+		return leagueNo;
 	}
 
 	/**
-	 * @param eventId the eventId to set
+	 * @param leagueNo the leagueNo to set
 	 */
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setLeagueNo(String leagueNo) {
+		this.leagueNo = leagueNo;
 	}
 
 	/**
@@ -227,8 +228,8 @@ public class QueryMatchParamVO implements Serializable {
 	@Override
 	public String toString() {
 		return "QueryMatchParamVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName="
-				+ hostShortName + ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", eventId="
-				+ eventId + ", seasonName=" + seasonName + ", beginDate=" + beginDate + ", endDate=" + endDate
+				+ hostShortName + ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", leagueNo="
+				+ leagueNo + ", seasonName=" + seasonName + ", beginDate=" + beginDate + ", endDate=" + endDate
 				+ ", round=" + round + ", matchStatus=" + matchStatus + "]";
 	}
 

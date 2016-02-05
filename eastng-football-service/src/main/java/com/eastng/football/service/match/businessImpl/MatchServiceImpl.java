@@ -66,6 +66,11 @@ public class MatchServiceImpl implements MatchService {
 			criteria.andMatchTimeLessThan(paramVO.getEndDate());
 		}
 		
+		//联赛编号
+		if(!StringUtils.isEmpty(paramVO.getLeagueNo())){
+			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
+		}
+		
 		List<Match> list = this.matchMapper.selectByExample(example);
 		List<MatchVO> resultList = new ArrayList<MatchVO>();
 		for(Match match:list){

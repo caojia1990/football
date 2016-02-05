@@ -1,91 +1,150 @@
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <html>
-    <head>
-        <title>Tree Demo</title>
-        <link rel="stylesheet" type="text/css"
-			href="../css/themes/default/easyui.css">
-		<link rel="stylesheet" type="text/css" href="../css/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="../css/demo.css">
-        <script type="text/javascript" src="../js/jquery.min.js"></script>
-		<script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
-		<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
-		<script>
-		function myLoadFilter(data, parent){
-			var state = $.data(this, 'tree');
-			
-		    function setData(){
-		    	var serno = 1;
-		        var todo = [];
-		        for(var i=0; i<data.length; i++){
-		            todo.push(data[i]);
-		        }
-		        while(todo.length){
-		            var node = todo.shift();
-		            if (node.id == undefined){
-		            	node.id = '_node_' + (serno++);
-		            }
-		            if (node.children){
-		                node.state = 'closed';
-		                node.children1 = node.children;
-		                node.children = undefined;
-		                todo = todo.concat(node.children1);
-		            }
-		        }
-		        state.tdata = data;
-		    }
-		    function find(id){
-		    	var data = state.tdata;
-		    	var cc = [data];
-		    	while(cc.length){
-		    		var c = cc.shift();
-		    		for(var i=0; i<c.length; i++){
-		    			var node = c[i];
-		    			if (node.id == id){
-		    				return node;
-		    			} else if (node.children1){
-		    				cc.push(node.children1);
-		    			}
-		    		}
-		    	}
-		    	return null;
-		    }
-		    
-		    setData();
-		    
-		    var t = $(this);
-		    var opts = t.tree('options');
-		    opts.onBeforeExpand = function(node){
-	    		var n = find(node.id);
-	    		if (n && n.children && n.children.length){return}
-		    	if (n && n.children1){
-		    		var filter = opts.loadFilter;
-		    		opts.loadFilter = function(data){return data;};
-		    		t.tree('append',{
-		    			parent:node.target,
-		    			data:n.children1
-		    		});
-		    		opts.loadFilter = filter;
-		    		n.children = n.children1;
-		    	}
-		    };
-			return data;
+<head>
+<title>Tree Demo</title>
+<link rel="stylesheet" type="text/css"
+	href="../css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../css/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../css/demo.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script>
+	function myLoadFilter(data, parent) {
+		var state = $.data(this, 'tree');
+
+		function setData() {
+			var serno = 1;
+			var todo = [];
+			for (var i = 0; i < data.length; i++) {
+				todo.push(data[i]);
+			}
+			while (todo.length) {
+				var node = todo.shift();
+				if (node.id == undefined) {
+					node.id = '_node_' + (serno++);
+				}
+				if (node.children) {
+					node.state = 'closed';
+					node.children1 = node.children;
+					node.children = undefined;
+					todo = todo.concat(node.children1);
+				}
+			}
+			state.tdata = data;
 		}
-	</script>
-    </head>
-    <body>
-    	<div id="cc" class="easyui-layout" style="width: 100%;height: 630px;">
-		    <div data-options="region:'north',title:'足彩数据库',split:true" style="height:100px;"></div>
-		    <!-- <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
+		function find(id) {
+			var data = state.tdata;
+			var cc = [ data ];
+			while (cc.length) {
+				var c = cc.shift();
+				for (var i = 0; i < c.length; i++) {
+					var node = c[i];
+					if (node.id == id) {
+						return node;
+					} else if (node.children1) {
+						cc.push(node.children1);
+					}
+				}
+			}
+			return null;
+		}
+
+		setData();
+
+		var t = $(this);
+		var opts = t.tree('options');
+		opts.onBeforeExpand = function(node) {
+			var n = find(node.id);
+			if (n && n.children && n.children.length) {
+				return
+			}
+			if (n && n.children1) {
+				var filter = opts.loadFilter;
+				opts.loadFilter = function(data) {
+					return data;
+				};
+				t.tree('append', {
+					parent : node.target,
+					data : n.children1
+				});
+				opts.loadFilter = filter;
+				n.children = n.children1;
+			}
+		};
+		return data;
+	}
+
+	//分页表格
+	$(function() {
+		var pager = $('#dg').datagrid().datagrid('getPager'); // get the pager of datagrid
+		pager.pagination({
+			buttons : [ {
+				iconCls : 'icon-search',
+				handler : function() {
+					alert('search');
+				}
+			}, {
+				iconCls : 'icon-add',
+				handler : function() {
+					alert('add');
+				}
+			}, {
+				iconCls : 'icon-edit',
+				handler : function() {
+					alert('edit');
+				}
+			} ]
+		});
+	})
+
+	$(function() {
+		$('#tt').tree({
+			onClick : function(node) {
+				if (node.attributes.level == "2") {
+					alert(node.text); // alert node text property when clicked
+				}
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="cc" class="easyui-layout" style="width: 100%; height: 630px;">
+		<div data-options="region:'north',title:'足球数据库',split:true"
+			style="height: 100px;"></div>
+		<!-- <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
 		    <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div> -->
-		    <div data-options="region:'west',title:'菜单',split:true" style="width:200px;">
-		    	<div style="margin:20px 0;"></div>
-				<div  style="padding:5px">
-					<ul class="easyui-tree" data-options="url:'../queryDistrictByPid',method:'get',loadFilter:myLoadFilter"></ul>
-				</div>
-		    </div>
-		    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
+		<div data-options="region:'west',title:'菜单',split:true"
+			style="width: 200px;">
+			<div style="margin: 20px 0;"></div>
+			<div style="padding: 5px">
+				<ul id="tt" class="easyui-tree"
+					data-options="url:'../queryDistrictByPid',method:'get',loadFilter:myLoadFilter"></ul>
+			</div>
 		</div>
-	
-    </body>
+		<div data-options="region:'center',title:'center title'"
+			style="padding: 5px; background: #eee;">
+			<div style="margin: 20px 0;"></div>
+			<table id="dg" title="比赛信息" style="width: 750px; height: 250px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'../queryMatch',method:'get'">
+				<thead>
+					<tr>
+						<th data-options="field:'itemid',width:100,align:'center'">开赛时间</th>
+						<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
+						<th data-options="field:'productid',width:40,align:'center'">轮次</th>
+						<th data-options="field:'listprice',width:100,align:'center'">主队</th>
+						<th data-options="field:'unitcost',width:60,align:'center'">比分</th>
+						<th data-options="field:'attr1',width:100,align:'center'">客队</th>
+						<th data-options="field:'status',width:60,align:'center'">主胜</th>
+						<th data-options="field:'status',width:60,align:'center'">平局</th>
+						<th data-options="field:'status',width:60,align:'center'">主负</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+
+</body>
 </html>
