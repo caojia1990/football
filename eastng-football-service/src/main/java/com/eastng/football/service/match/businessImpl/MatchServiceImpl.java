@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.core.entity.match.LeagueInfo;
@@ -28,6 +29,8 @@ import com.eastng.football.core.service.match.persistence.TeamCupSeasonMapper;
 import com.eastng.football.core.service.match.persistence.TeamLeagueSeasonMapper;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.football.util.GenerateCodeUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Service("matchService")
 public class MatchServiceImpl implements MatchService {
@@ -51,9 +54,10 @@ public class MatchServiceImpl implements MatchService {
 	 * @param paramVO
 	 * @return
 	 */
-	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO) {
+	public PageResult<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO) {
 		
 		logger.info("查询比赛信息列表入参："+paramVO.toString());
+		PageResult<MatchVO> result = new PageResult<MatchVO>();
 		
 		MatchExample example = new MatchExample();
 		Criteria criteria = example.createCriteria();
@@ -71,14 +75,21 @@ public class MatchServiceImpl implements MatchService {
 			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
 		}
 		
+		PageHelper.startPage(1, 10);
 		List<Match> list = this.matchMapper.selectByExample(example);
+		Page<Match> page = (Page)list;
+		
+		result.setTotal(page.getTotal());
+		
 		List<MatchVO> resultList = new ArrayList<MatchVO>();
 		for(Match match:list){
 			MatchVO matchVO = new MatchVO();
 			BeanUtils.copyProperties(match, matchVO);
 			resultList.add(matchVO);
 		}
-		return resultList;
+		
+		result.setResult(resultList);
+		return result;
 	}
 
 

@@ -127,16 +127,16 @@
 		<div data-options="region:'center',title:'center title'"
 			style="padding: 5px; background: #eee;">
 			<div style="margin: 20px 0;"></div>
-			<table id="dg" title="比赛信息" style="width: 750px; height: 250px"
+			<table id="dg" title="比赛信息" style="width: 750px; height: 340px"
 				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'../queryMatch',method:'get'">
 				<thead>
 					<tr>
-						<th data-options="field:'itemid',width:100,align:'center'">开赛时间</th>
+						<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
 						<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
-						<th data-options="field:'productid',width:40,align:'center'">轮次</th>
-						<th data-options="field:'listprice',width:100,align:'center'">主队</th>
+						<th data-options="field:'round',width:40,align:'center'">轮次</th>
+						<th data-options="field:'hostShortName',width:100,align:'center'">主队</th>
 						<th data-options="field:'unitcost',width:60,align:'center'">比分</th>
-						<th data-options="field:'attr1',width:100,align:'center'">客队</th>
+						<th data-options="field:'guestShortName',width:100,align:'center'">客队</th>
 						<th data-options="field:'status',width:60,align:'center'">主胜</th>
 						<th data-options="field:'status',width:60,align:'center'">平局</th>
 						<th data-options="field:'status',width:60,align:'center'">主负</th>

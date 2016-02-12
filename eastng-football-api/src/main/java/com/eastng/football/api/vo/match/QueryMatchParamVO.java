@@ -3,12 +3,15 @@ package com.eastng.football.api.vo.match;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.eastng.football.api.vo.common.CommonParamVO;
+import com.eastng.football.api.vo.common.PageParam;
+
 /**
  * 查询比赛信息入参VO类
  * @author caojia
  *
  */
-public class QueryMatchParamVO implements Serializable {
+public class QueryMatchParamVO extends PageParam implements Serializable {
 
 	private static final long serialVersionUID = -2307041514218024596L;
 
@@ -222,16 +225,12 @@ public class QueryMatchParamVO implements Serializable {
 		this.endDate = endDate;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "QueryMatchParamVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName="
 				+ hostShortName + ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", leagueNo="
 				+ leagueNo + ", seasonName=" + seasonName + ", beginDate=" + beginDate + ", endDate=" + endDate
-				+ ", round=" + round + ", matchStatus=" + matchStatus + "]";
+				+ ", round=" + round + ", matchStatus=" + matchStatus + ", toString()=" + super.toString() + "]";
 	}
-
 	
 }

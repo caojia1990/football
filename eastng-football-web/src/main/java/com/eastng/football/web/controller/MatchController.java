@@ -18,10 +18,12 @@ import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.TeamService;
+import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
+import com.eastng.football.web.view.DataGridResult;
 import com.eastng.football.web.view.Tree;
 import com.eastng.football.web.view.TreeAttributes;
 
@@ -53,14 +55,18 @@ public class MatchController {
 	 */
 	@RequestMapping("queryMatchByDate")
 	@ResponseBody
-	public List<MatchVO> queryMatchByDate(Date date){
+	public DataGridResult<MatchVO> queryMatchByDate(Date date){
 		QueryMatchParamVO paramVO = new QueryMatchParamVO();
 		paramVO.setBeginDate(date);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.DATE, 1);
 		paramVO.setEndDate(cal.getTime());
-		return this.matchService.queryMatchSchedule(paramVO);
+		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(paramVO);
+		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
+		result.setTotal(pageResult.getTotal());
+		result.setResult(pageResult.getResult());
+		return result;
 	}
 	
 	@RequestMapping("queryDistrictByPid")
@@ -104,11 +110,14 @@ public class MatchController {
 	 */
 	@RequestMapping("queryMatch")
 	@ResponseBody
-	public List<MatchVO> queryMatch(@RequestParam(value="paramVO",required = false)QueryMatchParamVO paramVO){
+	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO",required = false)QueryMatchParamVO paramVO){
 		if(paramVO == null){
-			
+			paramVO = new QueryMatchParamVO();
 		}
-		return this.matchService.queryMatchSchedule(paramVO);
-		
+		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(paramVO);
+		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
+		result.setTotal(pageResult.getTotal());
+		result.setResult(pageResult.getResult());
+		return result;
 	}
 }

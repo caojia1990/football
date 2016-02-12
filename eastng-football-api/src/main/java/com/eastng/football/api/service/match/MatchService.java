@@ -3,6 +3,7 @@ package com.eastng.football.api.service.match;
 import java.util.List;
 
 import com.eastng.football.api.exception.FootBallBizException;
+import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
 
@@ -33,7 +34,7 @@ public interface MatchService {
 	 * @param paramVO
 	 * @return
 	 */
-	public List<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
+	public PageResult<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
 
 	/**
 	 * 根据比赛编号查询比赛详情
