@@ -6,7 +6,7 @@ public class DataGridResult<T> {
 	
 	private Long total;
 	
-	private List<T> result;
+	private List<T> rows;
 
 	public Long getTotal() {
 		return total;
@@ -16,12 +16,12 @@ public class DataGridResult<T> {
 		this.total = total;
 	}
 
-	public List<T> getResult() {
-		return result;
+	public List<T> getRows() {
+		return rows;
 	}
 
-	public void setResult(List<T> result) {
-		this.result = result;
+	public void setRows(List<T> rows) {
+		this.rows = rows;
 	}
 
 }

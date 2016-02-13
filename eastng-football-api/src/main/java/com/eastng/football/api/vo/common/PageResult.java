@@ -1,8 +1,14 @@
 package com.eastng.football.api.vo.common;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PageResult<T> {
+public class PageResult<T> implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4733641131170708339L;
+
 	private Long total;
 	
 	private List<T> result;

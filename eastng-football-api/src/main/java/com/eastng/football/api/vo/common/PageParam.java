@@ -1,7 +1,14 @@
 package com.eastng.football.api.vo.common;
 
-public class PageParam {
+import java.io.Serializable;
+
+public class PageParam implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 676540626849589495L;
+
 	private int rows;
 	
 	private int page;

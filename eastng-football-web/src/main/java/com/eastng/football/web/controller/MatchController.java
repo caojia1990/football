@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.MatchService;
@@ -65,7 +68,7 @@ public class MatchController {
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(paramVO);
 		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
 		result.setTotal(pageResult.getTotal());
-		result.setResult(pageResult.getResult());
+		result.setRows(pageResult.getResult());
 		return result;
 	}
 	
@@ -108,16 +111,22 @@ public class MatchController {
 	 * @param paramVO
 	 * @return
 	 */
-	@RequestMapping("queryMatch")
+	@RequestMapping(value="queryMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO",required = false)QueryMatchParamVO paramVO){
-		if(paramVO == null){
-			paramVO = new QueryMatchParamVO();
+	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO",required=false) String paramVO,
+			@RequestParam(value="rows",required = false)int rows,
+			@RequestParam(value="page",required = false)int page){
+		
+		QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
+		if(innerparamVO == null){
+			innerparamVO = new QueryMatchParamVO();
 		}
-		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(paramVO);
+		innerparamVO.setRows(rows);
+		innerparamVO.setPage(page);
+		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
 		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
 		result.setTotal(pageResult.getTotal());
-		result.setResult(pageResult.getResult());
+		result.setRows(pageResult.getResult());
 		return result;
 	}
 }

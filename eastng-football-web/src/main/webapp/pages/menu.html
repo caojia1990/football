@@ -98,14 +98,52 @@
 			} ]
 		});
 	})
-
+	
+	/* 鼠标点击树节点触发事件 */
 	$(function() {
 		$('#tt').tree({
 			onClick : function(node) {
 				if (node.attributes.level == "2") {
-					alert(node.text); // alert node text property when clicked
+					//alert(node.text); // alert node text property when clicked
+					
+					var queryParams = {paramVO:
+										{leagueNo:node.id}
+									  };
+					$('#dg').datagrid({
+					    url:'../queryMatch',
+					    queryParams:queryParams,
+					    method:'post',
+					    columns:[[
+							{field:'matchTime',title:'开赛时间',width:100},
+							{field:'name',title:'赛事名称',width:80},
+							{field:'round',title:'轮次',width:40},
+							{field:'hostShortName',title:'主队',width:100},
+							{field:'name',title:'比分',width:60},
+							{field:'guestShortName',title:'客队',width:100},
+							{field:'',title:'主胜',width:60},
+							{field:'name',title:'平局',width:60},
+							{field:'price',title:'主负',width:60,align:'right'}
+					    ]]
+					});
 				}
 			}
+		});
+		
+		var queryParams = {paramVO:{}};
+		$('#dg').datagrid({
+		    url:'../queryMatch',
+		    method:'post',
+		    columns:[[
+				{field:'matchTime',title:'开赛时间',width:100},
+				{field:'name',title:'赛事名称',width:80},
+				{field:'round',title:'轮次',width:40},
+				{field:'hostShortName',title:'主队',width:100},
+				{field:'name',title:'比分',width:60},
+				{field:'guestShortName',title:'客队',width:100},
+				{field:'',title:'主胜',width:60},
+				{field:'name',title:'平局',width:60},
+				{field:'price',title:'主负',width:60,align:'right'}
+		    ]]
 		});
 	});
 </script>
@@ -128,8 +166,8 @@
 			style="padding: 5px; background: #eee;">
 			<div style="margin: 20px 0;"></div>
 			<table id="dg" title="比赛信息" style="width: 750px; height: 340px"
-				data-options="rownumbers:true,singleSelect:true,pagination:true,url:'../queryMatch',method:'get'">
-				<thead>
+				data-options="rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+				<!-- <thead>
 					<tr>
 						<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
 						<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
@@ -141,7 +179,7 @@
 						<th data-options="field:'status',width:60,align:'center'">平局</th>
 						<th data-options="field:'status',width:60,align:'center'">主负</th>
 					</tr>
-				</thead>
+				</thead> -->
 			</table>
 		</div>
 	</div>

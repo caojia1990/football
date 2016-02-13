@@ -75,7 +75,7 @@ public class MatchServiceImpl implements MatchService {
 			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
 		}
 		
-		PageHelper.startPage(1, 10);
+		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
 		List<Match> list = this.matchMapper.selectByExample(example);
 		Page<Match> page = (Page)list;
 		

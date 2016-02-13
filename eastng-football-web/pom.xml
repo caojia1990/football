@@ -74,7 +74,13 @@
 		    <artifactId>servlet-api</artifactId>
 		    <version>3.0-alpha-1</version>
 		</dependency>
-
+		<!-- dubbo框架 -->
+		<!-- fastjson -->
+		<dependency>
+		     <groupId>com.alibaba</groupId>
+		     <artifactId>fastjson</artifactId>
+		     <version>1.2.7</version>
+		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
