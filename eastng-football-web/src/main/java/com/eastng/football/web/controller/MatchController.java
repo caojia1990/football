@@ -113,7 +113,7 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO",required=false) String paramVO,
+	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO" ,required=false) String paramVO,
 			@RequestParam(value="rows",required = false)int rows,
 			@RequestParam(value="page",required = false)int page){
 		

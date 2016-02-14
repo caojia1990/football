@@ -106,12 +106,18 @@
 				if (node.attributes.level == "2") {
 					//alert(node.text); // alert node text property when clicked
 					
-					var queryParams = {paramVO:
-										{leagueNo:node.id}
-									  };
+					var paramVO1 = {
+									leagueNo:node.id
+									};
+									  //alert(JSON.stringify(paramVO1))
+					/* $.ajaxSetup({  
+				        contentType : 'application/json'  
+				    });  */
 					$('#dg').datagrid({
 					    url:'../queryMatch',
-					    queryParams:queryParams,
+					    queryParams: {
+					    	paramVO:JSON.stringify(paramVO1)
+						},
 					    method:'post',
 					    columns:[[
 							{field:'matchTime',title:'开赛时间',width:100},
