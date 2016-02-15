@@ -1,4 +1,4 @@
-package com.eastng.football.web.view;
+package com.eastng.football.web.view.easyui;
 
 public class TreeAttributes {
 

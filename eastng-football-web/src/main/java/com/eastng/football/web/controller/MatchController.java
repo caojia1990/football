@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +26,10 @@ import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
-import com.eastng.football.web.view.DataGridResult;
-import com.eastng.football.web.view.Tree;
-import com.eastng.football.web.view.TreeAttributes;
+import com.eastng.football.web.view.easyui.DataGridResult;
+import com.eastng.football.web.view.easyui.Tree;
+import com.eastng.football.web.view.easyui.TreeAttributes;
+import com.eastng.football.web.view.match.QueryMatchResultVO;
 
 @Controller
 public class MatchController {
@@ -113,7 +114,7 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<MatchVO> queryMatch(@RequestParam(value="paramVO" ,required=false) String paramVO,
+	public DataGridResult<QueryMatchResultVO> queryMatch(@RequestParam(value="paramVO" ,required=false) String paramVO,
 			@RequestParam(value="rows",required = false)int rows,
 			@RequestParam(value="page",required = false)int page){
 		
@@ -124,9 +125,23 @@ public class MatchController {
 		innerparamVO.setRows(rows);
 		innerparamVO.setPage(page);
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
-		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
+		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
-		result.setRows(pageResult.getResult());
+		
+		//封装返回信息
+		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		if(!StringUtils.isEmpty(pageResult)){
+			for(MatchVO matchVO:pageResult.getResult()){
+				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				BeanUtils.copyProperties(matchVO, matchResultVO);
+				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
+					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
+				}
+				list.add(matchResultVO);
+			}
+		}
+		
+		result.setRows(list);
 		return result;
 	}
 }
