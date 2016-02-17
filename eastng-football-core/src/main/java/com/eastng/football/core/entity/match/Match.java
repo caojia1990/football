@@ -83,6 +83,11 @@ public class Match {
 	private String matchStatus;
 	
 	/**
+	 * 赛事名称
+	 */
+	private String leagueShortName;
+	
+	/**
 	 * @return the id
 	 */
 	public Integer getId() {
@@ -291,6 +296,20 @@ public class Match {
 	 */
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;
+	}
+
+	/**
+	 * @return the leagueShortName
+	 */
+	public String getLeagueShortName() {
+		return leagueShortName;
+	}
+
+	/**
+	 * @param leagueShortName the leagueShortName to set
+	 */
+	public void setLeagueShortName(String leagueShortName) {
+		this.leagueShortName = leagueShortName;
 	}
 	
 	

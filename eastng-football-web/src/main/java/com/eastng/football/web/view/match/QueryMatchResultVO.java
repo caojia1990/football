@@ -90,6 +90,11 @@ public class QueryMatchResultVO implements Serializable {
 	 * 比分
 	 */
 	private String score;
+	
+	/**
+	 * 赛事名称
+	 */
+	private String leagueShortName;
     
 	/**
 	 * 比赛编号(后台自动生成)
@@ -301,6 +306,21 @@ public class QueryMatchResultVO implements Serializable {
 	 */
 	public void setScore(String score) {
 		this.score = score;
+	}
+	
+
+	/**
+	 * @return the leagueShortName
+	 */
+	public String getLeagueShortName() {
+		return leagueShortName;
+	}
+
+	/**
+	 * @param leagueShortName the leagueShortName to set
+	 */
+	public void setLeagueShortName(String leagueShortName) {
+		this.leagueShortName = leagueShortName;
 	}
 
 	/* (non-Javadoc)

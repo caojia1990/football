@@ -120,8 +120,8 @@
 						},
 					    method:'post',
 					    columns:[[
-							{field:'matchTime',title:'开赛时间',width:100},
-							{field:'name',title:'赛事名称',width:80},
+							{field:'matchTime',title:'开赛时间',width:150},
+							{field:'leagueShortName',title:'赛事名称',width:80},
 							{field:'round',title:'轮次',width:40},
 							{field:'hostShortName',title:'主队',width:100},
 							{field:'score',title:'比分',width:60},
@@ -140,17 +140,30 @@
 		    url:'../queryMatch',
 		    method:'post',
 		    columns:[[
-				{field:'matchTime',title:'开赛时间',width:100},
-				{field:'name',title:'赛事名称',width:80},
+				{field:'matchTime',title:'开赛时间',width:150},
+				{field:'leagueShortName',title:'赛事名称',width:80},
 				{field:'round',title:'轮次',width:40},
 				{field:'hostShortName',title:'主队',width:100},
-				{field:'name',title:'比分',width:60},
+				{field:'score',title:'比分',width:60},
 				{field:'guestShortName',title:'客队',width:100},
-				{field:'',title:'主胜',width:60},
+				{field:'name',title:'主胜',width:60},
 				{field:'name',title:'平局',width:60},
 				{field:'price',title:'主负',width:60,align:'right'}
 		    ]]
 		});
+		
+		$('#dg').datagrid({
+			onDblClickRow: function(index,row){
+				alert(row.hostShortName+" VS "+row.guestShortName)
+				$('#win').window({
+				    width:600,
+				    height:400,
+				    modal:true
+				});
+				$('#win').window('open');
+			}
+		});
+		
 	});
 </script>
 </head>
@@ -170,9 +183,9 @@
 		</div>
 		<div data-options="region:'center',title:'center title'"
 			style="padding: 5px; background: #eee;">
-			<div style="margin: 20px 0;"></div>
-			<table id="dg" title="比赛信息" style="width: 750px; height: 340px"
-				data-options="rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+			<div style="margin: 10px 0;"></div>
+			<table id="dg" title="比赛信息" style="width: 850px; height: 340px"
+				data-options="rownumbers:true,singleSelect:true,pagination:true">
 				<!-- <thead>
 					<tr>
 						<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
@@ -189,6 +202,7 @@
 			</table>
 		</div>
 	</div>
-
+	
+	<div id="win"></div>
 </body>
 </html>

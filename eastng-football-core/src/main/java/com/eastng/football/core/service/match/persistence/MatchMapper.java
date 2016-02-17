@@ -30,6 +30,13 @@ public interface MatchMapper {
 	List<Match> queryMatchByCondition(Map<String,Object> map);
 	
 	/**
+	 * 根据条件查询赛程信息
+	 * @param match
+	 * @return 赛程信息列表
+	 */
+	List<Match> selectByCondition(Match match);
+	
+	/**
 	 * 根据比赛编号查询比赛详细信息，采用注解方式映射
 	 * @param matchNo
 	 * @return
@@ -74,5 +81,5 @@ public interface MatchMapper {
      * @return
      */
     int batchInsert(List<Match> records);
-
+    
 }

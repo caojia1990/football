@@ -83,6 +83,11 @@ public class MatchVO implements Serializable {
 	 * 比赛状态    0：未开始  1：比赛中  2：已结束
 	 */
 	private String matchStatus;
+	
+	/**
+	 * 赛事名称
+	 */
+	private String leagueShortName;
     
 	/**
 	 * 比赛编号(后台自动生成)
@@ -278,6 +283,20 @@ public class MatchVO implements Serializable {
 	 */
 	public void setMatchStatus(String matchStatus) {
 		this.matchStatus = matchStatus;
+	}
+
+	/**
+	 * @return the leagueShortName
+	 */
+	public String getLeagueShortName() {
+		return leagueShortName;
+	}
+
+	/**
+	 * @param leagueShortName the leagueShortName to set
+	 */
+	public void setLeagueShortName(String leagueShortName) {
+		this.leagueShortName = leagueShortName;
 	}
 
 	/* (non-Javadoc)
