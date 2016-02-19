@@ -154,12 +154,16 @@
 		
 		$('#dg').datagrid({
 			onDblClickRow: function(index,row){
-				alert(row.hostShortName+" VS "+row.guestShortName)
+				//alert(row.hostShortName+" VS "+row.guestShortName)
 				$('#win').window({
 				    width:600,
 				    height:400,
 				    modal:true
 				});
+				$('#hostName').text(row.hostShortName);
+				$('#score').text(row.hostGoal+":"+row.guestGoal);
+				$('#GuestName').text(row.guestShortName);
+				$('#halfScore').text(row.halfTimeHostGoal+":"+row.halfTimeGuestGoal);
 				$('#win').window('open');
 			}
 		});
@@ -203,6 +207,31 @@
 		</div>
 	</div>
 	
-	<div id="win"></div>
+	<div id="win">
+		<form id="ff" method="post">
+			<table>
+			    <tr height="45px">
+					<!-- <input class="easyui-textbox" type="text" name="hostName" data-options="required:true" /> -->
+					<td>
+						<!-- <input class="easyui-textbox" type="text" name="hostName" id="hostName"/> -->
+						<span id="hostName"></span>
+			    	</td>
+					<td align="center">
+						<span id="score"></span>
+			    	</td>
+			    	<td>
+						<!-- <input class="easyui-textbox" type="text" name="GuestName" data-options="prompt:'Enter a email address...',validType:'email'" /> -->
+						<!-- <input class="easyui-textbox" type="text" name="GuestName" id="GuestName"/> -->
+						<span id="GuestName"></span>
+			    	</td>
+			    </tr>
+			    <tr height="20px">
+			    	<td rowspan="2"></td>
+			    	<td>半场比分：<span id="halfScore"></span></td>
+			    	<td rowspan="2"></td>
+			    </tr>
+		    </table>
+		</form>
+	</div>
 </body>
 </html>
