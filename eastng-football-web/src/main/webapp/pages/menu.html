@@ -8,8 +8,9 @@
 <link rel="stylesheet" type="text/css" href="../css/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../css/demo.css">
 <script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
 <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="../js/match/addTabs.js"></script>
 <script>
 	function myLoadFilter(data, parent) {
 		var state = $.data(this, 'tree');
@@ -75,68 +76,31 @@
 		};
 		return data;
 	}
-
-	//分页表格
-	$(function() {
-		var pager = $('#dg').datagrid().datagrid('getPager'); // get the pager of datagrid
-		pager.pagination({
-			buttons : [ {
-				iconCls : 'icon-search',
-				handler : function() {
-					alert('search');
-				}
-			}, {
-				iconCls : 'icon-add',
-				handler : function() {
-					alert('add');
-				}
-			}, {
-				iconCls : 'icon-edit',
-				handler : function() {
-					alert('edit');
-				}
-			} ]
-		});
-	})
 	
 	/* 鼠标点击树节点触发事件 */
 	$(function() {
 		$('#tt').tree({
 			onClick : function(node) {
 				if (node.attributes.level == "2") {
-					//alert(node.text); // alert node text property when clicked
-					
-					var paramVO1 = {
-									leagueNo:node.id
-									};
-									  //alert(JSON.stringify(paramVO1))
-					/* $.ajaxSetup({  
-				        contentType : 'application/json'  
-				    });  */
-					$('#dg').datagrid({
-					    url:'../queryMatch',
-					    queryParams: {
-					    	paramVO:JSON.stringify(paramVO1)
-						},
-					    method:'post',
-					    columns:[[
-							{field:'matchTime',title:'开赛时间',width:150},
-							{field:'leagueShortName',title:'赛事名称',width:80},
-							{field:'round',title:'轮次',width:40},
-							{field:'hostShortName',title:'主队',width:100},
-							{field:'score',title:'比分',width:60},
-							{field:'guestShortName',title:'客队',width:100},
-							{field:'',title:'主胜',width:60},
-							{field:'name',title:'平局',width:60},
-							{field:'price',title:'主负',width:60,align:'right'}
-					    ]]
-					});
+					addTab(node);
 				}
 			}
 		});
 		
+		$('#tabsMain').tabs('add',{
+		    title:'英超',
+		    closable:true
+		});
+		
+		var currentTabPanel = $("#tabsMain").tabs('getSelected');
+		var dynamicTable = $('<table id="dg" title="比赛信息" style="width: 850px; height: 340px"'+
+						'data-options="rownumbers:true,singleSelect:true,pagination:true">')
+		//$.parser.parse(dynamicTable);
+		$(currentTabPanel).html(dynamicTable);	
+		//$.parser.parse(currentTabPanel);
+						
 		var queryParams = {paramVO:{}};
-		$('#dg').datagrid({
+		dynamicTable.datagrid({
 		    url:'../queryMatch',
 		    method:'post',
 		    columns:[[
@@ -187,23 +151,25 @@
 		</div>
 		<div data-options="region:'center',title:'center title'"
 			style="padding: 5px; background: #eee;">
-			<div style="margin: 10px 0;"></div>
-			<table id="dg" title="比赛信息" style="width: 850px; height: 340px"
-				data-options="rownumbers:true,singleSelect:true,pagination:true">
-				<!-- <thead>
-					<tr>
-						<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
-						<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
-						<th data-options="field:'round',width:40,align:'center'">轮次</th>
-						<th data-options="field:'hostShortName',width:100,align:'center'">主队</th>
-						<th data-options="field:'unitcost',width:60,align:'center'">比分</th>
-						<th data-options="field:'guestShortName',width:100,align:'center'">客队</th>
-						<th data-options="field:'status',width:60,align:'center'">主胜</th>
-						<th data-options="field:'status',width:60,align:'center'">平局</th>
-						<th data-options="field:'status',width:60,align:'center'">主负</th>
-					</tr>
-				</thead> -->
-			</table>
+			<!-- 标签页 -->
+			<div id="tabsMain" class="easyui-tabs" style="height: 100%;">
+					<!-- <table id="dg" title="比赛信息" style="width: 850px; height: 340px"
+						data-options="rownumbers:true,singleSelect:true,pagination:true">
+						<thead>
+							<tr>
+								<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
+								<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
+								<th data-options="field:'round',width:40,align:'center'">轮次</th>
+								<th data-options="field:'hostShortName',width:100,align:'center'">主队</th>
+								<th data-options="field:'unitcost',width:60,align:'center'">比分</th>
+								<th data-options="field:'guestShortName',width:100,align:'center'">客队</th>
+								<th data-options="field:'status',width:60,align:'center'">主胜</th>
+								<th data-options="field:'status',width:60,align:'center'">平局</th>
+								<th data-options="field:'status',width:60,align:'center'">主负</th>
+							</tr>
+						</thead>
+					</table> -->
+			</div>
 		</div>
 	</div>
 	
