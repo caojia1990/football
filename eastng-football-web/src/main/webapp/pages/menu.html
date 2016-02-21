@@ -124,10 +124,36 @@
 				    height:400,
 				    modal:true
 				});
-				$('#hostName').text(row.hostShortName);
-				$('#score').text(row.hostGoal+":"+row.guestGoal);
-				$('#GuestName').text(row.guestShortName);
-				$('#halfScore').text(row.halfTimeHostGoal+":"+row.halfTimeGuestGoal);
+				
+				var table = $('<table></table>');
+				var context = '<tr height="45px">'+
+								'<td rowspan="2">'+row.hostShortName+'</td>'+
+								'<td align="center">'+row.hostGoal+":"+row.guestGoal+'</td>'+
+						    	'<td rowspan="2">'+row.guestShortName+'</td>'+
+							  '</tr>'+	
+							  '<tr height="20px">'+
+						    	'<td>半场比分：'+row.halfTimeHostGoal+":"+row.halfTimeGuestGoal+'</td>'+
+						      '</tr>';
+						     /*  
+						      '<tr>'+
+						      	'<td colspan="3"><input class="easyui-filebox" name="file" id="file" '+
+								 'data-options="prompt:'+"'Choose a file...'"+'" style="width: 100%"></td>'+
+							  '</tr>';  */
+				table.append(context);
+				$.parser.parse(table);
+				$('#win').html(table); 
+				
+				//手风琴
+				var accordion = $('<div id="a'+row.matchNo+'" class="easyui-accordion" style="width:300px;height:200px;">'+
+									'<div title="Title1">'+
+							    	'</div>'+
+							    	'<div title="Title2">'+
+							    	'</div>'+
+							    	'<div title="Title3">'+
+							    	'</div>'+
+							    '</div>');
+				table.after(accordion);
+				$.parser.parse(accordion);			    
 				$('#win').window('open');
 			}
 		});
@@ -153,51 +179,12 @@
 			style="padding: 5px; background: #eee;">
 			<!-- 标签页 -->
 			<div id="tabsMain" class="easyui-tabs" style="height: 100%;">
-					<!-- <table id="dg" title="比赛信息" style="width: 850px; height: 340px"
-						data-options="rownumbers:true,singleSelect:true,pagination:true">
-						<thead>
-							<tr>
-								<th data-options="field:'matchTime',width:100,align:'center'">开赛时间</th>
-								<th data-options="field:'productid',width:80,align:'center'">赛事名称</th>
-								<th data-options="field:'round',width:40,align:'center'">轮次</th>
-								<th data-options="field:'hostShortName',width:100,align:'center'">主队</th>
-								<th data-options="field:'unitcost',width:60,align:'center'">比分</th>
-								<th data-options="field:'guestShortName',width:100,align:'center'">客队</th>
-								<th data-options="field:'status',width:60,align:'center'">主胜</th>
-								<th data-options="field:'status',width:60,align:'center'">平局</th>
-								<th data-options="field:'status',width:60,align:'center'">主负</th>
-							</tr>
-						</thead>
-					</table> -->
 			</div>
 		</div>
 	</div>
 	
 	<div id="win">
-		<form id="ff" method="post">
-			<table>
-			    <tr height="45px">
-					<!-- <input class="easyui-textbox" type="text" name="hostName" data-options="required:true" /> -->
-					<td>
-						<!-- <input class="easyui-textbox" type="text" name="hostName" id="hostName"/> -->
-						<span id="hostName"></span>
-			    	</td>
-					<td align="center">
-						<span id="score"></span>
-			    	</td>
-			    	<td>
-						<!-- <input class="easyui-textbox" type="text" name="GuestName" data-options="prompt:'Enter a email address...',validType:'email'" /> -->
-						<!-- <input class="easyui-textbox" type="text" name="GuestName" id="GuestName"/> -->
-						<span id="GuestName"></span>
-			    	</td>
-			    </tr>
-			    <tr height="20px">
-			    	<td rowspan="2"></td>
-			    	<td>半场比分：<span id="halfScore"></span></td>
-			    	<td rowspan="2"></td>
-			    </tr>
-		    </table>
-		</form>
+		
 	</div>
 </body>
 </html>
