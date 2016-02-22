@@ -43,14 +43,41 @@ function addTab(node){
 		dynamicTable.datagrid({
 			onDblClickRow: function(index,row){
 				$('#win').window({
-				    width:600,
-				    height:400,
+				    width:800,
+				    height:600,
 				    modal:true
 				});
-				$('#hostName').text(row.hostShortName);
-				$('#score').text(row.hostGoal+":"+row.guestGoal);
-				$('#GuestName').text(row.guestShortName);
-				$('#halfScore').text(row.halfTimeHostGoal+":"+row.halfTimeGuestGoal);
+				
+				var table = $('<table></table>');
+				var context = '<tr height="45px">'+
+								'<td rowspan="2">'+row.hostShortName+'</td>'+
+								'<td align="center">'+row.hostGoal+":"+row.guestGoal+'</td>'+
+						    	'<td rowspan="2">'+row.guestShortName+'</td>'+
+							  '</tr>'+	
+							  '<tr height="20px">'+
+						    	'<td>半场比分：'+row.halfTimeHostGoal+":"+row.halfTimeGuestGoal+'</td>'+
+						      '</tr>';
+						     /*  
+						      '<tr>'+
+						      	'<td colspan="3"><input class="easyui-filebox" name="file" id="file" '+
+								 'data-options="prompt:'+"'Choose a file...'"+'" style="width: 100%"></td>'+
+							  '</tr>';  */
+				table.append(context);
+				$.parser.parse(table);
+				$('#win').html(table); 
+				
+				//手风琴
+				var accordion = '<div id="a'+row.matchNo+'" class="easyui-accordion" style="height:100%;">'+
+									'<div title="Title1">'+
+							    	'</div>'+
+							    	'<div title="Title2">'+
+							    	'</div>'+
+							    	'<div title="Title3">'+
+							    	'</div>'+
+							    '</div>';
+				$('#win').append(accordion);
+				$.parser.parse($("#win"));			 
+				
 				$('#win').window('open');
 			}
 		});

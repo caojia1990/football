@@ -95,9 +95,9 @@
 		var currentTabPanel = $("#tabsMain").tabs('getSelected');
 		var dynamicTable = $('<table id="dg" title="比赛信息" style="width: 850px; height: 340px"'+
 						'data-options="rownumbers:true,singleSelect:true,pagination:true">')
-		//$.parser.parse(dynamicTable);
+		$.parser.parse(dynamicTable);
 		$(currentTabPanel).html(dynamicTable);	
-		//$.parser.parse(currentTabPanel);
+		$.parser.parse(currentTabPanel);
 						
 		var queryParams = {paramVO:{}};
 		dynamicTable.datagrid({
@@ -120,8 +120,8 @@
 			onDblClickRow: function(index,row){
 				//alert(row.hostShortName+" VS "+row.guestShortName)
 				$('#win').window({
-				    width:600,
-				    height:400,
+				    width:800,
+				    height:600,
 				    modal:true
 				});
 				
@@ -144,17 +144,18 @@
 				$('#win').html(table); 
 				
 				//手风琴
-				var accordion = $('<div id="a'+row.matchNo+'" class="easyui-accordion" style="width:300px;height:200px;">'+
+				var accordion = '<div id="a'+row.matchNo+'" class="easyui-accordion" style="height:100%;">'+
 									'<div title="Title1">'+
 							    	'</div>'+
 							    	'<div title="Title2">'+
 							    	'</div>'+
 							    	'<div title="Title3">'+
 							    	'</div>'+
-							    '</div>');
-				table.after(accordion);
-				$.parser.parse(accordion);			    
+							    '</div>';
+				$('#win').append(accordion);
+				$.parser.parse($("#win"));			    
 				$('#win').window('open');
+				
 			}
 		});
 		
