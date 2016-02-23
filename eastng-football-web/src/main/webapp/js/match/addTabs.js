@@ -48,20 +48,20 @@ function addTab(node){
 				    modal:true
 				});
 				
-				var table = $('<table></table>');
+				var table = $('<table style="margin:auto"></table>');
 				var context = '<tr height="45px">'+
-								'<td rowspan="2">'+row.hostShortName+'</td>'+
+								'<td rowspan="2" width="100px">'+row.hostShortName+'</td>'+
 								'<td align="center">'+row.hostGoal+":"+row.guestGoal+'</td>'+
-						    	'<td rowspan="2">'+row.guestShortName+'</td>'+
+						    	'<td rowspan="2" width="100px">'+row.guestShortName+'</td>'+
 							  '</tr>'+	
 							  '<tr height="20px">'+
 						    	'<td>半场比分：'+row.halfTimeHostGoal+":"+row.halfTimeGuestGoal+'</td>'+
-						      '</tr>';
-						     /*  
+						      '</tr>'+
 						      '<tr>'+
-						      	'<td colspan="3"><input class="easyui-filebox" name="file" id="file" '+
+						      	'<td colspan="2"><input class="easyui-filebox" name="oddFile" id="oddFile" '+
 								 'data-options="prompt:'+"'Choose a file...'"+'" style="width: 100%"></td>'+
-							  '</tr>';  */
+								 '<td><input type="button" value="上传赔率信息" onclick="uploadOddFile();"/></td>'+
+							  '</tr>';
 				table.append(context);
 				$.parser.parse(table);
 				$('#win').html(table); 

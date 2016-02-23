@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
 <script type="text/javascript" src="../js/match/addTabs.js"></script>
+<script type="text/javascript" src="../js/match/fileUpload.js"></script>
 <script>
 	function myLoadFilter(data, parent) {
 		var state = $.data(this, 'tree');
@@ -125,29 +126,29 @@
 				    modal:true
 				});
 				
-				var table = $('<table></table>');
-				var context = '<tr height="45px">'+
-								'<td rowspan="2">'+row.hostShortName+'</td>'+
+				var table = $('<table style="margin:auto"></table>');
+				var context = '<tr height="45px" align="center">'+
+								'<td rowspan="2" width="100px">'+row.hostShortName+'</td>'+
 								'<td align="center">'+row.hostGoal+":"+row.guestGoal+'</td>'+
-						    	'<td rowspan="2">'+row.guestShortName+'</td>'+
+						    	'<td rowspan="2" width="100px">'+row.guestShortName+'</td>'+
 							  '</tr>'+	
 							  '<tr height="20px">'+
 						    	'<td>半场比分：'+row.halfTimeHostGoal+":"+row.halfTimeGuestGoal+'</td>'+
-						      '</tr>';
-						     /*  
+						      '</tr>'+
 						      '<tr>'+
-						      	'<td colspan="3"><input class="easyui-filebox" name="file" id="file" '+
+						      	'<td colspan="2"><input class="easyui-filebox" name="oddFile" id="oddFile" '+
 								 'data-options="prompt:'+"'Choose a file...'"+'" style="width: 100%"></td>'+
-							  '</tr>';  */
+								 '<td><input type="button" value="上传赔率信息" onclick="uploadOddFile();"/></td>'+
+							  '</tr>';
 				table.append(context);
 				$.parser.parse(table);
 				$('#win').html(table); 
 				
 				//手风琴
 				var accordion = '<div id="a'+row.matchNo+'" class="easyui-accordion" style="height:100%;">'+
-									'<div title="Title1">'+
+									'<div title="赔率">'+
 							    	'</div>'+
-							    	'<div title="Title2">'+
+							    	'<div title="历史交战">'+
 							    	'</div>'+
 							    	'<div title="Title3">'+
 							    	'</div>'+
@@ -185,7 +186,6 @@
 	</div>
 	
 	<div id="win">
-		
 	</div>
 </body>
 </html>
