@@ -1,9 +1,11 @@
 package com.eastng.football.core.service.lottery.persistence;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.eastng.football.core.entity.lottery.Odds;
 import com.eastng.football.core.entity.lottery.OddsExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface OddsMapper {
     /**
@@ -100,4 +102,11 @@ public interface OddsMapper {
      * @mbggenerated Sat Jan 09 15:20:46 CST 2016
      */
     int updateByPrimaryKey(Odds record);
+    
+    /**
+     * 批量插入赔率信息
+     * @param list
+     * @return
+     */
+    int batchInsert(List<Odds> list);
 }
