@@ -178,6 +178,8 @@ public class FileUploadController {
 				TeamVO guestTeamVO = this.teamService.queryTeamByName(guestShortName);
 				//客队编号
 				matchVO.setGuestTeamNo(guestTeamVO.getTeamNo());
+				//状态
+				matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_NOT_BEGIN);
 				//比分
 				String goal = sheet.getCell(4, i).getContents();
 				if(!StringUtils.isEmpty(goal)){
@@ -192,13 +194,12 @@ public class FileUploadController {
 							matchVO.setGuestGoal(Integer.parseInt(guestGoal));
 						}
 					}
+					matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 				}
 				//赛季名称
 				matchVO.setSeasonName("2015/2016");
 				//联赛编号
 				matchVO.setLeagueNo("001005001");
-				//状态
-				matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 				list.add(matchVO);
 			}
 
