@@ -121,10 +121,10 @@ public class MatchServiceImpl implements MatchService {
 		
 		Match match = new Match();
 		BeanUtils.copyProperties(matchVO, match);
-		match.setMatchNo("");
+		match.setMatchNo(GenerateCodeUtil.generateMatchNo("YC"));
 		int result = this.matchMapper.saveMatch(match);
 		
-		return null;
+		return result;
 	}
 	
 	public Integer saveMatchList(List<MatchVO> list){
