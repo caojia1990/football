@@ -54,7 +54,7 @@
 	
 	<!-- 注册映射器  不能和sqlSessionFactory同名  会导致properties文件加载不到-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	    <property name="basePackage" value="com.eastng.football.core.service.match.persistence" />
+	    <property name="basePackage" value="com.eastng.football.core.service.*.persistence" />
 	    <property name="sqlSessionFactoryBeanName" value="sessionFactory" />
 	</bean>
     

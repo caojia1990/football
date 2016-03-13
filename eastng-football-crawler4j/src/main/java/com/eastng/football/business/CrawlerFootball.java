@@ -35,20 +35,18 @@ public class CrawlerFootball {
        	 Elements s = element.select("td");
        	 
        	//比赛时间
-    		String matchTime = s.get(0).text();
+    	String matchTime = s.get(0).text();
     		if(matchTime.equals("时间")){
     			continue;
     		}
        	 
        	 //比分
-			String score = s.get(3).text();
-       	 if(score.equals("延期")){
-       		 continue;
-       	 }
+		String score = s.get(3).text();
+		
        	 //比赛详情
    		 MatchVO matchVO = new MatchVO();
    		 
-   		 String matchTimeSubstr = matchTime.substring(0, 1);
+   		 String matchTimeSubstr = matchTime.substring(0, 2);
    		 if(Integer.parseInt(matchTimeSubstr)>=8){
    			 //页面上没有年份，8月之后的都是前一年，5月前是当年，英超赛季赛程当年8月到下一年5月
    			 matchTime = "2015-"+matchTime;
@@ -102,7 +100,7 @@ public class CrawlerFootball {
    		try {
    			System.out.println(ToStringBuilder.reflectionToString(matchVO, ToStringStyle.MULTI_LINE_STYLE));
    			matchNo = matchService.saveMatch(matchVO);
-			System.out.println(matchNo);
+			System.out.println("保存比赛信息成功"+matchNo);
 		} catch (FootBallBizException e1) {
 			System.out.println(e1.getMessage());
 			e1.printStackTrace();
@@ -144,7 +142,7 @@ public class CrawlerFootball {
 						 System.out.println(ToStringBuilder.reflectionToString(oddsVO, ToStringStyle.MULTI_LINE_STYLE));
 						 //保存赔率信息
 						 oddsService.saveOdds(oddsVO);
-						 
+						 System.out.println("保存赔率成功");
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

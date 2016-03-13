@@ -1,23 +1,11 @@
 package com.eastng.crawler;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import com.eastng.football.api.constant.CommonConstant;
-import com.eastng.football.api.vo.lottery.OddsVO;
-import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.business.CrawlerFootball;
 
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -46,7 +34,7 @@ public class MyCrawler extends WebCrawler {
          String href = url.getURL().toLowerCase();
          Boolean b = !FILTERS.matcher(href).matches()
                  && href.startsWith("http://www.okooo.com/soccer/league/17/schedule/12084/1-1");
-         return b;
+         return false;
      }
 
      /**

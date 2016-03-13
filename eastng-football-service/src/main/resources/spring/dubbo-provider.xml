@@ -33,6 +33,6 @@
 	
 	<!-- 赔率服务接口 -->
 	<dubbo:service interface="com.eastng.football.api.service.lottery.OddsService" ref="oddsService" retries="0"/>
-	<bean id="leagueInfoService" class="com.eastng.football.service.lottery.businessImpl.OddsServiceImpl"/>
+	<bean id="oddsService" class="com.eastng.football.service.lottery.businessImpl.OddsServiceImpl"/>
 	
 </beans>  

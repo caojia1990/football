@@ -1,9 +1,15 @@
 package com.eastng.football.api.vo.lottery;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OddsVO {
+public class OddsVO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8393242355512788884L;
 
 	/**
 	 * 比赛编号
