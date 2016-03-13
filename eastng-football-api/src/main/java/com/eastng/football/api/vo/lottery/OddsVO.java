@@ -20,6 +20,11 @@ public class OddsVO {
      * 变赔时间
      */
     private Date changeTime;
+    
+    /**
+     * 距离开赛时间
+     */
+    private String timeLeft;
 
 
     /**
@@ -138,6 +143,14 @@ public class OddsVO {
      */
 	public void setFirstOdds(String firstOdds) {
 		this.firstOdds = firstOdds;
+	}
+
+	public String getTimeLeft() {
+		return timeLeft;
+	}
+
+	public void setTimeLeft(String timeLeft) {
+		this.timeLeft = timeLeft;
 	}
 
     

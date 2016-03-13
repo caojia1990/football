@@ -16,13 +16,13 @@ public interface OddsService {
 	 * @param oddsVO
 	 * @return 保存返回结果
 	 */
-	SaveOddsResultVO saveOdds(OddsVO oddsVO);
+	public SaveOddsResultVO saveOdds(OddsVO oddsVO);
 	
 	/**
 	 * 根据比赛编号查询赔率信息列表
 	 * @param matchNo 比赛编号
 	 * @return 赔率信息列表
 	 */
-	List<OddsVO> queryOddsByMatchNo(String matchNo);
+	public List<OddsVO> queryOddsByMatchNo(String matchNo);
 
 }

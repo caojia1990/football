@@ -99,7 +99,7 @@ public class MatchServiceImpl implements MatchService {
 	 * @return
 	 * @throws FootBallBizException 
 	 */
-	public Integer saveMatch(MatchVO matchVO) throws FootBallBizException{
+	public String saveMatch(MatchVO matchVO) throws FootBallBizException{
 		
 		//比赛状态 0：未开始 1：比赛中 2：已结束
 		String matchStatus = matchVO.getMatchStatus();
@@ -124,7 +124,7 @@ public class MatchServiceImpl implements MatchService {
 		match.setMatchNo(GenerateCodeUtil.generateMatchNo("YC"));
 		int result = this.matchMapper.saveMatch(match);
 		
-		return result;
+		return match.getMatchNo();
 	}
 	
 	public Integer saveMatchList(List<MatchVO> list){

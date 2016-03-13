@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
   <!-- 驱动物理路径 -->
-  <classPathEntry location="C:\Users\lenovo\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
+  <classPathEntry location="D:\Develop\mvnResp\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />
 
   <context id="MysqlTables" targetRuntime="MyBatis3">
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -18,23 +18,23 @@
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <javaModelGenerator targetPackage="com.eastng.football.core.entity.match" targetProject="D:\project\football\eastng-football-core\src\main\java">
+    <javaModelGenerator targetPackage="com.eastng.football.core.entity.lottery" targetProject="D:\git\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="mybatis.mapper"  targetProject="D:\project\football\eastng-football-core\src\main\resources">
+    <sqlMapGenerator targetPackage="mybatis.mapper"  targetProject="D:\git\football\eastng-football-core\src\main\resources">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.match.persistence"  targetProject="D:\project\football\eastng-football-core\src\main\java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.lottery.persistence"  targetProject="D:\git\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
 	<!-- 去掉Example辅助类 -->
 	<!-- enableSelectByExample="true" enableDeleteByExample="false" enableCountByExample="false"
     	enableUpdateByExample="false" selectByExampleQueryId="false" --> 
-    <table schema="football" tableName="T_LEAGUE_INFO" domainObjectName="LeagueInfo" 
+    <table schema="football" tableName="T_ODDS" domainObjectName="Odds" 
     enableSelectByExample="true" enableDeleteByExample="true" enableCountByExample="true"
     	enableUpdateByExample="true" selectByExampleQueryId="true">
       <!-- <property name="useActualColumnNames" value="true"/>
