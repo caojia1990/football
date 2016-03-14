@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   ">
+	<dubbo:application name="eastng-football-crawler4j" />
+	<!-- <dubbo:registry address="N/A" /> -->
+	
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" check="false" />
+
+	<dubbo:reference id="matchService" interface="com.eastng.football.api.service.match.MatchService" timeout="30000" check="false"/>
+	
+	<!-- 球队服务接口 -->
+	<dubbo:reference id="teamService" interface="com.eastng.football.api.service.match.TeamService" check="false"/>
+	
+	<!-- 地区服务接口 -->
+	<dubbo:reference id="districtService" interface="com.eastng.football.api.service.match.DistrictService" check="false"/>
+	
+	<!-- 赛事服务接口 -->
+	<dubbo:reference id="leagueInfoService" interface="com.eastng.football.api.service.match.LeagueInfoService" timeout="30000" check="false"/>
+	
+	<!-- 赔率服务接口 -->
+	<dubbo:reference id="oddsService" interface="com.eastng.football.api.service.lottery.OddsService" timeout="30000" check="false"/>
+</beans>

@@ -3,6 +3,11 @@ package com.eastng.crawler;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import com.eastng.football.business.CrawlerFootball;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -27,8 +32,9 @@ public class MyCrawler extends WebCrawler {
      @Override
      public boolean shouldVisit(Page referringPage, WebURL url) {
          String href = url.getURL().toLowerCase();
-         return !FILTERS.matcher(href).matches()
-                && href.startsWith("http://www.ics.uci.edu/");
+         Boolean b = !FILTERS.matcher(href).matches()
+                 && href.startsWith("http://www.okooo.com/soccer/league/17/schedule/12084/1-1");
+         return false;
      }
 
      /**
@@ -42,14 +48,21 @@ public class MyCrawler extends WebCrawler {
 
          if (page.getParseData() instanceof HtmlParseData) {
              HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-             String text = htmlParseData.getText();
+             //String text = htmlParseData.getText();
              String html = htmlParseData.getHtml();
              Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
-             System.out.println("Text length: " + text.length());
-             System.out.println("Text length: " + text);
-             System.out.println("Html length: " + html.length());
-             System.out.println("Number of outgoing links: " + links.size());
+             /*System.out.println("Text length: " + text.length());
+             System.out.println("Html length: " + html.length());*/
+             //System.out.println("Html: " + html);
+             
+             Document doc = Jsoup.parse(html);
+             CrawlerFootball crawlerFootball = new CrawlerFootball();
+             try {
+				crawlerFootball.crawler(doc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
          }
     }
 }

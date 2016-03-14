@@ -20,7 +20,7 @@ public interface MatchService {
 	 * @return
 	 * @throws FootBallBizException 
 	 */
-	public Integer saveMatch(MatchVO matchVO) throws FootBallBizException;
+	public String saveMatch(MatchVO matchVO) throws FootBallBizException;
 	
 	/**
 	 * 保存赛程信息列表

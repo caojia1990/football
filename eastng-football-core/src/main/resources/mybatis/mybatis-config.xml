@@ -80,7 +80,8 @@
 		<mapper resource="mybatis/mapper/MatchMapper.xml"/>	 
 		<mapper resource="mybatis/mapper/LeagueInfoMapper.xml"/>	 
 		<mapper resource="mybatis/mapper/TeamMapper.xml"/>	 
-		<mapper resource="mybatis/mapper/DistrictMapper.xml"/>	 
+		<mapper resource="mybatis/mapper/DistrictMapper.xml"/>
+		<mapper resource="mybatis/mapper/OddsMapper.xml"/>	 
 	</mappers>
 
 
