@@ -60,6 +60,7 @@ public class MatchServiceImpl implements MatchService {
 		PageResult<MatchVO> result = new PageResult<MatchVO>();
 		
 		MatchExample example = new MatchExample();
+		example.setOrderByClause("round desc,match_time asc");
 		Criteria criteria = example.createCriteria();
 		//开始时间
 		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
@@ -121,7 +122,7 @@ public class MatchServiceImpl implements MatchService {
 		
 		Match match = new Match();
 		BeanUtils.copyProperties(matchVO, match);
-		match.setMatchNo(GenerateCodeUtil.generateMatchNo("YC"));
+		match.setMatchNo(GenerateCodeUtil.generateMatchNo("XJ"));
 		int result = this.matchMapper.saveMatch(match);
 		
 		return match.getMatchNo();
