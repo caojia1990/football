@@ -9,6 +9,7 @@ import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.SaveOddsResultVO;
 import com.eastng.football.core.entity.lottery.Odds;
+import com.eastng.football.core.entity.lottery.OddsExample;
 import com.eastng.football.core.service.lottery.persistence.OddsMapper;
 import com.eastng.football.util.BeanUtils;
 
@@ -31,10 +32,11 @@ public class OddsServiceImpl implements OddsService {
 	}
 
 	public List<OddsVO> queryOddsByMatchNo(String matchNo) {
-		List<Odds> list = this.oddsMapper.selectByMatchNo(matchNo);
-		
+		OddsExample example = new OddsExample();
+		example.createCriteria().andMatchNoEqualTo(matchNo);
+		example.setOrderByClause("change_time desc");
+		List<Odds> list = this.oddsMapper.selectByExample(example);
 		List<OddsVO> resultList = new ArrayList<OddsVO>();
-		
 		return resultList;
 	}
 
