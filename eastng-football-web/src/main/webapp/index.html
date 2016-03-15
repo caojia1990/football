@@ -11,28 +11,21 @@
 <script type="text/javascript" src="js/jquery.ajaxfileupload.js"></script>
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 <script type="text/javascript">
-	function applyAjaxFileUpload(){
-		 $.ajaxFileUpload({
-		        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)
-		        url:'uploadMatchSchedule2',
-		        secureuri:false,                       //是否启用安全提交,默认为false
-		        fileElementId:'filebox_file_id_1',           //文件选择框的id属性
-		        dataType:'text',                       //服务器返回的格式,可以是json或xml等
-		        success:function(data, status){        //服务器响应成功时的处理函数
-		        	alert(data);
-		        },
-		        error:function(data, status, e){ //服务器响应失败时的处理函数
-		        	alert(status);
-		        }
-		    });
-	}
+	$(function(){
+		$('#cc').calendar({
+		    width:600,
+		    height:600,
+			onSelect:function(date){
+				//alert(date.getMonth());
+			}
+		});  
+	});
 </script>
-
 </head>
 <body>
 
 	<div style="margin: 20px 0"></div>
-	<div class="easyui-calendar" style="width: 250px; height: 250px;"></div>
+	<div id="cc" style="width: 250px; height: 250px;"></div>
 
 </body>
 </html>

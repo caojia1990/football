@@ -16,5 +16,6 @@ public class FootballApplication {
         classPathXmlApplicationContext.start();
         System.out.println("===================service  start  complete!==================");
         System.in.read();
+        classPathXmlApplicationContext.close();
 	}
 }

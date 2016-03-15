@@ -25,7 +25,7 @@ import com.eastng.football.api.vo.match.MatchVO;
 public class CrawlerFootball {
 	
 	//英超2015/2016赛季
-	public void crawler(Document doc){
+	public void crawler(Document doc,String leagueNo,String seasonName){
 		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("dubbo-consumer.xml");
 		MatchService matchService = (MatchService) classPathXmlApplicationContext.getBean("matchService");
 		OddsService oddsService = (OddsService) classPathXmlApplicationContext.getBean("oddsService");
@@ -49,9 +49,9 @@ public class CrawlerFootball {
    		 String matchTimeSubstr = matchTime.substring(0, 2);
    		 if(Integer.parseInt(matchTimeSubstr)>=8){
    			 //页面上没有年份，8月之后的都是前一年，5月前是当年，英超赛季赛程当年8月到下一年5月
-   			 matchTime = "2015-"+matchTime;
+   			 matchTime = seasonName.substring(0,4)+"-"+matchTime;
    		 }else {
-   			 matchTime = "2016-"+matchTime;
+   			 matchTime = seasonName.substring(5,4)+"-"+matchTime;
 			}
    		 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 				try {
@@ -92,9 +92,9 @@ public class CrawlerFootball {
 			}
    		
    		//联赛编号
-   		matchVO.setLeagueNo("001005001");
+   		matchVO.setLeagueNo(leagueNo);
    		//赛季
-   		matchVO.setSeasonName("2015/2016");
+   		matchVO.setSeasonName(seasonName);
    		//保存比赛信息
    		String matchNo = "";
    		try {
@@ -118,7 +118,7 @@ public class CrawlerFootball {
 				try {
 					Document oddsdoc = Jsoup.connect("http://www.okooo.com"+odds+"change/27/").get();
 					Elements tr = oddsdoc.select("table tr");
-					for(int i= 2;i<tr.size();i++){
+					for(int i= 4;i<tr.size();i++){
 						Elements td = tr.get(i).select("td");
 						if(td.size()<5||StringUtils.isEmpty(td.get(0).text())){
 							continue;
