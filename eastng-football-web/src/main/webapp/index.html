@@ -13,19 +13,46 @@
 <script type="text/javascript">
 	$(function(){
 		$('#cc').calendar({
-		    width:600,
-		    height:600,
+		    width:400,
+		    height:400,
 			onSelect:function(date){
-				//alert(date.getMonth());
+				var queryParams = {
+						beginDate:date
+				};
+				dynamicTable.datagrid({
+				    url:'queryMatchByDate',
+				    queryParams: {
+				    	paramVO:JSON.stringify(queryParams)
+					},
+				    method:'post',
+				    columns:[[
+						{field:'matchTime',title:'开赛时间',width:150},
+						{field:'leagueShortName',title:'赛事',width:80},
+						{field:'seasonName',title:'赛季',width:80},
+						{field:'round',title:'轮次',width:40},
+						{field:'hostShortName',title:'主队',width:100},
+						{field:'score',title:'比分',width:60},
+						{field:'guestShortName',title:'客队',width:100},
+						{field:'name',title:'主胜',width:60},
+						{field:'name',title:'平局',width:60},
+						{field:'price',title:'主负',width:60,align:'right'}
+				    ]]
+				});
 			}
-		});  
+		});
+		
+		var dynamicTable = $('<table id="dg" title="比赛信息" style="width: 850px; height: 400px"'+
+		'data-options="rownumbers:true,singleSelect:true,pagination:true">');
+		$.parser.parse(dynamicTable);
+		$('#tableDiv').html(dynamicTable);
+		$.parser.parse($('#tableDiv'));
 	});
 </script>
 </head>
 <body>
 
 	<div style="margin: 20px 0"></div>
-	<div id="cc" style="width: 250px; height: 250px;"></div>
-
+	<div id="cc" style="width: 250px; float:left;margin-left: 3px"></div>
+	<div id="tableDiv" style="height: 250px;float: right;"></div>
 </body>
 </html>

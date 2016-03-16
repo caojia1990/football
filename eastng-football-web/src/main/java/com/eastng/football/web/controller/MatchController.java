@@ -59,17 +59,36 @@ public class MatchController {
 	 */
 	@RequestMapping("queryMatchByDate")
 	@ResponseBody
-	public DataGridResult<MatchVO> queryMatchByDate(Date date){
-		QueryMatchParamVO paramVO = new QueryMatchParamVO();
-		paramVO.setBeginDate(date);
+	public DataGridResult<QueryMatchResultVO> queryMatchByDate(@RequestParam(value="paramVO" ,required=false) String paramStr,
+			@RequestParam(value="rows",required = false)int rows,
+			@RequestParam(value="page",required = false)int page){
+		QueryMatchParamVO innerparamVO = JSON.parseObject(paramStr, QueryMatchParamVO.class);
+		innerparamVO.setPage(page);
+		innerparamVO.setRows(rows);
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		cal.setTime(innerparamVO.getBeginDate());
 		cal.add(Calendar.DATE, 1);
-		paramVO.setEndDate(cal.getTime());
-		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(paramVO);
-		DataGridResult<MatchVO> result = new DataGridResult<MatchVO>();
+		innerparamVO.setEndDate(cal.getTime());
+		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
+		
+		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
-		result.setRows(pageResult.getResult());
+		
+		//封装返回信息
+		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		if(!StringUtils.isEmpty(pageResult)){
+			for(MatchVO matchVO:pageResult.getResult()){
+				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				BeanUtils.copyProperties(matchVO, matchResultVO);
+				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
+					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
+				}
+				list.add(matchResultVO);
+			}
+		}
+		
+		result.setRows(list);
+		
 		return result;
 	}
 	
