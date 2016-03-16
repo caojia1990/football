@@ -24,7 +24,7 @@ import com.eastng.football.api.vo.match.MatchVO;
 
 public class CrawlerFootball {
 	
-	//Ó¢³¬2015/2016Èü¼¾
+	//è‹±è¶…2015/2016èµ›å­£
 	public void crawler(Document doc,String leagueNo,String seasonName){
 		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("dubbo-consumer.xml");
 		MatchService matchService = (MatchService) classPathXmlApplicationContext.getBean("matchService");
@@ -34,21 +34,21 @@ public class CrawlerFootball {
         for(Element element:elements){
        	 Elements s = element.select("td");
        	 
-       	//±ÈÈüÊ±¼ä
+       	//æ¯”èµ›æ—¶é—´
     	String matchTime = s.get(0).text();
-    		if(matchTime.equals("Ê±¼ä")){
+    		if(matchTime.equals("æ—¶é—´")){
     			continue;
     		}
        	 
-       	 //±È·Ö
+       	 //æ¯”åˆ†
 		String score = s.get(3).text();
 		
-       	 //±ÈÈüÏêÇé
+       	 //æ¯”èµ›è¯¦æƒ…
    		 MatchVO matchVO = new MatchVO();
    		 
    		 String matchTimeSubstr = matchTime.substring(0, 2);
    		 if(Integer.parseInt(matchTimeSubstr)>=8){
-   			 //Ò³ÃæÉÏÃ»ÓĞÄê·İ£¬8ÔÂÖ®ºóµÄ¶¼ÊÇÇ°Ò»Äê£¬5ÔÂÇ°ÊÇµ±Äê£¬Ó¢³¬Èü¼¾Èü³Ìµ±Äê8ÔÂµ½ÏÂÒ»Äê5ÔÂ
+   			 //é¡µé¢ä¸Šæ²¡æœ‰å¹´ä»½ï¼Œ8æœˆä¹‹åçš„éƒ½æ˜¯å‰ä¸€å¹´ï¼Œ5æœˆå‰æ˜¯å½“å¹´ï¼Œè‹±è¶…èµ›å­£èµ›ç¨‹å½“å¹´8æœˆåˆ°ä¸‹ä¸€å¹´5æœˆ
    			 matchTime = seasonName.substring(0,4)+"-"+matchTime;
    		 }else {
    			 matchTime = seasonName.substring(5,4)+"-"+matchTime;
@@ -61,18 +61,18 @@ public class CrawlerFootball {
 					e.printStackTrace();
 				}
    		 
-   		 //Ö÷¶ÓÃû³Æ
+   		 //ä¸»é˜Ÿåç§°
    		 matchVO.setHostShortName(s.get(2).text());
    		 String r = s.get(1).text();
    		 try {
-   			 //ÂÖ´Î
+   			 //è½®æ¬¡
    			 matchVO.setRound(Integer.parseInt(r));
 			} catch (RuntimeException e) {
 				continue;
 			}
-   		//¿Í¶ÓÃû³Æ
+   		//å®¢é˜Ÿåç§°
    		matchVO.setGuestShortName(s.get(4).text());
-   		//´¦Àí±È·Ö   Ò³ÃæÉÏ¸ñÊ½:2-3,È¥µôºá¸Ü£¬»ñÈ¡Ö÷¿Í¶Ó½øÇò
+   		//å¤„ç†æ¯”åˆ†   é¡µé¢ä¸Šæ ¼å¼:2-3,å»æ‰æ¨ªæ ï¼Œè·å–ä¸»å®¢é˜Ÿè¿›çƒ
    		if(!StringUtils.isEmpty(score)){
 				int matchScore = score.indexOf("-");
 				if(matchScore>-1){
@@ -86,31 +86,31 @@ public class CrawlerFootball {
 					}
 					matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 				}else{
-					//×´Ì¬
+					//çŠ¶æ€
 					matchVO.setMatchStatus(CommonConstant.MATCH_STATUS_NOT_BEGIN);
 				}
 			}
    		
-   		//ÁªÈü±àºÅ
+   		//è”èµ›ç¼–å·
    		matchVO.setLeagueNo(leagueNo);
-   		//Èü¼¾
+   		//èµ›å­£
    		matchVO.setSeasonName(seasonName);
-   		//±£´æ±ÈÈüĞÅÏ¢
+   		//ä¿å­˜æ¯”èµ›ä¿¡æ¯
    		String matchNo = "";
    		try {
    			System.out.println(ToStringBuilder.reflectionToString(matchVO, ToStringStyle.MULTI_LINE_STYLE));
    			matchNo = matchService.saveMatch(matchVO);
-			System.out.println("±£´æ±ÈÈüĞÅÏ¢³É¹¦"+matchNo);
+			System.out.println("ä¿å­˜æ¯”èµ›ä¿¡æ¯æˆåŠŸ"+matchNo);
 		} catch (FootBallBizException e1) {
 			System.out.println(e1.getMessage());
 			e1.printStackTrace();
 		}
    		
-   		//±ÈÈüÍê³ÉÅÀÈ¡ÅâÂÊĞÅÏ¢
+   		//æ¯”èµ›å®Œæˆçˆ¬å–èµ”ç‡ä¿¡æ¯
    		if(matchVO.getMatchStatus().equals(CommonConstant.MATCH_STATUS_END)){
 	   		Elements a = element.select("a");
 	   		String odds = a.get(1).attr("href");
-	   		//Î´¿ªÈüÈ¡µÚÒ»¸öÁ´½Ó
+	   		//æœªå¼€èµ›å–ç¬¬ä¸€ä¸ªé“¾æ¥
 	   		if(s.get(3).text().equals("VS")){
 	   			odds = a.get(0).attr("href");
 	   		}
@@ -126,7 +126,7 @@ public class CrawlerFootball {
 						OddsVO oddsVO = new OddsVO();
 						oddsVO.setMatchNo(matchNo);
 						oddsVO.setCompany("Bet365");
-						//¾àÀë¿ªÈüÊ±¼ä
+						//è·ç¦»å¼€èµ›æ—¶é—´
 						oddsVO.setTimeLeft(td.get(1).text());
 						oddsVO.setWin(new BigDecimal(td.get(2).text().substring(0, 4)));
 						oddsVO.setDraw(new BigDecimal(td.get(3).text().substring(0, 4)));
@@ -140,9 +140,9 @@ public class CrawlerFootball {
 							e.printStackTrace();
 						}
 						 System.out.println(ToStringBuilder.reflectionToString(oddsVO, ToStringStyle.MULTI_LINE_STYLE));
-						 //±£´æÅâÂÊĞÅÏ¢
+						 //ä¿å­˜èµ”ç‡ä¿¡æ¯
 						 oddsService.saveOdds(oddsVO);
-						 System.out.println("±£´æÅâÂÊ³É¹¦");
+						 System.out.println("ä¿å­˜èµ”ç‡æˆåŠŸ");
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
