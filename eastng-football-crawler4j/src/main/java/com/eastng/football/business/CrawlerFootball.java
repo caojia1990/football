@@ -19,8 +19,10 @@ import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.match.MatchVO;
+import com.eastng.football.api.vo.match.TeamVO;
 
 public class CrawlerFootball {
 	
@@ -29,7 +31,7 @@ public class CrawlerFootball {
 		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("dubbo-consumer.xml");
 		MatchService matchService = (MatchService) classPathXmlApplicationContext.getBean("matchService");
 		OddsService oddsService = (OddsService) classPathXmlApplicationContext.getBean("oddsService");
-		
+		TeamService teamService = (TeamService) classPathXmlApplicationContext.getBean("teamService");
 		Elements elements = doc.select("#team_fight_table tr");
         for(Element element:elements){
        	 Elements s = element.select("td");
@@ -62,7 +64,22 @@ public class CrawlerFootball {
 				}
    		 
    		 //主队名称
-   		 matchVO.setHostShortName(s.get(2).text());
+		 String hostName = s.get(2).text();
+   		 matchVO.setHostShortName(hostName);
+   		 //查询球队编号，不存在则插入
+   		 TeamVO teamVO = teamService.queryTeamByName(hostName);
+   		 if(StringUtils.isEmpty(teamVO.getTeamNo())){
+   			TeamVO teamVO2 = new TeamVO();
+   			teamVO2.setShortName(hostName);
+   			teamVO2.setTeamType("1");
+   			teamVO2.setContinent(leagueNo.substring(0,3)+"000");
+   			teamVO2.setCountry(leagueNo.substring(0, 6));
+   			String teamNo = teamService.saveTeam(teamVO2);
+   			matchVO.setHostTeamNo(teamNo);
+   		 }else {
+			matchVO.setHostTeamNo(teamVO.getTeamNo());
+		}
+   		 
    		 String r = s.get(1).text();
    		 try {
    			 //轮次
@@ -71,7 +88,23 @@ public class CrawlerFootball {
 				continue;
 			}
    		//客队名称
-   		matchVO.setGuestShortName(s.get(4).text());
+   		 String guestName = s.get(4).text();
+   		matchVO.setGuestShortName(guestName);
+   		
+   		teamVO = teamService.queryTeamByName(hostName);
+  		 if(StringUtils.isEmpty(teamVO.getTeamNo())){
+  			TeamVO teamVO2 = new TeamVO();
+  			teamVO2.setShortName(hostName);
+  			teamVO2.setTeamType("1");
+  			teamVO2.setContinent(leagueNo.substring(0,3)+"000");
+  			teamVO2.setCountry(leagueNo.substring(0, 6));
+  			String teamNo = teamService.saveTeam(teamVO2);
+  			matchVO.setGuestTeamNo(teamNo);
+  		 }else {
+			matchVO.setGuestTeamNo(teamVO.getTeamNo());
+		}
+   		
+   		
    		//处理比分   页面上格式:2-3,去掉横杠，获取主客队进球
    		if(!StringUtils.isEmpty(score)){
 				int matchScore = score.indexOf("-");

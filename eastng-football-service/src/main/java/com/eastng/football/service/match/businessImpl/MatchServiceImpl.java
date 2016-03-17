@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,32 +65,6 @@ public class MatchServiceImpl implements MatchService {
 		example.setOrderByClause("round desc,match_time asc");
 		Criteria criteria = example.createCriteria();
 		
-		if(!StringUtils.isEmpty(paramVO.getHostTeamNo())&&!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
-			criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
-			criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
-			
-			Criteria criteriaOr = example.createCriteria();
-			criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
-			criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
-			example.or(criteriaOr);
-		}else{
-			//主队编号
-			if(!StringUtils.isEmpty(paramVO.getHostTeamNo())){
-				criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
-				
-				Criteria criteriaOr = example.createCriteria();
-				criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
-				example.or(criteriaOr);
-			}
-			//客队编号
-			if(!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
-				criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
-				
-				Criteria criteriaOr = example.createCriteria();
-				criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
-				example.or(criteriaOr);
-			}
-		}
 		//开始时间
 		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
 			criteria.andMatchTimeGreaterThanOrEqualTo(paramVO.getBeginDate());
@@ -128,6 +104,75 @@ public class MatchServiceImpl implements MatchService {
 		return result;
 	}
 
+	/**
+	 * 查询两队交战记录
+	 * @param paramVO
+	 * @return
+	 */
+	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) {
+		
+		logger.info("查询两队交战记录入参："+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		PageResult<MatchVO> result = new PageResult<MatchVO>();
+		
+		MatchExample example = new MatchExample();
+		example.setOrderByClause("match_time desc");
+		Criteria criteria = example.createCriteria();
+		
+		if(!StringUtils.isEmpty(paramVO.getHostTeamNo())&&!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
+			criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
+			criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
+			
+			Criteria criteriaOr = example.createCriteria();
+			criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
+			criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
+			example.or(criteriaOr);
+		}else{
+			//主队编号
+			if(!StringUtils.isEmpty(paramVO.getHostTeamNo())){
+				criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
+				
+				Criteria criteriaOr = example.createCriteria();
+				criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
+				example.or(criteriaOr);
+			}
+			//客队编号
+			if(!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
+				criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
+				
+				Criteria criteriaOr = example.createCriteria();
+				criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
+				example.or(criteriaOr);
+			}
+		}
+		//开始时间
+		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
+			criteria.andMatchTimeLessThan(paramVO.getBeginDate());
+		}
+		
+		//联赛编号
+		if(!StringUtils.isEmpty(paramVO.getLeagueNo())){
+			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
+		}
+		
+		//比赛状态
+		criteria.andMatchStatusEqualTo(CommonConstant.MATCH_STATUS_END);
+		
+		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
+		List<Match> list = this.matchMapper.selectByExample(example);
+		Page<Match> page = (Page)list;
+		
+		result.setTotal(page.getTotal());
+		
+		List<MatchVO> resultList = new ArrayList<MatchVO>();
+		for(Match match:list){
+			MatchVO matchVO = new MatchVO();
+			BeanUtils.copyProperties(match, matchVO);
+			resultList.add(matchVO);
+		}
+		
+		result.setResult(resultList);
+		return result;
+	}
 
 	/**
 	 * 保存比赛信息

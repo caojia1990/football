@@ -37,6 +37,13 @@ public interface MatchService {
 	public PageResult<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
 
 	/**
+	 * 查询两队交战记录
+	 * @param paramVO
+	 * @return
+	 */
+	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO);
+	
+	/**
 	 * 根据比赛编号查询比赛详情
 	 * @param matchNo
 	 * @return

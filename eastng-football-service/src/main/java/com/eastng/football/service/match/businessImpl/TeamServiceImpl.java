@@ -25,13 +25,13 @@ public class TeamServiceImpl implements TeamService {
 	@Autowired
 	private TeamMapper teamMapper;
 	
-	public Integer saveTeam(TeamVO paramVO) {
+	public String saveTeam(TeamVO paramVO) {
 		
 		Team record = new Team();
 		BeanUtils.copyProperties(paramVO, record);
 		record.setTeamNo(GenerateCodeUtil.generateTeamNo());
 		Integer result = this.teamMapper.insertSelective(record);
-		return result;
+		return record.getTeamNo();
 	}
 
 	/**
