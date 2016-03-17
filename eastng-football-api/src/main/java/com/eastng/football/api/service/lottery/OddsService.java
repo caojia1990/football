@@ -2,7 +2,9 @@ package com.eastng.football.api.service.lottery;
 
 import java.util.List;
 
+import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
+import com.eastng.football.api.vo.lottery.QueryOddsParamVO;
 import com.eastng.football.api.vo.lottery.SaveOddsResultVO;
 
 /**
@@ -20,9 +22,9 @@ public interface OddsService {
 	
 	/**
 	 * 根据比赛编号查询赔率信息列表
-	 * @param matchNo 比赛编号
+	 * @param paramVO 入参
 	 * @return 赔率信息列表
 	 */
-	public List<OddsVO> queryOddsByMatchNo(String matchNo);
+	public PageResult<OddsVO> queryOddsByMatchNo(QueryOddsParamVO paramVO);
 
 }

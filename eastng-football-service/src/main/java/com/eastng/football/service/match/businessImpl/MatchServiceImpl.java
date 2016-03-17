@@ -62,6 +62,33 @@ public class MatchServiceImpl implements MatchService {
 		MatchExample example = new MatchExample();
 		example.setOrderByClause("round desc,match_time asc");
 		Criteria criteria = example.createCriteria();
+		
+		if(!StringUtils.isEmpty(paramVO.getHostTeamNo())&&!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
+			criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
+			criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
+			
+			Criteria criteriaOr = example.createCriteria();
+			criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
+			criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
+			example.or(criteriaOr);
+		}else{
+			//主队编号
+			if(!StringUtils.isEmpty(paramVO.getHostTeamNo())){
+				criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
+				
+				Criteria criteriaOr = example.createCriteria();
+				criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
+				example.or(criteriaOr);
+			}
+			//客队编号
+			if(!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
+				criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
+				
+				Criteria criteriaOr = example.createCriteria();
+				criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
+				example.or(criteriaOr);
+			}
+		}
 		//开始时间
 		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
 			criteria.andMatchTimeGreaterThanOrEqualTo(paramVO.getBeginDate());
@@ -74,6 +101,14 @@ public class MatchServiceImpl implements MatchService {
 		//联赛编号
 		if(!StringUtils.isEmpty(paramVO.getLeagueNo())){
 			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
+		}
+		//轮次
+		if(!StringUtils.isEmpty(paramVO.getRound())){
+			criteria.andRoundLessThan(paramVO.getRound());
+		}
+		//比赛状态
+		if(!StringUtils.isEmpty(paramVO.getMatchStatus())){
+			criteria.andMatchStatusEqualTo(paramVO.getMatchStatus());
 		}
 		
 		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());

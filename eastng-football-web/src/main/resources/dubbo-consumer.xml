@@ -21,4 +21,6 @@
 	<!-- 赛事服务接口 -->
 	<dubbo:reference id="leagueInfoService" interface="com.eastng.football.api.service.match.LeagueInfoService" check="false"/>
 	
+	<!-- 赛事服务接口 -->
+	<dubbo:reference id="OddsService" interface="com.eastng.football.api.service.lottery.OddsService" check="false"/>
 </beans>
