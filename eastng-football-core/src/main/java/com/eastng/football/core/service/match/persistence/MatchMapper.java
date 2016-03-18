@@ -76,6 +76,8 @@ public interface MatchMapper {
      */
     int updateByExample(@Param("record") Match record, @Param("example") MatchExample example);
     
+    int updateByPrimaryKeySelective(Match record);
+    
     /**
      * 批量插入
      * @param records

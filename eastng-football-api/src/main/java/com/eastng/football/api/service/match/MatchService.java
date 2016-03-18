@@ -51,19 +51,6 @@ public interface MatchService {
 	 */
 	public MatchVO queryMatchByMatchNo(String matchNo);
 	
-	/**
-	 * 根据必要条件查询唯一一条比赛记录
-	 * @param matchVO
-	 * @return
-	 */
-	public MatchVO queryUniqueMatch(MatchVO matchVO);
-	
-	/**
-	 * 查询两队历史交战记录
-	 * @param hostTeamId
-	 * @param guestTeamId
-	 */
-	public void queryMatchHistoryByTeams(String hostTeamId,String guestTeamId);
 	
 	/**
 	 * 更新积分榜

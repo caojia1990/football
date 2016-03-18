@@ -162,30 +162,48 @@ public class MatchServiceImpl implements MatchService {
 	 */
 	public String saveMatch(MatchVO matchVO) throws FootBallBizException{
 		
-		//比赛状态 0：未开始 1：比赛中 2：已结束
-		String matchStatus = matchVO.getMatchStatus();
-		if(StringUtils.isEmpty(matchStatus)){
-			logger.error("比赛状态不能为空");
-			throw new FootBallBizException("", "比赛状态不能为空");
+		logger.info("保存比赛信息saveMatch入参："+ToStringBuilder.reflectionToString(matchVO, ToStringStyle.MULTI_LINE_STYLE));
+		
+		String matchNo = null;
+		Match matchResult = this.queryUniqueMatch(matchVO);
+		//没有则保存
+		if(matchResult == null){
+			//比赛状态 0：未开始 1：比赛中 2：已结束
+			String matchStatus = matchVO.getMatchStatus();
+			if(StringUtils.isEmpty(matchStatus)){
+				logger.error("比赛状态不能为空");
+				throw new FootBallBizException("", "比赛状态不能为空");
+			}
+			
+			String leagueNo = matchVO.getLeagueNo();
+			if(StringUtils.isEmpty(leagueNo)){
+				logger.error("赛事编号不能为空");
+				throw new FootBallBizException("", "赛事编号不能为空");
+			}
+			LeagueInfo leagueInfo= this.leagueInfoMapper.selectByLeagueNo(leagueNo);
+			if(leagueInfo ==null ){
+				logger.error("赛事编号不存在");
+				throw new FootBallBizException("", "赛事编号不存在");
+			}
+			
+			Match match = new Match();
+			BeanUtils.copyProperties(matchVO, match);
+			match.setMatchNo(GenerateCodeUtil.generateMatchNo(leagueInfo.getLeagueNo()));
+			matchNo = match.getMatchNo();
+			int result = this.matchMapper.saveMatch(match);
+		}else {
+			//若库里存在，则根据状态来更新
+			if(!matchResult.getMatchStatus().equals(matchVO.getMatchStatus())){
+				Match record = new Match();
+				BeanUtils.copyProperties(matchVO, record);
+				record.setId(matchResult.getId());
+				logger.info("更新比赛信息入参"+ToStringBuilder.reflectionToString(record, ToStringStyle.MULTI_LINE_STYLE));
+				this.matchMapper.updateByPrimaryKeySelective(record);
+			}
+			matchNo = matchResult.getMatchNo();
 		}
 		
-		String leagueNo = matchVO.getLeagueNo();
-		if(StringUtils.isEmpty(leagueNo)){
-			logger.error("赛事编号不能为空");
-			throw new FootBallBizException("", "赛事编号不能为空");
-		}
-		LeagueInfo leagueInfo= this.leagueInfoMapper.selectByLeagueNo(leagueNo);
-        if(leagueInfo ==null ){
-        	logger.error("赛事编号不存在");
-			throw new FootBallBizException("", "赛事编号不存在");
-        }
-		
-		Match match = new Match();
-		BeanUtils.copyProperties(matchVO, match);
-		match.setMatchNo(GenerateCodeUtil.generateMatchNo(leagueInfo.getLeagueNo()));
-		int result = this.matchMapper.saveMatch(match);
-		
-		return match.getMatchNo();
+		return matchNo;
 	}
 	
 	public Integer saveMatchList(List<MatchVO> list){
@@ -233,9 +251,6 @@ public class MatchServiceImpl implements MatchService {
 		}
 	}
 
-	public void queryMatchHistoryByTeams(String hostTeamId, String guestTeamId) {
-		
-	}
 
 	/**
 	 * 根据比赛编号查询比赛详情
@@ -249,12 +264,53 @@ public class MatchServiceImpl implements MatchService {
 
 	/**
 	 * 根据必要条件查询唯一一条比赛记录
-	 * @param matchVO
+	 * @param matchVOs
 	 * @return
+	 * @throws FootBallBizException 
 	 */
-	public MatchVO queryUniqueMatch(MatchVO matchVO) {
-		// TODO Auto-generated method stub
-		return null;
+	private Match queryUniqueMatch(MatchVO matchVO) throws FootBallBizException {
+		logger.info("根据必要条件查询唯一一条比赛记录queryUniqueMatch入参"+ToStringBuilder.reflectionToString(matchVO, ToStringStyle.MULTI_LINE_STYLE));
+		if(StringUtils.isEmpty(matchVO)){
+			logger.info("入参为空");
+			throw new FootBallBizException("", "入参为空");
+		}
+		if(StringUtils.isEmpty(matchVO.getHostTeamNo())){
+			logger.info("主队编号为空");
+			throw new FootBallBizException("", "主队编号为空");
+		}
+		if(StringUtils.isEmpty(matchVO.getGuestTeamNo())){
+			logger.info("客队编号为空");
+			throw new FootBallBizException("", "客队编号为空");
+		}
+		if(StringUtils.isEmpty(matchVO.getLeagueNo())){
+			logger.info("联赛编号为空");
+			throw new FootBallBizException("", "联赛编号为空");
+		}
+		if(StringUtils.isEmpty(matchVO.getSeasonName())){
+			logger.info("赛季名称为空");
+			throw new FootBallBizException("", "赛季名称为空");
+		}
+		if(StringUtils.isEmpty(matchVO.getMatchTime())){
+			logger.info("比赛时间为空");
+			throw new FootBallBizException("", "比赛时间为空");
+		}
+		Match record = new Match();
+		record.setHostTeamNo(matchVO.getHostTeamNo());
+		record.setGuestTeamNo(matchVO.getGuestTeamNo());
+		record.setLeagueNo(matchVO.getLeagueNo());
+		record.setSeasonName(matchVO.getSeasonName());
+		record.setMatchTime(matchVO.getMatchTime());
+		
+		List<Match> list = this.matchMapper.selectByCondition(record);
+		
+		Match match = new Match();
+		if(list != null && list.size() >0){
+			match = list.get(0);
+		}else {
+			match = null;
+		}
+		logger.info("根据必要条件查询唯一一条比赛记录queryUniqueMatch返回"+ToStringBuilder.reflectionToString(match, ToStringStyle.MULTI_LINE_STYLE));
+		return match;
 	}
 	
 }

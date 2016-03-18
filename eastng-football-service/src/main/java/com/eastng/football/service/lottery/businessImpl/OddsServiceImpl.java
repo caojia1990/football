@@ -13,6 +13,7 @@ import com.eastng.football.api.vo.lottery.SaveOddsResultVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.core.entity.lottery.Odds;
 import com.eastng.football.core.entity.lottery.OddsExample;
+import com.eastng.football.core.entity.lottery.OddsExample.Criteria;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.service.lottery.persistence.OddsMapper;
 import com.eastng.football.util.BeanUtils;
@@ -30,9 +31,21 @@ public class OddsServiceImpl implements OddsService {
 	 * @return 保存返回结果
 	 */
 	public SaveOddsResultVO saveOdds(OddsVO oddsVO) {
-		Odds odds = new Odds();
-		BeanUtils.copyProperties(oddsVO, odds);
-		this.oddsMapper.insertSelective(odds);
+		
+		OddsExample example = new OddsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCompanyEqualTo(oddsVO.getCompany());
+		criteria.andChangeTimeEqualTo(oddsVO.getChangeTime());
+		criteria.andWinEqualTo(oddsVO.getWin());
+		criteria.andDrawEqualTo(oddsVO.getDraw());
+		criteria.andLoseEqualTo(oddsVO.getLose());
+		List<Odds> list = this.oddsMapper.selectByExample(example);
+		
+		if(list == null || list.size()==0){
+			Odds odds = new Odds();
+			BeanUtils.copyProperties(oddsVO, odds);
+			this.oddsMapper.insertSelective(odds);
+		}
 		SaveOddsResultVO resultVO = new SaveOddsResultVO();
 		return resultVO;
 	}

@@ -564,6 +564,7 @@
 			<if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
 			<if test="leagueNo">and t_match.LEAGUE_NO = #{leagueNo}</if>
 			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
+			<if test="matchTime">and MATCH_TIME = #{matchTime}</if>
 			<if test="round">and ROUND = #{round}</if>
 			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
     </where>
@@ -587,5 +588,6 @@
     		(GUEST_TEAM_NO = #{hostTeamNo} and HOST_TEAM_NO = #{guestTeamNo}) 
     		)
     </where>
+    order by MATCH_TIME DESC
   </select>
 </mapper>
