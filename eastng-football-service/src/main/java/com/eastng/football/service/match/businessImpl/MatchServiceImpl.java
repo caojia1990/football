@@ -246,4 +246,15 @@ public class MatchServiceImpl implements MatchService {
 		this.matchMapper.selectMatchByMatchNo("123");
 		return null;
 	}
+
+	/**
+	 * 根据必要条件查询唯一一条比赛记录
+	 * @param matchVO
+	 * @return
+	 */
+	public MatchVO queryUniqueMatch(MatchVO matchVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

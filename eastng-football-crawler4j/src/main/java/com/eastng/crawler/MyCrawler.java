@@ -33,7 +33,7 @@ public class MyCrawler extends WebCrawler {
      public boolean shouldVisit(Page referringPage, WebURL url) {
          String href = url.getURL().toLowerCase();
          Boolean b = !FILTERS.matcher(href).matches()
-                 && href.startsWith("http://www.okooo.com/soccer/league/17/schedule/12084/1-1-");
+                 && href.startsWith("http://www.okooo.com/soccer/league/17/schedule/8186/1-1-");
          return b;
      }
 
@@ -59,7 +59,7 @@ public class MyCrawler extends WebCrawler {
              Document doc = Jsoup.parse(html);
              CrawlerFootball crawlerFootball = new CrawlerFootball();
              try {
-				crawlerFootball.crawler(doc,"001005001","2015/2016");
+				crawlerFootball.crawler(doc,"001005001","2014/2015");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

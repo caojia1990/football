@@ -96,21 +96,15 @@
 				    ]],
 					onClickRow: function(index,row){
 						
-						//数据表格
+						//赔率信息数据表格
 						var oddsInfo = $('<table id="oddsInfodg" style="width: 600px; height: 305px"'+
 						'data-options="rownumbers:true,fit:true,fitColumns:true,singleSelect:true,pagination:true">');
 						$.parser.parse(oddsInfo);
 						$('#oddsInfo').html(oddsInfo);
 						
-						/* var queryParams = {
-								hostTeamNo :row.hostTeamNo,
-								guestTeamNo : row.guestTeamNo,
-								round : row.round
-						}; */
 						oddsInfo.datagrid({
 						    url:'queryOdds',
 						    queryParams: {
-						    	//paramVO:JSON.stringify(queryParams)
 						    	matchNo:row.matchNo
 							},
 						    method:'post',
