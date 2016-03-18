@@ -108,57 +108,37 @@ public class MatchServiceImpl implements MatchService {
 	 * 查询两队交战记录
 	 * @param paramVO
 	 * @return
+	 * @throws FootBallBizException 
 	 */
-	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) {
+	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) throws FootBallBizException {
 		
 		logger.info("查询两队交战记录入参："+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
 		PageResult<MatchVO> result = new PageResult<MatchVO>();
 		
-		MatchExample example = new MatchExample();
-		example.setOrderByClause("match_time desc");
-		Criteria criteria = example.createCriteria();
+		Match record = new Match();
 		
 		if(!StringUtils.isEmpty(paramVO.getHostTeamNo())&&!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
-			criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
-			criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
-			
-			Criteria criteriaOr = example.createCriteria();
-			criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
-			criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
-			example.or(criteriaOr);
+			record.setHostTeamNo(paramVO.getHostTeamNo());
+			record.setGuestTeamNo(paramVO.getGuestTeamNo());
 		}else{
-			//主队编号
-			if(!StringUtils.isEmpty(paramVO.getHostTeamNo())){
-				criteria.andHostTeamNoEqualTo(paramVO.getHostTeamNo());
-				
-				Criteria criteriaOr = example.createCriteria();
-				criteriaOr.andGuestTeamNoEqualTo(paramVO.getHostTeamNo());
-				example.or(criteriaOr);
-			}
-			//客队编号
-			if(!StringUtils.isEmpty(paramVO.getGuestTeamNo())){
-				criteria.andGuestTeamNoEqualTo(paramVO.getGuestTeamNo());
-				
-				Criteria criteriaOr = example.createCriteria();
-				criteriaOr.andHostTeamNoEqualTo(paramVO.getGuestTeamNo());
-				example.or(criteriaOr);
-			}
+			logger.info("两支球队编号不能为空");
+			throw new FootBallBizException("", "两支球队编号不能为空");
 		}
 		//开始时间
 		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
-			criteria.andMatchTimeLessThan(paramVO.getBeginDate());
+			record.setMatchTime(paramVO.getBeginDate());
 		}
 		
 		//联赛编号
 		if(!StringUtils.isEmpty(paramVO.getLeagueNo())){
-			criteria.andLeagueNoEqualTo(paramVO.getLeagueNo());
+			record.setLeagueNo(paramVO.getLeagueNo());
 		}
 		
 		//比赛状态
-		criteria.andMatchStatusEqualTo(CommonConstant.MATCH_STATUS_END);
+		record.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 		
 		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
-		List<Match> list = this.matchMapper.selectByExample(example);
+		List<Match> list = this.matchMapper.queryMatchHistory(record);
 		Page<Match> page = (Page)list;
 		
 		result.setTotal(page.getTotal());
@@ -202,7 +182,7 @@ public class MatchServiceImpl implements MatchService {
 		
 		Match match = new Match();
 		BeanUtils.copyProperties(matchVO, match);
-		match.setMatchNo(GenerateCodeUtil.generateMatchNo("XJ"));
+		match.setMatchNo(GenerateCodeUtil.generateMatchNo(leagueInfo.getLeagueNo()));
 		int result = this.matchMapper.saveMatch(match);
 		
 		return match.getMatchNo();

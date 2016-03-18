@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
+import com.eastng.football.core.entity.match.Team;
 
 /**
  * 比赛Mapper接口
@@ -82,4 +83,10 @@ public interface MatchMapper {
      */
     int batchInsert(List<Match> records);
     
+    /**
+     * 查询历史交战信息
+     * @param record
+     * @return
+     */
+    List<Match> queryMatchHistory(Match record);
 }

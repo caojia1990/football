@@ -100,4 +100,5 @@ public interface TeamMapper {
      * @return
      */
     int batchInsert(List<Team> list);
+    
 }

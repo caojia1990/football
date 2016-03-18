@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.MatchService;
@@ -169,7 +170,7 @@ public class MatchController {
 	@ResponseBody
 	public DataGridResult<QueryMatchResultVO> queryMatchHistory(@RequestParam(value="paramVO" ,required=false) String paramVO,
 			@RequestParam(value="rows",required = false)int rows,
-			@RequestParam(value="page",required = false)int page){
+			@RequestParam(value="page",required = false)int page) throws FootBallBizException{
 		
 		QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(innerparamVO == null){

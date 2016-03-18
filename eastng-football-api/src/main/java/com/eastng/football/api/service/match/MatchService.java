@@ -40,8 +40,9 @@ public interface MatchService {
 	 * 查询两队交战记录
 	 * @param paramVO
 	 * @return
+	 * @throws FootBallBizException 
 	 */
-	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO);
+	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) throws FootBallBizException;
 	
 	/**
 	 * 根据比赛编号查询比赛详情

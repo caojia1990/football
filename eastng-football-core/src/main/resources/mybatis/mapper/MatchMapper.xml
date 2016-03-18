@@ -568,4 +568,24 @@
 			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
     </where>
   </select>
+  
+  <!-- 查询交战记录 -->
+  <select id="queryMatchHistory" parameterType="com.eastng.football.core.entity.match.Match" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,LEAGUE_SHORT_NAME
+    from t_match 
+    left join t_league_info
+    on t_match.league_no = t_league_info.league_no
+    <where>
+    	<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+    	<if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
+    	<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+    	and(
+    		(HOST_TEAM_NO = #{hostTeamNo} and GUEST_TEAM_NO = #{guestTeamNo}) 
+    		or
+    		(GUEST_TEAM_NO = #{hostTeamNo} and HOST_TEAM_NO = #{guestTeamNo}) 
+    		)
+    </where>
+  </select>
 </mapper>

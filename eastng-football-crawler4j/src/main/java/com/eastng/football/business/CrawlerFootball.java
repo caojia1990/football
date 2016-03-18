@@ -53,7 +53,7 @@ public class CrawlerFootball {
    			 //页面上没有年份，8月之后的都是前一年，5月前是当年，英超赛季赛程当年8月到下一年5月
    			 matchTime = seasonName.substring(0,4)+"-"+matchTime;
    		 }else {
-   			 matchTime = seasonName.substring(5,4)+"-"+matchTime;
+   			 matchTime = seasonName.substring(5,9)+"-"+matchTime;
 			}
    		 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 				try {
@@ -91,7 +91,7 @@ public class CrawlerFootball {
    		 String guestName = s.get(4).text();
    		matchVO.setGuestShortName(guestName);
    		
-   		teamVO = teamService.queryTeamByName(hostName);
+   		teamVO = teamService.queryTeamByName(guestName);
   		 if(StringUtils.isEmpty(teamVO.getTeamNo())){
   			TeamVO teamVO2 = new TeamVO();
   			teamVO2.setShortName(hostName);
