@@ -91,4 +91,11 @@ public interface MatchMapper {
      * @return
      */
     List<Match> queryMatchHistory(Match record);
+    
+    /**
+     * 查询最近战况
+     * @param record
+     * @return
+     */
+    List<Match> queryRecentMatch(Match record);
 }

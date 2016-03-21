@@ -45,6 +45,14 @@ public interface MatchService {
 	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) throws FootBallBizException;
 	
 	/**
+	 * 查询最近的战况
+	 * @param paramVO
+	 * @return
+	 * @throws FootBallBizException 
+	 */
+	public PageResult<MatchVO> queryRecentMatch(QueryMatchParamVO paramVO) throws FootBallBizException;
+	
+	/**
 	 * 根据比赛编号查询比赛详情
 	 * @param matchNo
 	 * @return

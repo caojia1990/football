@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,11 +34,13 @@ import com.eastng.football.api.vo.match.TeamVO;
 import com.eastng.football.web.view.easyui.DataGridResult;
 import com.eastng.football.web.view.easyui.Tree;
 import com.eastng.football.web.view.easyui.TreeAttributes;
+import com.eastng.football.web.view.match.QueryMatchHistoryParamVO;
 import com.eastng.football.web.view.match.QueryMatchResultVO;
 
 @Controller
 public class MatchController {
 	
+	static Logger logger = Logger.getLogger(MatchController.class);
 	@Autowired
 	private MatchService matchService;
 	
@@ -61,12 +66,8 @@ public class MatchController {
 	 */
 	@RequestMapping("queryMatchByDate")
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatchByDate(@RequestParam(value="paramVO" ,required=false) String paramStr,
-			@RequestParam(value="rows",required = false)int rows,
-			@RequestParam(value="page",required = false)int page){
-		QueryMatchParamVO innerparamVO = JSON.parseObject(paramStr, QueryMatchParamVO.class);
-		innerparamVO.setPage(page);
-		innerparamVO.setRows(rows);
+	public DataGridResult<QueryMatchResultVO> queryMatchByDate(QueryMatchParamVO innerparamVO){
+		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramStr, QueryMatchParamVO.class);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(innerparamVO.getBeginDate());
 		cal.add(Calendar.DATE, 1);
@@ -135,16 +136,12 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatch(@RequestParam(value="paramVO" ,required=false) String paramVO,
-			@RequestParam(value="rows",required = false)int rows,
-			@RequestParam(value="page",required = false)int page){
+	public DataGridResult<QueryMatchResultVO> queryMatch(QueryMatchParamVO innerparamVO){
 		
-		QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
+		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(innerparamVO == null){
 			innerparamVO = new QueryMatchParamVO();
 		}
-		innerparamVO.setRows(rows);
-		innerparamVO.setPage(page);
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
 		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
@@ -168,16 +165,16 @@ public class MatchController {
 	
 	@RequestMapping(value="queryMatchHistory" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatchHistory(@RequestParam(value="paramVO" ,required=false) String paramVO,
-			@RequestParam(value="rows",required = false)int rows,
-			@RequestParam(value="page",required = false)int page) throws FootBallBizException{
+	public DataGridResult<QueryMatchResultVO> queryMatchHistory(QueryMatchHistoryParamVO paramVO) throws FootBallBizException{
 		
-		QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
-		if(innerparamVO == null){
-			innerparamVO = new QueryMatchParamVO();
+		logger.info("查询历史对战记录入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
+		if(paramVO == null){
+			paramVO = new QueryMatchHistoryParamVO();
 		}
-		innerparamVO.setRows(rows);
-		innerparamVO.setPage(page);
+		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
+		BeanUtils.copyProperties(paramVO, innerparamVO);
+		
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchHistory(innerparamVO);
 		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());

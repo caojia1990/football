@@ -22,7 +22,8 @@
 				dynamicTable.datagrid({
 				    url:'queryMatchByDate',
 				    queryParams: {
-				    	paramVO:JSON.stringify(queryParams)
+				    	//paramVO:JSON.stringify(queryParams)
+				    	beginDate:date
 					},
 				    method:'post',
 				    columns:[[
@@ -74,15 +75,12 @@
 				$('#matchHistory').html(matchHistoryTable);
 				$.parser.parse($('#matchHistory'));
 				
-				var queryParams = {
-						hostTeamNo :row.hostTeamNo,
-						guestTeamNo : row.guestTeamNo,
-						beginDate : row.matchTime
-				};
 				matchHistoryTable.datagrid({
 				    url:'queryMatchHistory',
 				    queryParams: {
-				    	paramVO:JSON.stringify(queryParams)
+				    	hostTeamNo :row.hostTeamNo,
+						guestTeamNo : row.guestTeamNo,
+						beginDate : row.matchTime
 					},
 				    method:'post',
 				    columns:[[

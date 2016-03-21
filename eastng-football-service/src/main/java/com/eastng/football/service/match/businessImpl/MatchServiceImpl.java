@@ -312,5 +312,16 @@ public class MatchServiceImpl implements MatchService {
 		logger.info("根据必要条件查询唯一一条比赛记录queryUniqueMatch返回"+ToStringBuilder.reflectionToString(match, ToStringStyle.MULTI_LINE_STYLE));
 		return match;
 	}
+
+	/**
+	 * 查询最近的战况
+	 * @param paramVO
+	 * @return
+	 * @throws FootBallBizException 
+	 */
+	public PageResult<MatchVO> queryRecentMatch(QueryMatchParamVO paramVO) throws FootBallBizException {
+		
+		return null;
+	}
 	
 }
