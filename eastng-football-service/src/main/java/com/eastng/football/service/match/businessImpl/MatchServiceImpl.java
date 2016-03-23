@@ -320,8 +320,45 @@ public class MatchServiceImpl implements MatchService {
 	 * @throws FootBallBizException 
 	 */
 	public PageResult<MatchVO> queryRecentMatch(QueryMatchParamVO paramVO) throws FootBallBizException {
+		logger.info("查询最近的战况入参："+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		PageResult<MatchVO> result = new PageResult<MatchVO>();
 		
-		return null;
+		Match record = new Match();
+		
+		if(StringUtils.isEmpty(paramVO.getHostTeamNo())){
+			logger.info("球队编号不能为空");
+			throw new FootBallBizException("", "球队编号不能为空");
+		}
+		record.setHostTeamNo(paramVO.getHostTeamNo());
+		
+		//开始时间
+		if(!StringUtils.isEmpty(paramVO.getBeginDate())){
+			record.setMatchTime(paramVO.getBeginDate());
+		}
+		
+		//联赛编号
+		if(!StringUtils.isEmpty(paramVO.getLeagueNo())){
+			record.setLeagueNo(paramVO.getLeagueNo());
+		}
+		
+		//比赛状态
+		record.setMatchStatus(CommonConstant.MATCH_STATUS_END);
+		
+		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
+		List<Match> list = this.matchMapper.queryMatchHistory(record);
+		Page<Match> page = (Page)list;
+		
+		result.setTotal(page.getTotal());
+		
+		List<MatchVO> resultList = new ArrayList<MatchVO>();
+		for(Match match:list){
+			MatchVO matchVO = new MatchVO();
+			BeanUtils.copyProperties(match, matchVO);
+			resultList.add(matchVO);
+		}
+		
+		result.setResult(resultList);
+		return result;
 	}
 	
 }

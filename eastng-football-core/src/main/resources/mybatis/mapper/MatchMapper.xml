@@ -603,12 +603,11 @@
     	<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
     	<if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
     	<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
-    	<if test="guestTeamNo">and LEAGUE_NO = #{guestTeamNo}</if>
-    	and(
-    		(HOST_TEAM_NO = #{hostTeamNo} and GUEST_TEAM_NO = #{guestTeamNo}) 
-    		or
-    		(GUEST_TEAM_NO = #{hostTeamNo} and HOST_TEAM_NO = #{guestTeamNo}) 
-    		)
+    	<if test="hostTeamNo">
+	    	and (
+	    		HOST_TEAM_NO = #{hostTeamNo} or GUEST_TEAM_NO = #{hostTeamNo}
+	    		)
+    	</if>
     </where>
     order by MATCH_TIME DESC
   </select>

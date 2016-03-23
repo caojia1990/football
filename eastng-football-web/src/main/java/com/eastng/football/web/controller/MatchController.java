@@ -36,6 +36,7 @@ import com.eastng.football.web.view.easyui.Tree;
 import com.eastng.football.web.view.easyui.TreeAttributes;
 import com.eastng.football.web.view.match.QueryMatchHistoryParamVO;
 import com.eastng.football.web.view.match.QueryMatchResultVO;
+import com.eastng.football.web.view.match.QueryRecentMatchParamVO;
 
 @Controller
 public class MatchController {
@@ -174,6 +175,49 @@ public class MatchController {
 		}
 		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
 		BeanUtils.copyProperties(paramVO, innerparamVO);
+		
+		PageResult<MatchVO> pageResult = this.matchService.queryMatchHistory(innerparamVO);
+		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
+		result.setTotal(pageResult.getTotal());
+		
+		//封装返回信息
+		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		if(!StringUtils.isEmpty(pageResult)){
+			for(MatchVO matchVO:pageResult.getResult()){
+				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				BeanUtils.copyProperties(matchVO, matchResultVO);
+				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
+					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
+				}
+				list.add(matchResultVO);
+			}
+		}
+		
+		result.setRows(list);
+		return result;
+	}
+	
+	@RequestMapping(value="queryRecentMatch" ,method = RequestMethod.POST)
+	@ResponseBody
+	public DataGridResult<QueryMatchResultVO> queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
+		
+		logger.info("查询历史对战记录入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
+		if(paramVO == null){
+			paramVO = new QueryRecentMatchParamVO();
+		}
+		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
+		//球队编号
+		innerparamVO.setHostTeamNo(paramVO.getTeamNo());
+		//联赛编号
+		innerparamVO.setLeagueNo(paramVO.getLeagueNo());
+		//赛季名称
+		innerparamVO.setSeasonName(paramVO.getSeasonName());
+		//比赛时间
+		innerparamVO.setBeginDate(paramVO.getMatchTime());
+		//
+		innerparamVO.setPage(paramVO.getPage());
+		innerparamVO.setRows(paramVO.getRows());
 		
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchHistory(innerparamVO);
 		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
