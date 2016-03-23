@@ -201,7 +201,7 @@ public class MatchController {
 	@ResponseBody
 	public DataGridResult<QueryMatchResultVO> queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
 		
-		logger.info("查询历史对战记录入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		logger.info("查询球队近况入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(paramVO == null){
 			paramVO = new QueryRecentMatchParamVO();
@@ -219,7 +219,7 @@ public class MatchController {
 		innerparamVO.setPage(paramVO.getPage());
 		innerparamVO.setRows(paramVO.getRows());
 		
-		PageResult<MatchVO> pageResult = this.matchService.queryMatchHistory(innerparamVO);
+		PageResult<MatchVO> pageResult = this.matchService.queryRecentMatch(innerparamVO);
 		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
 		

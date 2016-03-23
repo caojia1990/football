@@ -345,7 +345,7 @@ public class MatchServiceImpl implements MatchService {
 		record.setMatchStatus(CommonConstant.MATCH_STATUS_END);
 		
 		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
-		List<Match> list = this.matchMapper.queryMatchHistory(record);
+		List<Match> list = this.matchMapper.queryRecentMatch(record);
 		Page<Match> page = (Page)list;
 		
 		result.setTotal(page.getTotal());

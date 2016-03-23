@@ -52,7 +52,9 @@
 		
 		
 		$('#dg').datagrid({
-			onClickRow: dgClick(index,row)
+			onClickRow: function(index,row){
+				dgClick(index,row)
+			}
 		});
 		
 	});
