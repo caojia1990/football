@@ -100,9 +100,11 @@
 		$(currentTabPanel).html(dynamicTable);	
 		$.parser.parse(currentTabPanel);
 						
-		var queryParams = {paramVO:{}};
 		dynamicTable.datagrid({
 		    url:'../queryMatch',
+		    queryParams: {
+		    	leagueNo:'001005001'
+			},
 		    method:'post',
 		    columns:[[
 				{field:'matchTime',title:'开赛时间',width:150},

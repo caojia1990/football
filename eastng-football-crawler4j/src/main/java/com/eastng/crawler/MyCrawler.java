@@ -34,7 +34,7 @@ public class MyCrawler extends WebCrawler {
          String href = url.getURL().toLowerCase();
          Boolean b = !FILTERS.matcher(href).matches()
                  && href.startsWith("http://www.okooo.com/soccer/league/8/schedule/8578/1-36-");
-         return b;
+         return false;
      }
 
      /**
@@ -59,7 +59,7 @@ public class MyCrawler extends WebCrawler {
              Document doc = Jsoup.parse(html);
              CrawlerFootball crawlerFootball = new CrawlerFootball();
              try {
-				crawlerFootball.crawler(doc,"001002001","2014/2015");
+				crawlerFootball.crawler(doc,"001005001","2015/2016");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

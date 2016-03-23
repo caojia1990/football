@@ -68,11 +68,15 @@ function dgClick(index,row){
 							    	if(hostTeamNo == row.hostTeamNo){
 							    		if (row.hostGoal > row.guestGoal){    
 							    			return 'background-color:pink;color:black;font-weight:bold;';    
-							    		}    
+							    		}else if (row.hostGoal < row.guestGoal) {
+							    			return 'background-color:#AAFF66;color:black;font-weight:bold;';    
+										}      
 							    	}else if (hostTeamNo == row.guestTeamNo) {
 							    		if (row.hostGoal < row.guestGoal){    
 							    			return 'background-color:pink;color:black;font-weight:bold;';    
-							    		}
+							    		}else if (row.hostGoal > row.guestGoal) {
+							    			return 'background-color:#AAFF66;color:black;font-weight:bold;';
+										}
 									}
 							    }   
 							});
@@ -105,13 +109,13 @@ function dgClick(index,row){
 							    		if (row.hostGoal > row.guestGoal){    
 							    			return 'background-color:pink;color:black;font-weight:bold;';    
 							    		}else if (row.hostGoal < row.guestGoal) {
-							    			return 'background-color:green;color:black;font-weight:bold;';    
+							    			return 'background-color:#AAFF66;color:black;font-weight:bold;';    
 										}    
 							    	}else if (guestTeamNo == row.guestTeamNo) {
 							    		if (row.hostGoal < row.guestGoal){    
 							    			return 'background-color:pink;color:black;font-weight:bold;';    
 							    		}else if (row.hostGoal > row.guestGoal) {
-							    			return 'background-color:green;color:black;font-weight:bold;';
+							    			return 'background-color:#AAFF66;color:black;font-weight:bold;';
 										}
 									}   
 							    }   

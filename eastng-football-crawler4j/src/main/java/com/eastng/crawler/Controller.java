@@ -29,10 +29,12 @@ public class Controller {
          */
        /* controller.addSeed("http://www.ics.uci.edu/~lopes/");
         controller.addSeed("http://www.ics.uci.edu/~welling/");*/
+        //英超15/16赛季
         //controller.addSeed("http://www.okooo.com/soccer/league/17/schedule/12084/1-1-1/");
-        //controller.addSeed("https://mobile.188563.com");
-        controller.addSeed("http://www.okooo.com/soccer/league/8/schedule/8578/1-36-1/");
-
+        //西甲14/15赛季
+        //controller.addSeed("http://www.okooo.com/soccer/league/8/schedule/8578/1-36-1/");
+        controller.addSeed("http://www.okooo.com/soccer/league/17/schedule/12084/1-1-31/");
+        
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
          * will reach the line after this only when crawling is finished.

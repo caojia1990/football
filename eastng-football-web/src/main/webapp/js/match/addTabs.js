@@ -18,13 +18,10 @@ function addTab(node){
 		$(currentTabPanel).html(dynamicTable);	
 		//$.parser.parse(currentTabPanel);
 						
-		var paramVO1 = {
-						leagueNo:node.id
-						};
 		dynamicTable.datagrid({
 		    url:'../queryMatch',
 		    queryParams: {
-		    	paramVO:JSON.stringify(paramVO1)
+		    	leagueNo:node.id
 			},
 		    method:'post',
 		    columns:[[

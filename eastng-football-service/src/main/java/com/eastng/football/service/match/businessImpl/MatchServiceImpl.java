@@ -62,7 +62,7 @@ public class MatchServiceImpl implements MatchService {
 		PageResult<MatchVO> result = new PageResult<MatchVO>();
 		
 		MatchExample example = new MatchExample();
-		example.setOrderByClause("round desc,match_time asc");
+		example.setOrderByClause("match_time asc");
 		Criteria criteria = example.createCriteria();
 		
 		//开始时间
