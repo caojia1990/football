@@ -152,6 +152,21 @@ function dgClick(index,row){
 						{field:'score',title:'比分',width:50},
 						{field:'guestShortName',title:'客队',width:80}
 				    ]],
+				    rowStyler:function(index,row){
+				    	if(hostTeamNo == row.hostTeamNo){
+				    		if (row.hostGoal > row.guestGoal){    
+				    			return 'background-color:pink;color:black;font-weight:bold;';    
+				    		}else if (row.hostGoal < row.guestGoal) {
+				    			return 'background-color:#AAFF66;color:black;font-weight:bold;';    
+							}      
+				    	}else if (hostTeamNo == row.guestTeamNo) {
+				    		if (row.hostGoal < row.guestGoal){    
+				    			return 'background-color:pink;color:black;font-weight:bold;';    
+				    		}else if (row.hostGoal > row.guestGoal) {
+				    			return 'background-color:#AAFF66;color:black;font-weight:bold;';
+							}
+						}
+				    },
 					onClickRow: function(index,row){
 						
 						//赔率信息数据表格
