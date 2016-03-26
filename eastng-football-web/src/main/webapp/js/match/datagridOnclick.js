@@ -43,13 +43,13 @@ function dgClick(index,row){
 							
 							//主队选项卡信息
 							var hostTab = tabs.tabs('getTab',row.hostShortName);
-							var dynamicTable = $('<table id="dg'+row.hostTeamNo+'" title="'+row.hostShortName+'" style=" "'+
+							var hostDynamicTable = $('<table id="dg'+row.hostTeamNo+'" title="'+row.hostShortName+'" style=" "'+
 							'data-options="rownumbers:true,singleSelect:true,pagination:true">')
 							//$.parser.parse(dynamicTable);
-							$(hostTab).html(dynamicTable);	
+							$(hostTab).html(hostDynamicTable);	
 							//$.parser.parse(hostTab);
 											
-							dynamicTable.datagrid({
+							hostDynamicTable.datagrid({
 							    url:'queryRecentMatch',
 							    queryParams: {
 							    	teamNo:row.hostTeamNo,
@@ -80,6 +80,10 @@ function dgClick(index,row){
 									}
 							    }   
 							});
+							//主队胜负饼图
+							//获取主队比赛总数
+							var hostCount = hostDynamicTable.datagrid('getData').total;
+							alert(hostCount);
 							
 							//客队选项卡信息
 							var guestTab = tabs.tabs('getTab',row.guestShortName);
