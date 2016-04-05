@@ -164,6 +164,12 @@ public class MatchController {
 		return result;
 	}
 	
+	/**
+	 * 查询历史交战记录
+	 * @param paramVO
+	 * @return
+	 * @throws FootBallBizException
+	 */
 	@RequestMapping(value="queryMatchHistory" ,method = RequestMethod.POST)
 	@ResponseBody
 	public DataGridResult<QueryMatchResultVO> queryMatchHistory(QueryMatchHistoryParamVO paramVO) throws FootBallBizException{
@@ -197,11 +203,17 @@ public class MatchController {
 		return result;
 	}
 	
+	/**
+	 * 查询近期战况
+	 * @param paramVO
+	 * @return
+	 * @throws FootBallBizException
+	 */
 	@RequestMapping(value="queryRecentMatch" ,method = RequestMethod.POST)
 	@ResponseBody
 	public DataGridResult<QueryMatchResultVO> queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
 		
-		logger.info("查询球队近况入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		logger.info("查询球队近况WEB层入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(paramVO == null){
 			paramVO = new QueryRecentMatchParamVO();
@@ -239,5 +251,6 @@ public class MatchController {
 		result.setRows(list);
 		return result;
 	}
+	
 	
 }

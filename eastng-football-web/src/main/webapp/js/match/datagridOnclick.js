@@ -93,7 +93,7 @@ function dgClick(index,row){
                                 		$(hostTab).append(hostDiv2);
                                 		
                                 		var myChart = echarts.init(document.getElementById('main'));
-                                		// 指定图表的配置项和数据
+                                		/*// 指定图表的配置项和数据
                                         var option = {
                                         	    title : {
                                         	        text: '近10场状况',
@@ -129,10 +129,21 @@ function dgClick(index,row){
                                         	            }
                                         	        }
                                         	    ]
-                                        	};
-
-                                        // 使用刚指定的配置项和数据显示图表。
-                                        myChart.setOption(option);
+                                        	};*/
+                                		$.ajax({
+                                			  type: 'POST',
+                                			  url: 'getEchartsPie',
+                                			  data: {teamNo:row.hostTeamNo,
+                                                     matchTime:row.matchTime,
+                                                     rows:10,
+                                                     page:1},
+                                			  success: function(data){
+                                				// 使用刚指定的配置项和数据显示图表。
+                                				  var optoin = jQuery.parseJSON(data)
+                                                  myChart.setOption(optoin);
+                                			  }
+                                			});
+                                        
                                         
                                         var slider = $('<input class="easyui-slider" value="10" style="width:250px;align:">');
                                 		$.parser.parse(slider);
@@ -142,7 +153,19 @@ function dgClick(index,row){
                                 			max:hostCount,
                                 			showTip:true,
                                 			onComplete:function(value){
-                                				alert(slider.slider('getValue'));
+                                				$.ajax({
+                                      			  type: 'POST',
+                                      			  url: 'getEchartsPie',
+                                      			  data: {teamNo:row.hostTeamNo,
+                                                           matchTime:row.matchTime,
+                                                           rows:value,
+                                                           page:1},
+                                      			  success: function(data){
+                                      				// 使用刚指定的配置项和数据显示图表。
+                                      				var optoin = jQuery.parseJSON(data)
+                                                        myChart.setOption(optoin);
+                                      			  }
+                                      			});
                                 			}
                                 		});
                                 	}
