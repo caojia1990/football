@@ -92,15 +92,9 @@ public class MatchServiceImpl implements MatchService {
 		Page<Match> page = (Page)list;
 		
 		result.setTotal(page.getTotal());
-		
-		List<MatchVO> resultList = new ArrayList<MatchVO>();
-		for(Match match:list){
-			MatchVO matchVO = new MatchVO();
-			BeanUtils.copyProperties(match, matchVO);
-			resultList.add(matchVO);
-		}
-		
+		List<MatchVO> resultList = BeanUtils.copyList(list, MatchVO.class);
 		result.setResult(resultList);
+		
 		return result;
 	}
 
@@ -143,12 +137,7 @@ public class MatchServiceImpl implements MatchService {
 		
 		result.setTotal(page.getTotal());
 		
-		List<MatchVO> resultList = new ArrayList<MatchVO>();
-		for(Match match:list){
-			MatchVO matchVO = new MatchVO();
-			BeanUtils.copyProperties(match, matchVO);
-			resultList.add(matchVO);
-		}
+		List<MatchVO> resultList = BeanUtils.copyList(list, MatchVO.class);
 		
 		result.setResult(resultList);
 		return result;
@@ -350,12 +339,7 @@ public class MatchServiceImpl implements MatchService {
 		
 		result.setTotal(page.getTotal());
 		
-		List<MatchVO> resultList = new ArrayList<MatchVO>();
-		for(Match match:list){
-			MatchVO matchVO = new MatchVO();
-			BeanUtils.copyProperties(match, matchVO);
-			resultList.add(matchVO);
-		}
+		List<MatchVO> resultList = BeanUtils.copyList(list, MatchVO.class);
 		
 		result.setResult(resultList);
 		return result;
