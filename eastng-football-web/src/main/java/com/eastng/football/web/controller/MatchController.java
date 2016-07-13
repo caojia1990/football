@@ -2,7 +2,6 @@ package com.eastng.football.web.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.LeagueInfoService;
@@ -30,13 +28,13 @@ import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
-import com.eastng.football.api.vo.match.TeamVO;
 import com.eastng.football.web.view.easyui.DataGridResult;
 import com.eastng.football.web.view.easyui.Tree;
 import com.eastng.football.web.view.easyui.TreeAttributes;
 import com.eastng.football.web.view.match.QueryMatchHistoryParamVO;
-import com.eastng.football.web.view.match.QueryMatchResultVO;
 import com.eastng.football.web.view.match.QueryRecentMatchParamVO;
+import com.eastng.football.web.view.match.WqueryMatchParamVO;
+import com.eastng.football.web.view.match.WqueryMatchResultVO;
 
 @Controller
 public class MatchController {
@@ -67,22 +65,24 @@ public class MatchController {
 	 */
 	@RequestMapping("queryMatchByDate")
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatchByDate(QueryMatchParamVO innerparamVO){
+	public DataGridResult<WqueryMatchResultVO> queryMatchByDate(WqueryMatchParamVO paramVO){
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramStr, QueryMatchParamVO.class);
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(innerparamVO.getBeginDate());
+		cal.setTime(paramVO.getMatchDate());
 		cal.add(Calendar.DATE, 1);
+		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
+		innerparamVO.setBeginDate(paramVO.getMatchDate());
 		innerparamVO.setEndDate(cal.getTime());
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
 		
-		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
+		DataGridResult<WqueryMatchResultVO> result = new DataGridResult<WqueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
 		
 		//封装返回信息
-		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		List<WqueryMatchResultVO> list = new ArrayList<WqueryMatchResultVO>();
 		if(!StringUtils.isEmpty(pageResult)){
 			for(MatchVO matchVO:pageResult.getResult()){
-				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				WqueryMatchResultVO matchResultVO = new WqueryMatchResultVO();
 				BeanUtils.copyProperties(matchVO, matchResultVO);
 				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
 					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
@@ -137,21 +137,21 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatch(QueryMatchParamVO innerparamVO){
+	public DataGridResult<WqueryMatchResultVO> queryMatch(QueryMatchParamVO innerparamVO){
 		
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(innerparamVO == null){
 			innerparamVO = new QueryMatchParamVO();
 		}
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchSchedule(innerparamVO);
-		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
+		DataGridResult<WqueryMatchResultVO> result = new DataGridResult<WqueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
 		
 		//封装返回信息
-		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		List<WqueryMatchResultVO> list = new ArrayList<WqueryMatchResultVO>();
 		if(!StringUtils.isEmpty(pageResult)){
 			for(MatchVO matchVO:pageResult.getResult()){
-				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				WqueryMatchResultVO matchResultVO = new WqueryMatchResultVO();
 				BeanUtils.copyProperties(matchVO, matchResultVO);
 				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
 					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
@@ -172,7 +172,7 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryMatchHistory" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryMatchHistory(QueryMatchHistoryParamVO paramVO) throws FootBallBizException{
+	public DataGridResult<WqueryMatchResultVO> queryMatchHistory(QueryMatchHistoryParamVO paramVO) throws FootBallBizException{
 		
 		logger.info("查询历史对战记录入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
@@ -183,14 +183,14 @@ public class MatchController {
 		BeanUtils.copyProperties(paramVO, innerparamVO);
 		
 		PageResult<MatchVO> pageResult = this.matchService.queryMatchHistory(innerparamVO);
-		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
+		DataGridResult<WqueryMatchResultVO> result = new DataGridResult<WqueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
 		
 		//封装返回信息
-		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		List<WqueryMatchResultVO> list = new ArrayList<WqueryMatchResultVO>();
 		if(!StringUtils.isEmpty(pageResult)){
 			for(MatchVO matchVO:pageResult.getResult()){
-				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				WqueryMatchResultVO matchResultVO = new WqueryMatchResultVO();
 				BeanUtils.copyProperties(matchVO, matchResultVO);
 				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
 					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());
@@ -211,7 +211,7 @@ public class MatchController {
 	 */
 	@RequestMapping(value="queryRecentMatch" ,method = RequestMethod.POST)
 	@ResponseBody
-	public DataGridResult<QueryMatchResultVO> queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
+	public DataGridResult<WqueryMatchResultVO> queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
 		
 		logger.info("查询球队近况WEB层入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
@@ -232,14 +232,14 @@ public class MatchController {
 		innerparamVO.setRows(paramVO.getRows());
 		
 		PageResult<MatchVO> pageResult = this.matchService.queryRecentMatch(innerparamVO);
-		DataGridResult<QueryMatchResultVO> result = new DataGridResult<QueryMatchResultVO>();
+		DataGridResult<WqueryMatchResultVO> result = new DataGridResult<WqueryMatchResultVO>();
 		result.setTotal(pageResult.getTotal());
 		
 		//封装返回信息
-		List<QueryMatchResultVO> list = new ArrayList<QueryMatchResultVO>();
+		List<WqueryMatchResultVO> list = new ArrayList<WqueryMatchResultVO>();
 		if(!StringUtils.isEmpty(pageResult)){
 			for(MatchVO matchVO:pageResult.getResult()){
-				QueryMatchResultVO matchResultVO = new QueryMatchResultVO();
+				WqueryMatchResultVO matchResultVO = new WqueryMatchResultVO();
 				BeanUtils.copyProperties(matchVO, matchResultVO);
 				if(!StringUtils.isEmpty(matchVO.getHostGoal())&&!StringUtils.isEmpty(matchVO.getGuestGoal())){
 					matchResultVO.setScore(matchVO.getHostGoal()+":"+matchVO.getGuestGoal());

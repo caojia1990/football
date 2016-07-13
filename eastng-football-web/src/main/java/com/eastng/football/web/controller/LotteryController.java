@@ -16,10 +16,8 @@ import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.QueryOddsParamVO;
-import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.web.view.easyui.DataGridResult;
 import com.eastng.football.web.view.lottery.OddsResultVO;
-import com.eastng.football.web.view.match.QueryMatchResultVO;
 
 @Controller
 public class LotteryController {

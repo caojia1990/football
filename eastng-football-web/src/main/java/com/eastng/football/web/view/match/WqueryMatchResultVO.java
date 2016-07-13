@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * 比赛详情VO类
  * @author caojia
  */
-public class QueryMatchResultVO implements Serializable {
+public class WqueryMatchResultVO implements Serializable {
 
 	/**
 	 * 可序列化
