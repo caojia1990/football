@@ -177,7 +177,7 @@ public class MatchServiceImpl implements MatchService {
 			
 			Match match = new Match();
 			BeanUtils.copyProperties(matchVO, match);
-			match.setMatchNo(GenerateCodeUtil.generateMatchNo(leagueInfo.getLeagueNo()));
+			match.setMatchNo(GenerateCodeUtil.generateMatchNo(null));
 			matchNo = match.getMatchNo();
 			int result = this.matchMapper.saveMatch(match);
 		}else {
