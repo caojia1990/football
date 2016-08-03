@@ -5,6 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <dependencies>
+  	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>4.2.4.RELEASE</version>
+	</dependency>
   	<!-- 网络爬虫 -->
   	<dependency>
         <groupId>edu.uci.ics</groupId>
@@ -30,6 +35,12 @@
 		<groupId>com.alibaba</groupId>
 		<artifactId>dubbo</artifactId>
 		<version>2.4.10</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
 
 	<dependency>

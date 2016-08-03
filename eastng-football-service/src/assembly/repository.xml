@@ -34,6 +34,7 @@
 			<directory>${basedir}/conf</directory>
 			<outputDirectory>/conf</outputDirectory>
 		</fileSet>
+	</fileSets>
 	<dependencySets>
 		<dependencySet>
 			<outputDirectory>/lib</outputDirectory>
