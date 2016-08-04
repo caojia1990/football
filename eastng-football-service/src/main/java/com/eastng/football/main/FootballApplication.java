@@ -15,7 +15,15 @@ public class FootballApplication {
 		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring/spring-context.xml");
         classPathXmlApplicationContext.start();
         System.out.println("===================service  start  complete!==================");
-        System.in.read();
-        classPathXmlApplicationContext.close();
+//        System.in.read();
+//        classPathXmlApplicationContext.close();
+        synchronized (FootballApplication.class) {
+            while (true) {
+                try {
+                	FootballApplication.class.wait();
+                } catch (Throwable e) {
+                }
+            }
+        }
 	}
 }
