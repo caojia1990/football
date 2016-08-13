@@ -14,6 +14,7 @@
     <result column="GUEST_TEAM_NO" jdbcType="VARCHAR" property="guestTeamNo" />
     <result column="GUEST_SHORT_NAME" jdbcType="VARCHAR" property="guestShortName" />
     <result column="LEAGUE_NO" jdbcType="VARCHAR" property="leagueNo" />
+    <result column="SEASON_NO" jdbcType="VARCHAR" property="seasonNo" />
     <result column="SEASON_NAME" jdbcType="VARCHAR" property="seasonName" />
     <result column="MATCH_TIME" jdbcType="TIMESTAMP" property="matchTime" />
     <result column="ROUND" jdbcType="INTEGER" property="round" />
@@ -460,6 +461,7 @@
 		<result column="GUEST_TEAM_NO" property="guestTeamNo" />
 		<result column="GUEST_SHORT_NAME" property="guestShortName" />
 		<result column="LEAGUE_NO" property="leagueNo" />
+		<result column="SEASON_NO" property="seasonNo" />
 		<result column="SEASON_NAME" property="seasonName" />
 		<result column="MATCH_TIME" property="matchTime" />
 		<result column="ROUND" property="round" />
@@ -513,6 +515,7 @@
 		    GUEST_TEAM_NO,
 		    GUEST_SHORT_NAME,
 		    LEAGUE_NO,
+		    SEASON_NO,
 		    SEASON_NAME,
 		    MATCH_TIME,
 		    ROUND,
@@ -611,4 +614,35 @@
     </where>
     order by MATCH_TIME DESC
   </select>
+  
+  <!-- 可根据所有条件查询比赛信息 -->
+  <select id="queryMatchByAllCondition" parameterType="com.eastng.football.core.entity.match.Match" resultMap="BaseResultMap">
+		select ID,
+		    MATCH_NO,
+		    HOST_TEAM_NO,
+		    HOST_SHORT_NAME,
+		    GUEST_TEAM_NO,
+		    GUEST_SHORT_NAME,
+		    LEAGUE_NO,
+		    SEASON_NO,
+		    SEASON_NAME,
+		    MATCH_TIME,
+		    ROUND,
+		    HOST_GOAL,
+		    GUEST_GOAL,
+		    HALF_TIME_HOST_GOAL,
+		    HALF_TIME_GUEST_GOAL,
+		    MATCH_STATUS
+		from T_MATCH
+		<where>
+			<if test="matchNo">MATCH_NO = #{matchNo}</if>
+			<if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
+			<if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
+			<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+			<if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
+			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
+			<if test="round">and ROUND = #{round}</if>
+			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+		</where>
+	</select>
 </mapper>

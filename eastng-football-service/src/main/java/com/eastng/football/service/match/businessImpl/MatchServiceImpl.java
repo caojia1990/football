@@ -1,17 +1,13 @@
 package com.eastng.football.service.match.businessImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.util.StringUtils;
 
 import com.eastng.football.api.constant.CommonConstant;
@@ -21,14 +17,14 @@ import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
 import com.eastng.football.core.entity.match.LeagueInfo;
+import com.eastng.football.core.entity.match.LeagueSeason;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
 import com.eastng.football.core.entity.match.MatchExample.Criteria;
-import com.eastng.football.core.entity.match.TeamLeagueSeason;
+import com.eastng.football.core.entity.match.TeamSeasonScore;
 import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
+import com.eastng.football.core.service.match.persistence.LeagueSeasonMapper;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
-import com.eastng.football.core.service.match.persistence.TeamCupSeasonMapper;
-import com.eastng.football.core.service.match.persistence.TeamLeagueSeasonMapper;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.football.util.GenerateCodeUtil;
 import com.github.pagehelper.Page;
@@ -43,13 +39,10 @@ public class MatchServiceImpl implements MatchService {
 	private MatchMapper matchMapper;
 	
 	@Autowired
-	private TeamLeagueSeasonMapper leagueSeasonMapper;
-	
-	@Autowired
-	private TeamCupSeasonMapper teamCupSeasonMapper;
-	
-	@Autowired
 	private LeagueInfoMapper leagueInfoMapper;
+	
+	@Autowired
+	private LeagueSeasonMapper leagueSeasonMapper;
 
 	/**
 	 * 根据条件查询比赛信息
@@ -207,36 +200,56 @@ public class MatchServiceImpl implements MatchService {
 	}
 	/**
 	 * 更新积分榜
-	 * @param leagueNo 联赛编号
-	 * @param seasonName 赛季名称
+	 * @param seasonNo 赛季编号
 	 * @throws FootBallBizException 
 	 */
-	public void updateScoreBoard(String leagueNo,String seasonName) throws FootBallBizException{
-		LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(leagueNo);
+	public void updateScoreBoard(String seasonNo) throws FootBallBizException{
+		
+		
+		LeagueSeason leagueSeason = leagueSeasonMapper.selectBySeasonNo(seasonNo);
+		
+		if(leagueSeason == null){
+			logger.info("没有查到赛季信息");
+			return;
+		}
+		
+		LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(leagueSeason.getLeagueNo());
+		
 		if(leagueInfo == null){
 			logger.error("赛事编号不存在");
 			throw new FootBallBizException("", "赛事编号不存在");
 		}
 		if(CommonConstant.LEAGUE_INFO_EVENT_TYPE_LEAGUE.equals(leagueInfo.getEventType())){
-			MatchExample example = new MatchExample();
-			example.setOrderByClause("ROUND ASC");
-			example.createCriteria().andLeagueNoEqualTo(leagueNo)
-				.andSeasonNameEqualTo(seasonName);
-			List<Match> list = this.matchMapper.selectByExample(example);
-			this.matchMapper.deleteByExample(example);
-			for(Match match:list){
-				//主队积分信息
-				TeamLeagueSeason season = new TeamLeagueSeason();
-				season.setLeagueNo(leagueNo);
-				season.setSeasonName(seasonName);
-				season.setTeamNo(match.getHostTeamNo());
-				season.setTeamShortName(match.getHostShortName());
-				season.setRound(match.getRound());
-				int point = 0;
-				if(match.getHostGoal()>match.getGuestGoal()){
-					point = 3;
+			
+			Integer round = matchMapper.selectMaxRoundBySeasonNo(seasonNo);
+			logger.info(leagueInfo.getLeagueName() + leagueSeason.getSeasonName() + "已进行到" + round +"轮");
+			
+			for(int i = 1 ; i <= round ; i++){
+				
+				
+				
+				Match record = new Match();
+				record.setSeasonNo(seasonNo);
+				record.setRound(i);
+				List<Match> list = this.matchMapper.queryMatchByAllCondition(record);
+				
+				for(Match match:list){
+					//主队积分信息
+					TeamSeasonScore season = new TeamSeasonScore();
+					season.setLeagueNo(match.getLeagueNo());
+					season.setSeasonNo(match.getSeasonNo());
+					season.setSeasonName(match.getSeasonName());
+					season.setTeamNo(match.getHostTeamNo());
+					season.setTeamShortName(match.getHostShortName());
+					season.setRound(match.getRound());
+					int point = 0;
+					if(match.getHostGoal()>match.getGuestGoal()){
+						point = 3;
+					}
 				}
 			}
+			
+			
 		}
 	}
 
@@ -261,7 +274,7 @@ public class MatchServiceImpl implements MatchService {
 		logger.info("根据必要条件查询唯一一条比赛记录queryUniqueMatch入参"+ToStringBuilder.reflectionToString(matchVO, ToStringStyle.MULTI_LINE_STYLE));
 		if(StringUtils.isEmpty(matchVO)){
 			logger.info("入参为空");
-			throw new FootBallBizException("", "入参为空");
+			return null;
 		}
 		if(StringUtils.isEmpty(matchVO.getHostTeamNo())){
 			logger.info("主队编号为空");

@@ -69,7 +69,7 @@ public class MatchController {
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramStr, QueryMatchParamVO.class);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(paramVO.getMatchDate());
-		cal.add(Calendar.DATE, 1);
+		cal.add(Calendar.DATE, 2);
 		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
 		innerparamVO.setBeginDate(paramVO.getMatchDate());
 		innerparamVO.setEndDate(cal.getTime());
@@ -251,6 +251,12 @@ public class MatchController {
 		result.setRows(list);
 		return result;
 	}
+	
+	public void updateScoreBoard(){
+		
+	}
+	
+	
 	
 	
 }

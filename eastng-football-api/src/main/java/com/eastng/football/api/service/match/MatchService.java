@@ -62,10 +62,9 @@ public interface MatchService {
 	
 	/**
 	 * 更新积分榜
-	 * @param leagueNo 联赛编号
-	 * @param seasonName 赛季名称
+	 * @param seasonNo 赛季编号
 	 * @throws FootBallBizException 
 	 */
-	public void updateScoreBoard(String leagueNo,String seasonName) throws FootBallBizException;
+	public void updateScoreBoard(String seasonNo) throws FootBallBizException;
 	
 }

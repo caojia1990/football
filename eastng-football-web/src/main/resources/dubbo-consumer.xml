@@ -8,7 +8,7 @@
 	<dubbo:application name="eastng-football-web" />
 	<!-- <dubbo:registry address="N/A" /> -->
 	
-	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" check="false" />
+	<dubbo:registry protocol="zookeeper" address="121.196.197.95:2181" check="false" />
 
 	<dubbo:reference id="matchService" interface="com.eastng.football.api.service.match.MatchService" check="false"/>
 	

@@ -43,6 +43,11 @@ public class Match {
     private String leagueNo;
     
     /**
+     * 赛季编号
+     */
+    private String seasonNo;
+    
+    /**
      * 赛季名称
      */
     private String seasonName;
@@ -310,6 +315,14 @@ public class Match {
 	 */
 	public void setLeagueShortName(String leagueShortName) {
 		this.leagueShortName = leagueShortName;
+	}
+
+	public String getSeasonNo() {
+		return seasonNo;
+	}
+
+	public void setSeasonNo(String seasonNo) {
+		this.seasonNo = seasonNo;
 	}
 	
 	
