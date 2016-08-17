@@ -292,16 +292,16 @@ public class MatchServiceImpl implements MatchService {
 			logger.info("赛季名称为空");
 			throw new FootBallBizException("", "赛季名称为空");
 		}
-		if(StringUtils.isEmpty(matchVO.getMatchTime())){
-			logger.info("比赛时间为空");
-			throw new FootBallBizException("", "比赛时间为空");
+		if(StringUtils.isEmpty(matchVO.getRound())){
+			logger.info("轮次为空");
+			throw new FootBallBizException("", "轮次为空");
 		}
 		Match record = new Match();
 		record.setHostTeamNo(matchVO.getHostTeamNo());
 		record.setGuestTeamNo(matchVO.getGuestTeamNo());
 		record.setLeagueNo(matchVO.getLeagueNo());
 		record.setSeasonName(matchVO.getSeasonName());
-		record.setMatchTime(matchVO.getMatchTime());
+		record.setRound(matchVO.getRound());
 		
 		List<Match> list = this.matchMapper.selectByCondition(record);
 		

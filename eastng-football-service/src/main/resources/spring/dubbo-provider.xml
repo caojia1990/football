@@ -13,7 +13,7 @@
 	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
 
 	<!-- 用dubbo协议在20880端口暴露服务 -->
-	<dubbo:protocol name="dubbo" port="20880" 	/>
+	<dubbo:protocol name="dubbo" port="20880"  host="121.196.197.95"/>
 		
 	<!-- 赛事服务接口 -->
 	<dubbo:service interface="com.eastng.football.api.service.match.MatchService" ref="matchService" retries="0"/>
