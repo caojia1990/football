@@ -170,7 +170,7 @@ public class MatchServiceImpl implements MatchService {
 			
 			Match match = new Match();
 			BeanUtils.copyProperties(matchVO, match);
-			match.setMatchNo(GenerateCodeUtil.generateMatchNo(null));
+			match.setMatchNo(GenerateCodeUtil.generateMatchNo(""));
 			matchNo = match.getMatchNo();
 			int result = this.matchMapper.saveMatch(match);
 		}else {

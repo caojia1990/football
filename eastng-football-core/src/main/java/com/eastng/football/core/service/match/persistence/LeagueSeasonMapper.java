@@ -58,6 +58,5 @@ public interface LeagueSeasonMapper {
      * @param seasonNo
      * @return
      */
-    @Select("select * from t_league_season where season_no = #{seasonNo}")
     LeagueSeason selectBySeasonNo(String seasonNo);
 }

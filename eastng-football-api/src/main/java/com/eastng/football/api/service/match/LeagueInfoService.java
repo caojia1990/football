@@ -29,4 +29,11 @@ public interface LeagueInfoService {
 	 */
 	public List<LeagueInfoVO> queryLeagueInfoByCondition(LeagueInfoVO leagueInfoVO); 
 	
+	/**
+	 * 根据联赛编号查询联赛信息
+	 * @param leagueNo
+	 * @return
+	 */
+	LeagueInfoVO queryLeagueInfoByLeagueNo(String leagueNo);
+	
 }

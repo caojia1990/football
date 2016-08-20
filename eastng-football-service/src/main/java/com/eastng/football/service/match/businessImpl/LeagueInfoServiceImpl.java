@@ -68,4 +68,14 @@ public class LeagueInfoServiceImpl implements LeagueInfoService{
 		return list;
 	}
 
+	/**
+	 * 查询联赛信息
+	 */
+    public LeagueInfoVO queryLeagueInfoByLeagueNo(String leagueNo) {
+        LeagueInfo record = this.leagueInfoMapper.selectByLeagueNo(leagueNo);
+        LeagueInfoVO leagueInfoVO = new LeagueInfoVO();
+        BeanUtils.copyProperties(record, leagueInfoVO);
+        return leagueInfoVO;
+    }
+
 }

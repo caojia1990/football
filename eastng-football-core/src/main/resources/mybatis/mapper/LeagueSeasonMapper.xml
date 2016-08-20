@@ -143,4 +143,10 @@
       SEASON_END_DATE = #{seasonEndDate,jdbcType=DATE}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+  
+  
+  <select id="selectBySeasonNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_league_season where season_no = #{seasonNo}
+  </select>
 </mapper>
