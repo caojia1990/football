@@ -67,9 +67,9 @@
         <transactionManager type="JDBC"/>
         <dataSource type="POOLED">
           <property name="driver" value="com.mysql.jdbc.Driver"/>
-          <property name="url" value="jdbc:mysql://121.196.197.95:3306/football?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+          <property name="url" value="jdbc:mysql://localhost:3306/football?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
           <property name="username" value="${username}"/>
-          <property name="password" value="football"/>
+          <property name="password" value=""/>
         </dataSource>
       </environment>
     </environments>

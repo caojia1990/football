@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
     public String saveTeam(TeamVO paramVO) {
         
         //先查询是否已经存在该球队
-        TeamVO team = this.queryTeamByName(paramVO.getTeamName());
+        TeamVO team = this.queryTeamByName(paramVO.getShortName());
         String teamNo = team.getTeamNo();
         if(StringUtils.isEmpty(teamNo)){
             Team record = new Team();
