@@ -203,7 +203,8 @@ public class MatchServiceImpl implements MatchService {
 	 * @param seasonNo 赛季编号
 	 * @throws FootBallBizException 
 	 */
-	public void updateScoreBoard(String seasonNo) throws FootBallBizException{
+	@Override
+	public void updateScoreBoard(String seasonNo, String round) throws FootBallBizException{
 		
 		
 		LeagueSeason leagueSeason = leagueSeasonMapper.selectBySeasonNo(seasonNo);
@@ -219,38 +220,8 @@ public class MatchServiceImpl implements MatchService {
 			logger.error("赛事编号不存在");
 			throw new FootBallBizException("", "赛事编号不存在");
 		}
-		if(CommonConstant.LEAGUE_INFO_EVENT_TYPE_LEAGUE.equals(leagueInfo.getEventType())){
-			
-			Integer round = matchMapper.selectMaxRoundBySeasonNo(seasonNo);
-			logger.info(leagueInfo.getLeagueName() + leagueSeason.getSeasonName() + "已进行到" + round +"轮");
-			
-			for(int i = 1 ; i <= round ; i++){
-				
-				
-				
-				Match record = new Match();
-				record.setSeasonNo(seasonNo);
-				record.setRound(i);
-				List<Match> list = this.matchMapper.queryMatchByAllCondition(record);
-				
-				for(Match match:list){
-					//主队积分信息
-					TeamSeasonScore season = new TeamSeasonScore();
-					season.setLeagueNo(match.getLeagueNo());
-					season.setSeasonNo(match.getSeasonNo());
-					season.setSeasonName(match.getSeasonName());
-					season.setTeamNo(match.getHostTeamNo());
-					season.setTeamShortName(match.getHostShortName());
-					season.setRound(match.getRound());
-					int point = 0;
-					if(match.getHostGoal()>match.getGuestGoal()){
-						point = 3;
-					}
-				}
-			}
-			
-			
-		}
+		
+		
 	}
 
 

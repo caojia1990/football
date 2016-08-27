@@ -65,6 +65,6 @@ public interface MatchService {
 	 * @param seasonNo 赛季编号
 	 * @throws FootBallBizException 
 	 */
-	public void updateScoreBoard(String seasonNo) throws FootBallBizException;
+	public void updateScoreBoard(String seasonNo, String round) throws FootBallBizException;
 	
 }

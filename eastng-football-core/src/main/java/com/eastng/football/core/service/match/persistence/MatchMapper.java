@@ -100,22 +100,6 @@ public interface MatchMapper {
      */
     List<Match> queryRecentMatch(Match record);
     
-    /**
-     * 查询赛季目前最近的一轮
-     * @param seasonNo
-     * @return
-     */
-    @Select("select max(round) from t_match where season_no = #{seasonNo} and match_status = '2'")
-    Integer selectMaxRoundBySeasonNo(String seasonNo);
-    
-    /**
-     * 查询赛季某一轮的完成情况
-     * @param seasonNo
-     * @param round
-     * @return
-     */
-    @Select("select avg(round) from t_match where season_no = #{seasonNo} and round = #{round} and match_status = '2'")
-    BigDecimal selectAvgBySeasonNoAndRound(String seasonNo ,Integer round);
     
     /**
      * 可根据所有条件查询比赛信息

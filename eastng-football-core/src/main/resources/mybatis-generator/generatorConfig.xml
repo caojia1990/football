@@ -18,7 +18,7 @@
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <javaModelGenerator targetPackage="com.eastng.football.core.entity.match" targetProject="D:\git\football\eastng-football-core\src\main\java">
+    <javaModelGenerator targetPackage="com.eastng.football.core.entity.team" targetProject="D:\git\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
@@ -27,14 +27,14 @@
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.match.persistence"  targetProject="D:\git\football\eastng-football-core\src\main\java">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.eastng.football.core.service.team.persistence"  targetProject="D:\git\football\eastng-football-core\src\main\java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
 	<!-- 去掉Example辅助类 -->
 	<!-- enableSelectByExample="true" enableDeleteByExample="false" enableCountByExample="false"
     	enableUpdateByExample="false" selectByExampleQueryId="false" --> 
-    <table schema="football" tableName="T_LEAGUE_SEASON" domainObjectName="LeagueSeason" 
+    <table schema="football" tableName="T_TEAM_SEASON" domainObjectName="TeamSeason" 
     enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false"
     	enableUpdateByExample="false" selectByExampleQueryId="false">
       <!-- <property name="useActualColumnNames" value="true"/>
