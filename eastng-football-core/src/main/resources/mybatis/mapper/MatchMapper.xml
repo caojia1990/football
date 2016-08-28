@@ -456,104 +456,106 @@
     where ID = #{id,jdbcType=BIGINT}
   </update>
 
-	<!-- 比赛信息表 -->
-	<sql id="match"> t_match </sql>
+    <!-- 比赛信息表 -->
+    <sql id="match"> t_match </sql>
 
-	<resultMap id="matchMap" type="match">
-		<id column="ID" property="id" />
-		<result column="MATCH_NO" property="matchNo" />
-		<result column="HOST_TEAM_NO" property="hostTeamNo" />
-		<result column="HOST_SHORT_NAME" property="hostShortName" />
-		<result column="GUEST_TEAM_NO" property="guestTeamNo" />
-		<result column="GUEST_SHORT_NAME" property="guestShortName" />
-		<result column="LEAGUE_NO" property="leagueNo" />
-		<result column="SEASON_NO" property="seasonNo" />
-		<result column="SEASON_NAME" property="seasonName" />
-		<result column="MATCH_TIME" property="matchTime" />
-		<result column="ROUND" property="round" />
-		<result column="HOST_GOAL" property="hostGoal" />
-		<result column="GUEST_GOAL" property="guestGoal" />
-		<result column="HALF_TIME_HOST_GOAL" property="halfTimeHostGoal" />
-		<result column="HALF_TIME_GUEST_GOAL" property="halfTimeGuestGoal" />
-		<result column="MATCH_STATUS" property="matchStatus" />
-	</resultMap>
-	
-	<insert id="saveMatch" parameterType="match">
-		insert into T_MATCH(
-		    ID,
-		    MATCH_NO,
-		    HOST_TEAM_NO,
-		    HOST_SHORT_NAME,
-		    GUEST_TEAM_NO,
-		    GUEST_SHORT_NAME,
-		    LEAGUE_NO,
-		    SEASON_NAME,
-		    MATCH_TIME,
-		    ROUND,
-		    HOST_GOAL,
-		    GUEST_GOAL,
-		    HALF_TIME_HOST_GOAL,
-		    HALF_TIME_GUEST_GOAL,
-		    MATCH_STATUS
-		)values(
-		    #{id},
-		    #{matchNo},
-		    #{hostTeamNo},
-		    #{hostShortName},
-		    #{guestTeamNo},
-		    #{guestShortName},
-		    #{leagueNo},
-		    #{seasonName},
-		    #{matchTime},
-		    #{round},
-		    #{hostGoal},
-		    #{guestGoal},
-		    #{halfTimeHostGoal},
-		    #{halfTimeGuestGoal},
-		    #{matchStatus})
-	</insert>
-	
-	<select id="queryMatchByCondition" parameterType="map" resultMap="matchMap">
-		select ID,
-		    MATCH_NO,
-		    HOST_TEAM_NO,
-		    HOST_SHORT_NAME,
-		    GUEST_TEAM_NO,
-		    GUEST_SHORT_NAME,
-		    LEAGUE_NO,
-		    SEASON_NO,
-		    SEASON_NAME,
-		    MATCH_TIME,
-		    ROUND,
-		    HOST_GOAL,
-		    GUEST_GOAL,
-		    HALF_TIME_HOST_GOAL,
-		    HALF_TIME_GUEST_GOAL,
-		    MATCH_STATUS
-		from T_MATCH
-		<where>
-			<if test="matchNo">MATCH_NO = #{matchNo}</if>
-			<if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
-			<if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
-			<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
-			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
-			<if test="beginDate">and MATCH_TIME &gt;= #{beginDate}</if>
-			<if test="endDate">and <![CDATA[MATCH_TIME < ]]>#{endDate}</if>
-			<if test="round">and ROUND = #{round}</if>
-			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
-		</where>
-	</select>
-	
-	<!-- 批量插入球队信息 -->
+    <resultMap id="matchMap" type="match">
+        <id column="ID" property="id" />
+        <result column="MATCH_NO" property="matchNo" />
+        <result column="HOST_TEAM_NO" property="hostTeamNo" />
+        <result column="HOST_SHORT_NAME" property="hostShortName" />
+        <result column="GUEST_TEAM_NO" property="guestTeamNo" />
+        <result column="GUEST_SHORT_NAME" property="guestShortName" />
+        <result column="LEAGUE_NO" property="leagueNo" />
+        <result column="SEASON_NO" property="seasonNo" />
+        <result column="SEASON_NAME" property="seasonName" />
+        <result column="MATCH_TIME" property="matchTime" />
+        <result column="ROUND" property="round" />
+        <result column="HOST_GOAL" property="hostGoal" />
+        <result column="GUEST_GOAL" property="guestGoal" />
+        <result column="HALF_TIME_HOST_GOAL" property="halfTimeHostGoal" />
+        <result column="HALF_TIME_GUEST_GOAL" property="halfTimeGuestGoal" />
+        <result column="MATCH_STATUS" property="matchStatus" />
+    </resultMap>
+    
+    <insert id="saveMatch" parameterType="match">
+        insert into T_MATCH(
+            ID,
+            MATCH_NO,
+            HOST_TEAM_NO,
+            HOST_SHORT_NAME,
+            GUEST_TEAM_NO,
+            GUEST_SHORT_NAME,
+            LEAGUE_NO,
+            SEASON_NO,
+            SEASON_NAME,
+            MATCH_TIME,
+            ROUND,
+            HOST_GOAL,
+            GUEST_GOAL,
+            HALF_TIME_HOST_GOAL,
+            HALF_TIME_GUEST_GOAL,
+            MATCH_STATUS
+        )values(
+            #{id},
+            #{matchNo},
+            #{hostTeamNo},
+            #{hostShortName},
+            #{guestTeamNo},
+            #{guestShortName},
+            #{leagueNo},
+            #{seasonNo},
+            #{seasonName},
+            #{matchTime},
+            #{round},
+            #{hostGoal},
+            #{guestGoal},
+            #{halfTimeHostGoal},
+            #{halfTimeGuestGoal},
+            #{matchStatus})
+    </insert>
+    
+    <select id="queryMatchByCondition" parameterType="map" resultMap="matchMap">
+        select ID,
+            MATCH_NO,
+            HOST_TEAM_NO,
+            HOST_SHORT_NAME,
+            GUEST_TEAM_NO,
+            GUEST_SHORT_NAME,
+            LEAGUE_NO,
+            SEASON_NO,
+            SEASON_NAME,
+            MATCH_TIME,
+            ROUND,
+            HOST_GOAL,
+            GUEST_GOAL,
+            HALF_TIME_HOST_GOAL,
+            HALF_TIME_GUEST_GOAL,
+            MATCH_STATUS
+        from T_MATCH
+        <where>
+            <if test="matchNo">MATCH_NO = #{matchNo}</if>
+            <if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
+            <if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
+            <if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+            <if test="seasonName">and SEASON_NAME = #{seasonName}</if>
+            <if test="beginDate">and MATCH_TIME &gt;= #{beginDate}</if>
+            <if test="endDate">and <![CDATA[MATCH_TIME < ]]>#{endDate}</if>
+            <if test="round">and ROUND = #{round}</if>
+            <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+        </where>
+    </select>
+    
+    <!-- 批量插入球队信息 -->
   <insert id="batchInsert" parameterType="java.util.List">
-  	insert into t_match (MATCH_NO, HOST_TEAM_NO, 
+      insert into t_match (MATCH_NO, HOST_TEAM_NO, 
       HOST_SHORT_NAME, GUEST_TEAM_NO, GUEST_SHORT_NAME, 
       LEAGUE_NO, SEASON_NAME, MATCH_TIME, 
       ROUND, HOST_GOAL, GUEST_GOAL, 
       HALF_TIME_HOST_GOAL, HALF_TIME_GUEST_GOAL, MATCH_STATUS
       )
-  	values
-  	<foreach collection="list" item="item" index="index" separator="," >  
+      values
+      <foreach collection="list" item="item" index="index" separator="," >  
         (#{item.matchNo},#{item.hostTeamNo},#{item.hostShortName},#{item.guestTeamNo},
         #{item.guestShortName},#{item.leagueNo},#{item.seasonName},#{item.matchTime},
         #{item.round},#{item.hostGoal},#{item.guestGoal},#{item.halfTimeHostGoal},
@@ -562,20 +564,20 @@
   </insert>
   
   <select id="selectByCondition" parameterType="com.eastng.football.core.entity.match.Match" resultMap="BaseResultMap">
-  	select 
-  		<include refid="Base_Column_List" />
-  	from t_match 
+      select 
+          <include refid="Base_Column_List" />
+      from t_match 
     left join t_league_info
     on t_match.league_no = t_league_info.league_no
     <where>
-    	<if test="matchNo">MATCH_NO = #{matchNo}</if>
-			<if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
-			<if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
-			<if test="leagueNo">and t_match.LEAGUE_NO = #{leagueNo}</if>
-			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
-			<if test="matchTime">and MATCH_TIME = #{matchTime}</if>
-			<if test="round">and ROUND = #{round}</if>
-			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+        <if test="matchNo">MATCH_NO = #{matchNo}</if>
+            <if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
+            <if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
+            <if test="leagueNo">and t_match.LEAGUE_NO = #{leagueNo}</if>
+            <if test="seasonName">and SEASON_NAME = #{seasonName}</if>
+            <if test="matchTime">and MATCH_TIME = #{matchTime}</if>
+            <if test="round">and ROUND = #{round}</if>
+            <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
     </where>
   </select>
   
@@ -588,15 +590,15 @@
     left join t_league_info
     on t_match.league_no = t_league_info.league_no
     <where>
-    	<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
-    	<if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
-    	<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
-    	<if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
-    	and(
-    		(HOST_TEAM_NO = #{hostTeamNo} and GUEST_TEAM_NO = #{guestTeamNo}) 
-    		or
-    		(GUEST_TEAM_NO = #{hostTeamNo} and HOST_TEAM_NO = #{guestTeamNo}) 
-    		)
+        <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+        <if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
+        <if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+        <if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
+        and(
+            (HOST_TEAM_NO = #{hostTeamNo} and GUEST_TEAM_NO = #{guestTeamNo}) 
+            or
+            (GUEST_TEAM_NO = #{hostTeamNo} and HOST_TEAM_NO = #{guestTeamNo}) 
+            )
     </where>
     order by MATCH_TIME DESC
   </select>
@@ -610,47 +612,47 @@
     left join t_league_info
     on t_match.league_no = t_league_info.league_no
     <where>
-    	<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
-    	<if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
-    	<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
-    	<if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
-    	<if test="hostTeamNo">
-	    	and (
-	    		HOST_TEAM_NO = #{hostTeamNo} or GUEST_TEAM_NO = #{hostTeamNo}
-	    		)
-    	</if>
+        <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+        <if test="matchTime">and MATCH_TIME <![CDATA[ < ]]> #{matchTime}</if>
+        <if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+        <if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
+        <if test="hostTeamNo">
+            and (
+                HOST_TEAM_NO = #{hostTeamNo} or GUEST_TEAM_NO = #{hostTeamNo}
+                )
+        </if>
     </where>
     order by MATCH_TIME DESC
   </select>
   
   <!-- 可根据所有条件查询比赛信息 -->
   <select id="queryMatchByAllCondition" parameterType="com.eastng.football.core.entity.match.Match" resultMap="BaseResultMap">
-		select ID,
-		    MATCH_NO,
-		    HOST_TEAM_NO,
-		    HOST_SHORT_NAME,
-		    GUEST_TEAM_NO,
-		    GUEST_SHORT_NAME,
-		    LEAGUE_NO,
-		    SEASON_NO,
-		    SEASON_NAME,
-		    MATCH_TIME,
-		    ROUND,
-		    HOST_GOAL,
-		    GUEST_GOAL,
-		    HALF_TIME_HOST_GOAL,
-		    HALF_TIME_GUEST_GOAL,
-		    MATCH_STATUS
-		from T_MATCH
-		<where>
-			<if test="matchNo">MATCH_NO = #{matchNo}</if>
-			<if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
-			<if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
-			<if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
-			<if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
-			<if test="seasonName">and SEASON_NAME = #{seasonName}</if>
-			<if test="round">and ROUND = #{round}</if>
-			<if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
-		</where>
-	</select>
+        select ID,
+            MATCH_NO,
+            HOST_TEAM_NO,
+            HOST_SHORT_NAME,
+            GUEST_TEAM_NO,
+            GUEST_SHORT_NAME,
+            LEAGUE_NO,
+            SEASON_NO,
+            SEASON_NAME,
+            MATCH_TIME,
+            ROUND,
+            HOST_GOAL,
+            GUEST_GOAL,
+            HALF_TIME_HOST_GOAL,
+            HALF_TIME_GUEST_GOAL,
+            MATCH_STATUS
+        from T_MATCH
+        <where>
+            <if test="matchNo">MATCH_NO = #{matchNo}</if>
+            <if test="hostTeamNo">and HOST_TEAM_NO = #{hostTeamNo}</if>
+            <if test="guestTeamNo">and GUEST_TEAM_NO = #{guestTeamNo}</if>
+            <if test="leagueNo">and LEAGUE_NO = #{leagueNo}</if>
+            <if test="seasonNo">and SEASON_NO = #{seasonNo}</if>
+            <if test="seasonName">and SEASON_NAME = #{seasonName}</if>
+            <if test="round">and ROUND = #{round}</if>
+            <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
+        </where>
+    </select>
 </mapper>
