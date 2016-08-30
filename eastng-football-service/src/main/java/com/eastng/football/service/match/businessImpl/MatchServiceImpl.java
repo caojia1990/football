@@ -21,10 +21,10 @@ import com.eastng.football.core.entity.match.LeagueSeason;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
 import com.eastng.football.core.entity.match.MatchExample.Criteria;
-import com.eastng.football.core.entity.match.TeamSeasonScore;
 import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
 import com.eastng.football.core.service.match.persistence.LeagueSeasonMapper;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
+import com.eastng.football.service.ScoreBoardFactory;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.football.util.GenerateCodeUtil;
 import com.github.pagehelper.Page;
@@ -204,7 +204,7 @@ public class MatchServiceImpl implements MatchService {
 	 * @throws FootBallBizException 
 	 */
 	@Override
-	public void updateScoreBoard(String seasonNo, String round) throws FootBallBizException{
+	public void updateScoreBoard(String seasonNo, Integer round) throws FootBallBizException{
 		
 		
 		LeagueSeason leagueSeason = leagueSeasonMapper.selectBySeasonNo(seasonNo);
@@ -221,6 +221,8 @@ public class MatchServiceImpl implements MatchService {
 			throw new FootBallBizException("", "赛事编号不存在");
 		}
 		
+		ScoreBoardFactory factory = new ScoreBoardFactory();
+		factory.createScoreBoard(seasonNo).update(seasonNo, round);
 		
 	}
 
