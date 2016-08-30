@@ -55,4 +55,5 @@ public interface TeamSeasonMapper {
     
     @Select("select * from t_team_season where season_no = #{0} and team_no = #{1}")
     TeamSeason selectBySeasonNoAndTeamNo(String seasonNo, String teamNo);
+    
 }

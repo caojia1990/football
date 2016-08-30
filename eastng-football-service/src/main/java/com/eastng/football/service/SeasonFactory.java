@@ -1,6 +1,6 @@
-package com.eastng.football.service.match;
+package com.eastng.football.service;
 
-import com.eastng.football.service.match.base.ScoreBoardService;
+import com.eastng.football.service.support.ScoreBoardService;
 
 public class SeasonFactory {
     

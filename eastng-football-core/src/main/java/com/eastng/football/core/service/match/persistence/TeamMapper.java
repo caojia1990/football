@@ -4,6 +4,7 @@ import com.eastng.football.core.entity.match.Team;
 import com.eastng.football.core.entity.match.TeamExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface TeamMapper {
     /**
@@ -100,5 +101,13 @@ public interface TeamMapper {
      * @return
      */
     int batchInsert(List<Team> list);
+    
+    /**
+     * 查询赛季所有球队信息
+     * @param seasonNo 赛季编号
+     * @return
+     */
+    @Select("select t_team.team_no as teamNo,t_team.short_name as shortName from t_team ,t_team_season  where t_team.team_no = t_team_season.team_no and t_team_season.season_no = #{0}")
+    List<Team> selectBySeasonNo(String seasonNo);
     
 }

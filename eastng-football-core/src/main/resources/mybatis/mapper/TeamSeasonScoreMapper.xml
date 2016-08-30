@@ -402,4 +402,16 @@
       GUEST_POINTS = #{guestPoints,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 根据条件查询球队历史积分榜信息 -->
+  <select id="selectOneByCondition" resultMap="BaseResultMap" parameterType="com.eastng.football.core.entity.match.TeamSeasonScore" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_team_season_score
+    <where>
+        <if test="teamNo">team_no = #{teamNo}</if>
+        <if test="seasonNo">and season_no = #{seasonNo}</if>
+        <if test="round">and round = #{round}</if>
+    </where>
+  </select>
 </mapper>

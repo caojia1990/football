@@ -50,4 +50,11 @@ public interface TeamSeasonScoreMapper {
      * @mbggenerated Wed Aug 10 17:13:58 CST 2016
      */
     int updateByPrimaryKey(TeamSeasonScore record);
+    
+    /**
+     * 根据条件查询某一球队在某个赛季某一轮的积分信息
+     * @param record
+     * @return
+     */
+    TeamSeasonScore selectOneByCondition(TeamSeasonScore record);
 }

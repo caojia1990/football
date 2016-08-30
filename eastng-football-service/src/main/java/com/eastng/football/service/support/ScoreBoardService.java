@@ -1,4 +1,4 @@
-package com.eastng.football.service.match.base;
+package com.eastng.football.service.support;
 
 public interface ScoreBoardService {
     

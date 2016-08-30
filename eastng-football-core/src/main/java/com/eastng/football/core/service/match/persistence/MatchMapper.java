@@ -108,4 +108,49 @@ public interface MatchMapper {
      */
     List<Match> queryMatchByAllCondition(Match record);
     
+    /**
+     * 查询主场已完成场次
+     * @param seasonNo
+     * @param teamNo
+     * @param round
+     * @return
+     */
+    @Select("select count(1) as hostPlay,sum(HOST_GOAL) as hostGoals,sum(GUEST_GOAL) as guestGoals "
+            + "from t_match where season_no = #{0} and host_team_no = #{1} and round <= #{2} and match_status = '2'")
+    Map<String,Object> selectCountByHostTeamAndRound(String seasonNo, String teamNo, Integer round);
+    
+    /**
+     * 查询客场已完成场次
+     * @param seasonNo
+     * @param teamNo
+     * @param round
+     * @return
+     */
+    @Select("select count(1) as guestPlay,sum(HOST_GOAL) as hostGoals,sum(GUEST_GOAL) as guestGoals "
+            + "from t_match where season_no = #{0} and guest_team_no = #{1} and round <= #{2} and match_status = '2'")
+    Map<String,Object> selectCountByGuestTeamAndRound(String seasonNo, String teamNo, Integer round);
+    
+    /**
+     * 查询主场胜平负累计
+     * @param seasonNo
+     * @param teamNo
+     * @param round
+     * @return
+     */
+    @Select("select case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end as result,count(1) as sum "
+            + "from t_match t where season_no = #{0} and host_team_no = #{1} and round <= #{2} and t.match_status = '2'"
+            + "group by case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end")
+    List<Map<String, Object>> selectHostResult(String seasonNo, String teamNo, Integer round);
+    
+    /**
+     * 查询客场胜平负累计
+     * @param seasonNo
+     * @param teamNo
+     * @param round
+     * @return
+     */
+    @Select("select case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end as result,count(1) as sum "
+            + "from t_match t where season_no = #{0} and guest_team_no = #{1} and round <= #{2} and t.match_status = '2'"
+            + "group by case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end")
+    List<Map<String, Object>> selectGuestResult(String seasonNo, String teamNo, Integer round);
 }
