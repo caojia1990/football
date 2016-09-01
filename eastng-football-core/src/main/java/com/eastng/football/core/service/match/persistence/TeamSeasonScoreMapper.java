@@ -1,5 +1,8 @@
 package com.eastng.football.core.service.match.persistence;
 
+import java.util.List;
+
+import com.eastng.football.core.entity.match.Team;
 import com.eastng.football.core.entity.match.TeamSeasonScore;
 
 public interface TeamSeasonScoreMapper {
@@ -57,4 +60,11 @@ public interface TeamSeasonScoreMapper {
      * @return
      */
     TeamSeasonScore selectOneByCondition(TeamSeasonScore record);
+    
+    /**
+     * 查询赛季最新积分榜
+     * @param seasonNo 赛季编号
+     * @return
+     */
+    List<TeamSeasonScore> selectScoreBoardBySeasonNo(String seasonNo);
 }

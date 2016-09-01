@@ -10,12 +10,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.core.entity.match.Team;
 import com.eastng.football.core.entity.match.TeamSeasonScore;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.core.service.match.persistence.TeamMapper;
 import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
-import com.eastng.football.service.match.base.TeamSeasonScoreDao;
+import com.eastng.football.service.match.base.TeamSeasonScoreBaseService;
 import com.eastng.football.service.support.ScoreBoardService;
 
 @Service("englandPremierScoreBoard")
@@ -30,10 +31,10 @@ public class EnglandPremierScoreBoardServiceImpl implements ScoreBoardService {
     private TeamMapper teamMapper;
     
     @Autowired
-    private TeamSeasonScoreDao teamSeasonScoreDao;
+    private TeamSeasonScoreBaseService teamSeasonScoreBaseService;
     
     @Override
-    public void update(String seasonNo, Integer round) {
+    public void update(String seasonNo, Integer round) throws FootBallBizException {
         //查询本赛季所有球队
         List<Team> teams = this.teamMapper.selectBySeasonNo(seasonNo);
         
@@ -123,7 +124,7 @@ public class EnglandPremierScoreBoardServiceImpl implements ScoreBoardService {
             score.setPoints(score.getHostPoints() + score.getGuestPoints());
             
             //保存积分信息
-            this.teamSeasonScoreDao.saveOrUpdate(score);
+            this.teamSeasonScoreBaseService.saveOrUpdate(score);
         }
     }
 

@@ -414,4 +414,12 @@
         <if test="round">and round = #{round}</if>
     </where>
   </select>
+  
+  <!-- 查询赛季最新积分榜 -->
+  <select id="selectScoreBoardBySeasonNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select t.* 
+    from t_team_season_score t
+    where t.season_no = #{seasonNo}
+    and t.round = (select max(t1.ROUND) from t_team_season_score t1 where t.season_no = t1.season_no )
+  </select>
 </mapper>

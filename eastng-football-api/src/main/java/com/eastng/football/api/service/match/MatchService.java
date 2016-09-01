@@ -6,6 +6,7 @@ import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
+import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
 
 
 /**
@@ -65,6 +66,14 @@ public interface MatchService {
 	 * @param seasonNo 赛季编号
 	 * @throws FootBallBizException 
 	 */
-	public void updateScoreBoard(String seasonNo, String round) throws FootBallBizException;
+	public void updateScoreBoard(String seasonNo, Integer round) throws FootBallBizException;
+	
+	/**
+	 * 查询赛季最新积分榜
+	 * @param teamNo
+	 * @param SeasonNo
+	 * @return 
+	 */
+	public List<TeamSeasonScoreVO> queryScoreBoard(String SeasonNo);
 	
 }

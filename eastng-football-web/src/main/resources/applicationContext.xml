@@ -17,6 +17,9 @@
     
     <context:component-scan base-package="com.eastng.football.web.controller"/>
     
+    <!-- 读入配置属性文件 -->
+    <context:property-placeholder location="classpath:service.properties" />
+    
     <!-- 使用spring管理静态资源 -->
     <mvc:default-servlet-handler /> 
     <mvc:annotation-driven/>  
