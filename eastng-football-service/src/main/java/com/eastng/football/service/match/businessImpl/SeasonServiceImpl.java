@@ -16,6 +16,7 @@ public class SeasonServiceImpl implements SeasonService {
     @Autowired
     private LeagueSeasonMapper leagueSeasonMapper;
     
+    @Override
     public SeasonVo querySeasonBySeasonNo(String seasonNo) {
         LeagueSeason record = this.leagueSeasonMapper.selectBySeasonNo(seasonNo);
         SeasonVo seasonVo = new SeasonVo();

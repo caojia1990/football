@@ -3,7 +3,6 @@ package com.eastng.football.api.vo.match;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.eastng.football.api.vo.common.CommonParamVO;
 import com.eastng.football.api.vo.common.PageParam;
 
 /**

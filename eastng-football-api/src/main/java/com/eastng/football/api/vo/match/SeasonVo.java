@@ -6,6 +6,11 @@ import java.util.Date;
 public class SeasonVo implements Serializable {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = -8652401026028374342L;
+
+    /**
      * 赛季编号
      */
     private String seasonNo;

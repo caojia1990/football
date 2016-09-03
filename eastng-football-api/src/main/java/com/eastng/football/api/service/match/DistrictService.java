@@ -30,4 +30,5 @@ public interface DistrictService {
 	 * @return
 	 */
 	public List<DistrictVO> queryDistrictByPid(String pid);
+	
 }
