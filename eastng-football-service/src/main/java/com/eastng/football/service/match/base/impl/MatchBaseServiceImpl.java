@@ -70,9 +70,9 @@ public class MatchBaseServiceImpl implements MatchBaseService {
             result = list.get(0);
           //若库里存在，则根据状态来更新
             if(!result.getMatchStatus().equals(match.getMatchStatus())){
-                record.setId(result.getId());
-                logger.info("更新比赛信息入参"+ToStringBuilder.reflectionToString(record, ToStringStyle.MULTI_LINE_STYLE));
-                this.matchMapper.updateByPrimaryKeySelective(record);
+                match.setId(result.getId());
+                logger.info("更新比赛信息入参"+ToStringBuilder.reflectionToString(match, ToStringStyle.MULTI_LINE_STYLE));
+                this.matchMapper.updateByPrimaryKeySelective(match);
             }
             matchNo = result.getMatchNo();
         }else {

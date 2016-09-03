@@ -15,7 +15,6 @@ import com.eastng.football.core.entity.match.Team;
 import com.eastng.football.core.entity.match.TeamSeasonScore;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.core.service.match.persistence.TeamMapper;
-import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
 import com.eastng.football.service.match.base.TeamSeasonScoreBaseService;
 import com.eastng.football.service.support.ScoreBoardService;
 

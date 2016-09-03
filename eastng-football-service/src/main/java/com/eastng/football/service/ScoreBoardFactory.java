@@ -1,7 +1,6 @@
 package com.eastng.football.service;
 
 import com.eastng.football.service.support.ScoreBoardService;
-import com.eastng.football.service.support.impl.EnglandPremierScoreBoardServiceImpl;
 import com.eastng.football.util.SpringContextUtil;
 
 public class ScoreBoardFactory {
