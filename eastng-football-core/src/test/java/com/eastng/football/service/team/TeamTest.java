@@ -10,9 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.team.TeamSeason;
-import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.core.service.team.persistence.TeamSeasonMapper;
 
 public class TeamTest {

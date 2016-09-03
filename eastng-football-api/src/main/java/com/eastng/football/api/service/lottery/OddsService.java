@@ -1,7 +1,5 @@
 package com.eastng.football.api.service.lottery;
 
-import java.util.List;
-
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.QueryOddsParamVO;

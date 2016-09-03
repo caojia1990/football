@@ -2,7 +2,6 @@ package com.eastng.football.core.service.match.persistence;
 
 import java.util.List;
 
-import com.eastng.football.core.entity.match.Team;
 import com.eastng.football.core.entity.match.TeamSeasonScore;
 
 public interface TeamSeasonScoreMapper {

@@ -1,6 +1,5 @@
 package com.eastng.football.core.service.match.persistence;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
-import com.eastng.football.core.entity.match.Team;
 
 /**
  * 比赛Mapper接口

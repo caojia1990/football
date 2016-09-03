@@ -1,7 +1,5 @@
 package com.eastng.football.core.service.match.persistence;
 
-import org.apache.ibatis.annotations.Select;
-
 import com.eastng.football.core.entity.match.LeagueSeason;
 
 public interface LeagueSeasonMapper {
