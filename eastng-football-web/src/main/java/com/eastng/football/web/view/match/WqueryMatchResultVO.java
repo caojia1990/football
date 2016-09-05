@@ -11,40 +11,45 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class WqueryMatchResultVO implements Serializable {
 
-	/**
-	 * 可序列化
-	 */
-	private static final long serialVersionUID = -1204746560624931765L;
+    /**
+     * 可序列化
+     */
+    private static final long serialVersionUID = -1204746560624931765L;
 
-	/**
-	 * 比赛编号(后台自动生成)
-	 */
-	private String matchNo;
-	
-	/**
-	 * 主队球队编号
-	 */
-	private String hostTeamNo;
-	
-	/**
-	 * 主队简称
-	 */
-	private String hostShortName;
-	
-	/**
-	 * 客队球队编号
-	 */
-	private String guestTeamNo;
-	
-	/**
-	 * 客队简称
-	 */
+    /**
+     * 比赛编号(后台自动生成)
+     */
+    private String matchNo;
+    
+    /**
+     * 主队球队编号
+     */
+    private String hostTeamNo;
+    
+    /**
+     * 主队简称
+     */
+    private String hostShortName;
+    
+    /**
+     * 客队球队编号
+     */
+    private String guestTeamNo;
+    
+    /**
+     * 客队简称
+     */
     private String guestShortName;
     
     /**
      * 赛事编号
      */
     private String leagueNo;
+    
+    /**
+     * 赛季编号
+     */
+    private String seasonNo;
     
     /**
      * 赛季名称
@@ -69,271 +74,266 @@ public class WqueryMatchResultVO implements Serializable {
     /**
      * 客队进球
      */
-	private Integer guestGoal;
-	
-	/**
-	 * 半场主队进球
-	 */
-	private Integer halfTimeHostGoal;
-	
-	/**
-	 * 半场客队进球
-	 */
-	private Integer halfTimeGuestGoal;
-	
-	/**
-	 * 比赛状态    0：未开始  1：比赛中  2：已结束
-	 */
-	private String matchStatus;
-	
-	/**
-	 * 比分
-	 */
-	private String score;
-	
-	/**
-	 * 赛事名称
-	 */
-	private String leagueShortName;
+    private Integer guestGoal;
     
-	/**
-	 * 比赛编号(后台自动生成)
-	 */
-	public String getMatchNo() {
-		return matchNo;
-	}
+    /**
+     * 半场主队进球
+     */
+    private Integer halfTimeHostGoal;
+    
+    /**
+     * 半场客队进球
+     */
+    private Integer halfTimeGuestGoal;
+    
+    /**
+     * 比赛状态    0：未开始  1：比赛中  2：已结束
+     */
+    private String matchStatus;
+    
+    /**
+     * 比分
+     */
+    private String score;
+    
+    /**
+     * 赛事名称
+     */
+    private String leagueShortName;
+    
+    /**
+     * 比赛编号(后台自动生成)
+     */
+    public String getMatchNo() {
+        return matchNo;
+    }
 
-	/**
-	 * 比赛编号(后台自动生成)
-	 */
-	public void setMatchNo(String matchNo) {
-		this.matchNo = matchNo;
-	}
+    /**
+     * 比赛编号(后台自动生成)
+     */
+    public void setMatchNo(String matchNo) {
+        this.matchNo = matchNo;
+    }
 
-	/**
-	 * @return the hostTeamNo
-	 */
-	public String getHostTeamNo() {
-		return hostTeamNo;
-	}
+    /**
+     * @return the hostTeamNo
+     */
+    public String getHostTeamNo() {
+        return hostTeamNo;
+    }
 
-	/**
-	 * @param hostTeamNo the hostTeamNo to set
-	 */
-	public void setHostTeamNo(String hostTeamNo) {
-		this.hostTeamNo = hostTeamNo;
-	}
+    /**
+     * @param hostTeamNo the hostTeamNo to set
+     */
+    public void setHostTeamNo(String hostTeamNo) {
+        this.hostTeamNo = hostTeamNo;
+    }
 
-	/**
-	 * @return the hostShortName
-	 */
-	public String getHostShortName() {
-		return hostShortName;
-	}
+    /**
+     * @return the hostShortName
+     */
+    public String getHostShortName() {
+        return hostShortName;
+    }
 
-	/**
-	 * @param hostShortName the hostShortName to set
-	 */
-	public void setHostShortName(String hostShortName) {
-		this.hostShortName = hostShortName;
-	}
+    /**
+     * @param hostShortName the hostShortName to set
+     */
+    public void setHostShortName(String hostShortName) {
+        this.hostShortName = hostShortName;
+    }
 
-	/**
-	 * @return the guestTeamNo
-	 */
-	public String getGuestTeamNo() {
-		return guestTeamNo;
-	}
+    /**
+     * @return the guestTeamNo
+     */
+    public String getGuestTeamNo() {
+        return guestTeamNo;
+    }
 
-	/**
-	 * @param guestTeamNo the guestTeamNo to set
-	 */
-	public void setGuestTeamNo(String guestTeamNo) {
-		this.guestTeamNo = guestTeamNo;
-	}
+    /**
+     * @param guestTeamNo the guestTeamNo to set
+     */
+    public void setGuestTeamNo(String guestTeamNo) {
+        this.guestTeamNo = guestTeamNo;
+    }
 
-	/**
-	 * @return the guestShortName
-	 */
-	public String getGuestShortName() {
-		return guestShortName;
-	}
+    /**
+     * @return the guestShortName
+     */
+    public String getGuestShortName() {
+        return guestShortName;
+    }
 
-	/**
-	 * @param guestShortName the guestShortName to set
-	 */
-	public void setGuestShortName(String guestShortName) {
-		this.guestShortName = guestShortName;
-	}
+    /**
+     * @param guestShortName the guestShortName to set
+     */
+    public void setGuestShortName(String guestShortName) {
+        this.guestShortName = guestShortName;
+    }
 
-	/**
-	 * @return the leagueNo
-	 */
-	public String getLeagueNo() {
-		return leagueNo;
-	}
+    /**
+     * @return the leagueNo
+     */
+    public String getLeagueNo() {
+        return leagueNo;
+    }
 
-	/**
-	 * @param leagueNo the leagueNo to set
-	 */
-	public void setLeagueNo(String leagueNo) {
-		this.leagueNo = leagueNo;
-	}
+    /**
+     * @param leagueNo the leagueNo to set
+     */
+    public void setLeagueNo(String leagueNo) {
+        this.leagueNo = leagueNo;
+    }
 
-	/**
-	 * @return the seasonName
-	 */
-	public String getSeasonName() {
-		return seasonName;
-	}
+    /**
+     * @return the seasonName
+     */
+    public String getSeasonName() {
+        return seasonName;
+    }
 
-	/**
-	 * @param seasonName the seasonName to set
-	 */
-	public void setSeasonName(String seasonName) {
-		this.seasonName = seasonName;
-	}
+    /**
+     * @param seasonName the seasonName to set
+     */
+    public void setSeasonName(String seasonName) {
+        this.seasonName = seasonName;
+    }
 
-	/**
-	 * @return the matchTime
-	 */
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	public Date getMatchTime() {
-		return matchTime;
-	}
+    /**
+     * @return the matchTime
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    public Date getMatchTime() {
+        return matchTime;
+    }
 
-	/**
-	 * @param matchTime the matchTime to set
-	 */
-	public void setMatchTime(Date matchTime) {
-		this.matchTime = matchTime;
-	}
+    /**
+     * @param matchTime the matchTime to set
+     */
+    public void setMatchTime(Date matchTime) {
+        this.matchTime = matchTime;
+    }
 
-	/**
-	 * @return the round
-	 */
-	public Integer getRound() {
-		return round;
-	}
+    /**
+     * @return the round
+     */
+    public Integer getRound() {
+        return round;
+    }
 
-	/**
-	 * @param round the round to set
-	 */
-	public void setRound(Integer round) {
-		this.round = round;
-	}
+    /**
+     * @param round the round to set
+     */
+    public void setRound(Integer round) {
+        this.round = round;
+    }
 
-	/**
-	 * @return the hostGoal
-	 */
-	public Integer getHostGoal() {
-		return hostGoal;
-	}
+    /**
+     * @return the hostGoal
+     */
+    public Integer getHostGoal() {
+        return hostGoal;
+    }
 
-	/**
-	 * @param hostGoal the hostGoal to set
-	 */
-	public void setHostGoal(Integer hostGoal) {
-		this.hostGoal = hostGoal;
-	}
+    /**
+     * @param hostGoal the hostGoal to set
+     */
+    public void setHostGoal(Integer hostGoal) {
+        this.hostGoal = hostGoal;
+    }
 
-	/**
-	 * @return the guestGoal
-	 */
-	public Integer getGuestGoal() {
-		return guestGoal;
-	}
+    /**
+     * @return the guestGoal
+     */
+    public Integer getGuestGoal() {
+        return guestGoal;
+    }
 
-	/**
-	 * @param guestGoal the guestGoal to set
-	 */
-	public void setGuestGoal(Integer guestGoal) {
-		this.guestGoal = guestGoal;
-	}
+    /**
+     * @param guestGoal the guestGoal to set
+     */
+    public void setGuestGoal(Integer guestGoal) {
+        this.guestGoal = guestGoal;
+    }
 
-	/**
-	 * @return the halfTimeHostGoal
-	 */
-	public Integer getHalfTimeHostGoal() {
-		return halfTimeHostGoal;
-	}
+    /**
+     * @return the halfTimeHostGoal
+     */
+    public Integer getHalfTimeHostGoal() {
+        return halfTimeHostGoal;
+    }
 
-	/**
-	 * @param halfTimeHostGoal the halfTimeHostGoal to set
-	 */
-	public void setHalfTimeHostGoal(Integer halfTimeHostGoal) {
-		this.halfTimeHostGoal = halfTimeHostGoal;
-	}
+    /**
+     * @param halfTimeHostGoal the halfTimeHostGoal to set
+     */
+    public void setHalfTimeHostGoal(Integer halfTimeHostGoal) {
+        this.halfTimeHostGoal = halfTimeHostGoal;
+    }
 
-	/**
-	 * @return the halfTimeGuestGoal
-	 */
-	public Integer getHalfTimeGuestGoal() {
-		return halfTimeGuestGoal;
-	}
+    /**
+     * @return the halfTimeGuestGoal
+     */
+    public Integer getHalfTimeGuestGoal() {
+        return halfTimeGuestGoal;
+    }
 
-	/**
-	 * @param halfTimeGuestGoal the halfTimeGuestGoal to set
-	 */
-	public void setHalfTimeGuestGoal(Integer halfTimeGuestGoal) {
-		this.halfTimeGuestGoal = halfTimeGuestGoal;
-	}
+    /**
+     * @param halfTimeGuestGoal the halfTimeGuestGoal to set
+     */
+    public void setHalfTimeGuestGoal(Integer halfTimeGuestGoal) {
+        this.halfTimeGuestGoal = halfTimeGuestGoal;
+    }
 
-	/**
-	 * 比赛状态    0：未开始  1：比赛中  2：已结束
-	 */
-	public String getMatchStatus() {
-		return matchStatus;
-	}
+    /**
+     * 比赛状态    0：未开始  1：比赛中  2：已结束
+     */
+    public String getMatchStatus() {
+        return matchStatus;
+    }
 
-	/**
-	 * 比赛状态    0：未开始  1：比赛中  2：已结束
-	 */
-	public void setMatchStatus(String matchStatus) {
-		this.matchStatus = matchStatus;
-	}
+    /**
+     * 比赛状态    0：未开始  1：比赛中  2：已结束
+     */
+    public void setMatchStatus(String matchStatus) {
+        this.matchStatus = matchStatus;
+    }
 
-	
-	/**
-	 * 比分
-	 */
-	public String getScore() {
-		return score;
-	}
+    
+    /**
+     * 比分
+     */
+    public String getScore() {
+        return score;
+    }
 
-	/**
-	 * 比分
-	 */
-	public void setScore(String score) {
-		this.score = score;
-	}
-	
+    /**
+     * 比分
+     */
+    public void setScore(String score) {
+        this.score = score;
+    }
+    
 
-	/**
-	 * @return the leagueShortName
-	 */
-	public String getLeagueShortName() {
-		return leagueShortName;
-	}
+    /**
+     * @return the leagueShortName
+     */
+    public String getLeagueShortName() {
+        return leagueShortName;
+    }
 
-	/**
-	 * @param leagueShortName the leagueShortName to set
-	 */
-	public void setLeagueShortName(String leagueShortName) {
-		this.leagueShortName = leagueShortName;
-	}
+    /**
+     * @param leagueShortName the leagueShortName to set
+     */
+    public void setLeagueShortName(String leagueShortName) {
+        this.leagueShortName = leagueShortName;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "MatchVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName=" + hostShortName
-				+ ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", leagueNo=" + leagueNo
-				+ ", seasonName=" + seasonName + ", matchTime=" + matchTime + ", round=" + round + ", hostGoal="
-				+ hostGoal + ", guestGoal=" + guestGoal + ", halfTimeHostGoal=" + halfTimeHostGoal
-				+ ", halfTimeGuestGoal=" + halfTimeGuestGoal + ", matchStatus=" + matchStatus + ", score=" + score
-				+ "]";
-	}
-	
+    public String getSeasonNo() {
+        return seasonNo;
+    }
+
+    public void setSeasonNo(String seasonNo) {
+        this.seasonNo = seasonNo;
+    }
+    
 }

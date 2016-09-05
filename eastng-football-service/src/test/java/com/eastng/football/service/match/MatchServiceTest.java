@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
 import com.eastng.football.service.support.ScoreBoardService;
 import com.eastng.football.test.BaseJunit4Test;
@@ -25,6 +26,9 @@ public class MatchServiceTest extends BaseJunit4Test{
     
     @Resource
     private MatchService matchService;
+    
+    @Resource
+    private SeasonService seasonService;
     
     @Test
     @Transactional
@@ -43,7 +47,7 @@ public class MatchServiceTest extends BaseJunit4Test{
     @Rollback(false)
     public void updateScoreBoard(){
         try {
-            this.matchService.updateScoreBoard("001005001201516", 38);
+            this.seasonService.updateScoreBoard("001005001201516", 38);
         } catch (FootBallBizException e) {
             logger.error("更新积分榜失败", e);
         }
@@ -51,7 +55,7 @@ public class MatchServiceTest extends BaseJunit4Test{
     
     @Test
     public void queryScoreBoard(){
-        List<TeamSeasonScoreVO> list = this.matchService.queryScoreBoard("001005001201516");
+        List<TeamSeasonScoreVO> list = this.seasonService.queryScoreBoard("001005001201516");
         String jsonString = JSON.toJSONString(list);
         logger.debug(jsonString);
     }

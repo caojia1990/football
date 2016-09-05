@@ -22,6 +22,7 @@ import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.MatchService;
+import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.service.match.TeamService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.DistrictVO;
@@ -53,6 +54,9 @@ public class MatchController {
     
     @Autowired
     private LeagueInfoService leagueInfoService; 
+    
+    @Autowired
+    private SeasonService seasonService;
     
     @RequestMapping("queryMatchByMatchNo")
     @ResponseBody
@@ -267,7 +271,7 @@ public class MatchController {
         
         logger.info("赛季编号："+seasonNo);
         
-        List<TeamSeasonScoreVO> list = this.matchService.queryScoreBoard(seasonNo);
+        List<TeamSeasonScoreVO> list = this.seasonService.queryScoreBoard(seasonNo);
     
         List<WqueryScoreBoardResultVO> list2 = new ArrayList<WqueryScoreBoardResultVO>();
         
@@ -287,7 +291,7 @@ public class MatchController {
         
         
         try {
-            this.matchService.updateScoreBoard(seasonNo, round);
+            this.seasonService.updateScoreBoard(seasonNo, round);
         } catch (FootBallBizException e) {
             logger.error("更新失败",e);
             return "failed";

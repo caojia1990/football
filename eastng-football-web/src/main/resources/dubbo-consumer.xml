@@ -22,5 +22,7 @@
 	<dubbo:reference id="leagueInfoService" interface="com.eastng.football.api.service.match.LeagueInfoService" timeout="5000" check="false"/>
 	
 	<!-- 赛事服务接口 -->
-	<dubbo:reference id="OddsService" interface="com.eastng.football.api.service.lottery.OddsService" timeout="5000" check="false"/>
+	<dubbo:reference id="oddsService" interface="com.eastng.football.api.service.lottery.OddsService" timeout="5000" check="false"/>
+	
+	<dubbo:reference id="seasonService" interface="com.eastng.football.api.service.match.SeasonService" timeout="50000" check="false"/>
 </beans>

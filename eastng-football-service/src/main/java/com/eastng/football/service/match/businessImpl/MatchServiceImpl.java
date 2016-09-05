@@ -173,35 +173,6 @@ public class MatchServiceImpl implements MatchService {
         return this.matchMapper.batchInsert(records);
     }
     
-    /**
-     * 更新积分榜
-     * @param seasonNo 赛季编号
-     * @throws FootBallBizException 
-     */
-    @Override
-    public void updateScoreBoard(String seasonNo, Integer round) throws FootBallBizException{
-        
-        
-        LeagueSeason leagueSeason = leagueSeasonMapper.selectBySeasonNo(seasonNo);
-        
-        if(leagueSeason == null){
-            logger.info("没有查到赛季信息");
-            return;
-        }
-        
-        LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(leagueSeason.getLeagueNo());
-        
-        if(leagueInfo == null){
-            logger.error("赛事编号不存在");
-            throw new FootBallBizException("", "赛事编号不存在");
-        }
-        
-        ScoreBoardFactory factory = new ScoreBoardFactory();
-        factory.createScoreBoard(seasonNo).update(seasonNo, round);
-        
-    }
-    
-
 
     /**
      * 根据比赛编号查询比赛详情
@@ -255,16 +226,6 @@ public class MatchServiceImpl implements MatchService {
         
         result.setResult(resultList);
         return result;
-    }
-
-    @Override
-    public List<TeamSeasonScoreVO> queryScoreBoard(String seasonNo) {
-        
-        List<TeamSeasonScore> scoreBoard = this.teamSeasonScoreMapper.selectScoreBoardBySeasonNo(seasonNo);
-        
-        List<TeamSeasonScoreVO> scoreBoardVo = BeanUtils.copyList(scoreBoard, TeamSeasonScoreVO.class);
-        
-        return scoreBoardVo;
     }
     
 }

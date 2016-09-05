@@ -14,66 +14,52 @@ import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
  * @author caojia
  */
 public interface MatchService {
-	
-	/**
-	 * 保存赛程信息
-	 * @param matchVO
-	 * @return
-	 * @throws FootBallBizException 
-	 */
-	public String saveMatch(MatchVO matchVO) throws FootBallBizException;
-	
-	/**
-	 * 保存赛程信息列表
-	 * @param list
-	 * @return
-	 */
-	public Integer saveMatchList(List<MatchVO> list);
-	
-	/**
-	 * 根据条件查询比赛信息
-	 * @param paramVO
-	 * @return
-	 */
-	public PageResult<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
+    
+    /**
+     * 保存赛程信息
+     * @param matchVO
+     * @return
+     * @throws FootBallBizException 
+     */
+    public String saveMatch(MatchVO matchVO) throws FootBallBizException;
+    
+    /**
+     * 保存赛程信息列表
+     * @param list
+     * @return
+     */
+    public Integer saveMatchList(List<MatchVO> list);
+    
+    /**
+     * 根据条件查询比赛信息
+     * @param paramVO
+     * @return
+     */
+    public PageResult<MatchVO> queryMatchSchedule(QueryMatchParamVO paramVO);
 
-	/**
-	 * 查询两队交战记录
-	 * @param paramVO
-	 * @return
-	 * @throws FootBallBizException 
-	 */
-	public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) throws FootBallBizException;
-	
-	/**
-	 * 查询最近的战况
-	 * @param paramVO
-	 * @return
-	 * @throws FootBallBizException 
-	 */
-	public PageResult<MatchVO> queryRecentMatch(QueryMatchParamVO paramVO) throws FootBallBizException;
-	
-	/**
-	 * 根据比赛编号查询比赛详情
-	 * @param matchNo
-	 * @return
-	 */
-	public MatchVO queryMatchByMatchNo(String matchNo);
-	
-	
-	/**
-	 * 更新积分榜
-	 * @param seasonNo 赛季编号
-	 * @throws FootBallBizException 
-	 */
-	public void updateScoreBoard(String seasonNo, Integer round) throws FootBallBizException;
-	
-	/**
-	 * 查询赛季最新积分榜
-	 * @param teamNo
-	 * @param SeasonNo
-	 * @return 
-	 */
-	public List<TeamSeasonScoreVO> queryScoreBoard(String SeasonNo);
-	
+    /**
+     * 查询两队交战记录
+     * @param paramVO
+     * @return
+     * @throws FootBallBizException 
+     */
+    public PageResult<MatchVO> queryMatchHistory(QueryMatchParamVO paramVO) throws FootBallBizException;
+    
+    /**
+     * 查询最近的战况
+     * @param paramVO
+     * @return
+     * @throws FootBallBizException 
+     */
+    public PageResult<MatchVO> queryRecentMatch(QueryMatchParamVO paramVO) throws FootBallBizException;
+    
+    /**
+     * 根据比赛编号查询比赛详情
+     * @param matchNo
+     * @return
+     */
+    public MatchVO queryMatchByMatchNo(String matchNo);
+    
+    
+    
 }
