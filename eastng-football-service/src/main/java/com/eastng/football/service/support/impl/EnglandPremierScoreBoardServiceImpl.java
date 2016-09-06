@@ -53,20 +53,40 @@ public class EnglandPremierScoreBoardServiceImpl implements ScoreBoardService {
             
             //查询球队赛季到该轮的主场比赛场次
             Map<String, Object> hostMap = matchMapper.selectCountByHostTeamAndRound(seasonNo, team.getTeamNo(), round);
-            //主场已赛
-            score.setHostHaveMatch(((Long)hostMap.get("hostPlay")).intValue());
-            //主场进球
-            score.setHostGoals(((BigDecimal)hostMap.get("hostGoals")).intValue());
-            //主场失球
-            score.setHostFumble(((BigDecimal)hostMap.get("guestGoals")).intValue());
+            if((Long)hostMap.get("hostPlay")>0){
+                
+                //主场已赛
+                score.setHostHaveMatch(((Long)hostMap.get("hostPlay")).intValue());
+                //主场进球
+                score.setHostGoals(((BigDecimal)hostMap.get("hostGoals")).intValue());
+                //主场失球
+                score.setHostFumble(((BigDecimal)hostMap.get("guestGoals")).intValue());
+            }else {
+              //主场已赛
+                score.setHostHaveMatch(0);
+                //主场进球
+                score.setHostGoals(0);
+                //主场失球
+                score.setHostFumble(0);
+            }
             //查询球队客场比赛场次
             Map<String, Object> guestMap = matchMapper.selectCountByGuestTeamAndRound(seasonNo, team.getTeamNo(), round);
-            //客场已赛
-            score.setGuestHaveMatch(((Long)guestMap.get("guestPlay")).intValue());
-            //客场进球
-            score.setGuestGoals(((BigDecimal)guestMap.get("guestGoals")).intValue());
-            //客场失球
-            score.setGuestFumble(((BigDecimal)guestMap.get("hostGoals")).intValue());
+            if((Long)guestMap.get("guestPlay")>0){
+                
+                //客场已赛
+                score.setGuestHaveMatch(((Long)guestMap.get("guestPlay")).intValue());
+                //客场进球
+                score.setGuestGoals(((BigDecimal)guestMap.get("guestGoals")).intValue());
+                //客场失球
+                score.setGuestFumble(((BigDecimal)guestMap.get("hostGoals")).intValue());
+            }else {
+              //客场已赛
+                score.setGuestHaveMatch(0);
+                //客场进球
+                score.setGuestGoals(0);
+                //客场失球
+                score.setGuestFumble(0);
+            }
             
             //总进球数
             score.setGoals(score.getHostGoals()+score.getGuestGoals());
