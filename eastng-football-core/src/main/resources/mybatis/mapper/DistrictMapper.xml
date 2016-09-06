@@ -310,4 +310,18 @@
         #{item.firstLetter})  
     </foreach>
   </insert>
+  
+  <!-- 根据洲查询有联赛的国家 -->
+  <select id="selectCountryWithLeagueByContinentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from t_district t
+    where t.PARENT_DISTRICT_NO = #{ContinentNo}
+    AND EXISTS( SELECT 
+            1
+        FROM
+            t_league_info t1
+        WHERE
+            t1.country = t.DISTRICT_NO)
+  </select>
 </mapper>

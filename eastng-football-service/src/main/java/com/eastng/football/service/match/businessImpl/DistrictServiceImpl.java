@@ -3,9 +3,11 @@ package com.eastng.football.service.match.businessImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.DistrictService;
 import com.eastng.football.api.vo.match.DistrictVO;
 import com.eastng.football.core.entity.match.District;
@@ -16,6 +18,8 @@ import com.eastng.football.util.BeanUtils;
 
 public class DistrictServiceImpl implements DistrictService {
 
+    static Logger logger = Logger.getLogger(DistrictServiceImpl.class);
+    
     @Autowired
     private DistrictMapper districtMapper;
     
@@ -57,6 +61,26 @@ public class DistrictServiceImpl implements DistrictService {
             districtVOs.add(districtVO);
         }
         return districtVOs;
+    }
+
+    @Override
+    public List<DistrictVO> queryCountryByContinentId(String continentId, String hasLeague) throws FootBallBizException {
+        
+        if(StringUtils.isEmpty(continentId)){
+            throw new FootBallBizException("", "洲id为空");
+        }
+        List<District> districts = null;
+        if(!StringUtils.isEmpty(hasLeague)&&hasLeague.equals("1")){
+            districts = this.districtMapper.selectCountryWithLeagueByContinentNo(continentId);
+        }else {
+            DistrictExample example = new DistrictExample();
+            Criteria criteria = example.createCriteria();
+            criteria.andParentDistrictNoEqualTo(continentId);
+            districts = this.districtMapper.selectByExample(example);
+        }
+        
+        
+        return null;
     }  
     
 }

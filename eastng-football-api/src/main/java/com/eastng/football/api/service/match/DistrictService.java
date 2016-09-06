@@ -2,6 +2,7 @@ package com.eastng.football.api.service.match;
 
 import java.util.List;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.vo.match.DistrictVO;
 
 /**
@@ -30,5 +31,14 @@ public interface DistrictService {
 	 * @return
 	 */
 	public List<DistrictVO> queryDistrictByPid(String pid);
+	
+	/**
+	 * 根据洲id查询国家列表
+	 * @param continentId
+	 * @param hasLeague 1:有联赛 0:无限制
+	 * @return
+	 * @throws FootBallBizException 
+	 */
+	public List<DistrictVO> queryCountryByContinentId(String continentId ,String hasLeague) throws FootBallBizException;
 	
 }

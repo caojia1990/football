@@ -95,4 +95,11 @@ public interface DistrictMapper {
     int updateByPrimaryKey(District record);
     
     int batchInsert(List<District> records);
+    
+    /**
+     * 根据洲查询有联赛的国家
+     * @param ContinentNo
+     * @return
+     */
+    List<District> selectCountryWithLeagueByContinentNo(String ContinentNo);
 }
