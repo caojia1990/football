@@ -312,7 +312,7 @@
   </insert>
   
   <!-- 根据洲查询有联赛的国家 -->
-  <select id="selectCountryWithLeagueByContinentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="selectCountryWithLeagueByContinentNo" resultMap="BaseResultMap" parameterType="java.lang.String">
     select 
     <include refid="Base_Column_List" />
     from t_district t
