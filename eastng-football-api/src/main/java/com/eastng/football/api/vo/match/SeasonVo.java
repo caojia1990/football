@@ -24,6 +24,11 @@ public class SeasonVo implements Serializable {
      * 联赛编号
      */
     private String leagueNo;
+    
+    /**
+     * 联赛简称
+     */
+    private String leagueShortName;
 
     /**
      * 联赛开始时间
@@ -73,6 +78,14 @@ public class SeasonVo implements Serializable {
 
     public void setSeasonEndDate(Date seasonEndDate) {
         this.seasonEndDate = seasonEndDate;
+    }
+
+    public String getLeagueShortName() {
+        return leagueShortName;
+    }
+
+    public void setLeagueShortName(String leagueShortName) {
+        this.leagueShortName = leagueShortName;
     }
     
     

@@ -1,5 +1,7 @@
 package com.eastng.football.core.service.match.persistence;
 
+import java.util.List;
+
 import com.eastng.football.core.entity.match.LeagueSeason;
 
 public interface LeagueSeasonMapper {
@@ -52,9 +54,9 @@ public interface LeagueSeasonMapper {
     int updateByPrimaryKey(LeagueSeason record);
     
     /**
-     * 根据赛季编号查询赛季信息
+     * 根据条件查询赛季信息
      * @param seasonNo
      * @return
      */
-    LeagueSeason selectBySeasonNo(String seasonNo);
+    List<LeagueSeason> selectByCondition(LeagueSeason record);
 }

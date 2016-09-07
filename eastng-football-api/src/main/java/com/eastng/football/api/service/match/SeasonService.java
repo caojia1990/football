@@ -15,6 +15,13 @@ public interface SeasonService {
     SeasonVo querySeasonBySeasonNo(String seasonNo);
     
     /**
+     * 根据联赛编号查询赛季列表
+     * @param leagueNo
+     * @return
+     */
+    List<SeasonVo> querySeasonByLeagueNo(String leagueNo);
+    
+    /**
      * 更新积分榜
      * @param seasonNo 赛季编号
      * @throws FootBallBizException 

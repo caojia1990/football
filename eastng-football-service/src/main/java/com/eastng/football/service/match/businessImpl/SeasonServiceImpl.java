@@ -1,5 +1,6 @@
 package com.eastng.football.service.match.businessImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -18,6 +19,7 @@ import com.eastng.football.core.service.match.persistence.LeagueSeasonMapper;
 import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
 import com.eastng.football.service.ScoreBoardFactory;
 import com.eastng.football.util.BeanUtils;
+import com.eastng.framework.common.utils.BeanUtil;
 
 @Service("seasonService")
 public class SeasonServiceImpl implements SeasonService {
@@ -35,9 +37,19 @@ public class SeasonServiceImpl implements SeasonService {
     
     @Override
     public SeasonVo querySeasonBySeasonNo(String seasonNo) {
-        LeagueSeason record = this.leagueSeasonMapper.selectBySeasonNo(seasonNo);
-        SeasonVo seasonVo = new SeasonVo();
-        BeanUtils.copyProperties(record, seasonVo);
+        
+        LeagueSeason record = new LeagueSeason();
+        record.setSeasonNo(seasonNo);
+        
+        List<LeagueSeason> list = this.leagueSeasonMapper.selectByCondition(record);
+        
+        SeasonVo seasonVo = null;
+        
+        if(list != null && list.size() >0){
+            seasonVo = new SeasonVo();
+            BeanUtils.copyProperties(list.get(0), seasonVo);
+        }
+        
         return seasonVo;
     }
     
@@ -49,15 +61,17 @@ public class SeasonServiceImpl implements SeasonService {
     @Override
     public void updateScoreBoard(String seasonNo, Integer round) throws FootBallBizException{
         
+        LeagueSeason record = new LeagueSeason();
+        record.setSeasonNo(seasonNo);
         
-        LeagueSeason leagueSeason = leagueSeasonMapper.selectBySeasonNo(seasonNo);
+        List<LeagueSeason> list = leagueSeasonMapper.selectByCondition(record);
         
-        if(leagueSeason == null){
+        if(list == null || list.size() <=0){
             logger.info("没有查到赛季信息");
             return;
         }
         
-        LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(leagueSeason.getLeagueNo());
+        LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(list.get(0).getLeagueNo());
         
         if(leagueInfo == null){
             logger.error("赛事编号不存在");
@@ -74,9 +88,27 @@ public class SeasonServiceImpl implements SeasonService {
         
         List<TeamSeasonScore> scoreBoard = this.teamSeasonScoreMapper.selectScoreBoardBySeasonNo(seasonNo);
         
-        List<TeamSeasonScoreVO> scoreBoardVo = BeanUtils.copyList(scoreBoard, TeamSeasonScoreVO.class);
+        List<TeamSeasonScoreVO> scoreBoardVo = null;
+        if(scoreBoard.size()>0){
+            
+            scoreBoardVo = BeanUtils.copyList(scoreBoard, TeamSeasonScoreVO.class);
+        }
         
         return scoreBoardVo;
+    }
+
+    @Override
+    public List<SeasonVo> querySeasonByLeagueNo(String leagueNo) {
+        LeagueSeason record = new LeagueSeason();
+        record.setLeagueNo(leagueNo);
+        
+        List<LeagueSeason> list = this.leagueSeasonMapper.selectByCondition(record);
+        
+        List<SeasonVo> seasonVos = null;
+        if(list.size() >0){
+            seasonVos = BeanUtil.copyList(list, SeasonVo.class);
+        }
+        return seasonVos;
     }
 
 }

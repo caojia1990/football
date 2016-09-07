@@ -145,8 +145,12 @@
   </update>
   
   
-  <select id="selectBySeasonNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByCondition" parameterType="com.eastng.football.core.entity.match.LeagueSeason" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
-    from t_league_season where season_no = #{seasonNo}
+    from t_league_season
+    <where>
+        <if test="seasonNo">season_no = #{seasonNo}</if>
+        <if test="leagueNo">and league_no = #{leagueNo}</if>
+    </where>
   </select>
 </mapper>

@@ -16,18 +16,10 @@ import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
-import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
-import com.eastng.football.core.entity.match.LeagueInfo;
-import com.eastng.football.core.entity.match.LeagueSeason;
 import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.entity.match.MatchExample;
 import com.eastng.football.core.entity.match.MatchExample.Criteria;
-import com.eastng.football.core.entity.match.TeamSeasonScore;
-import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
-import com.eastng.football.core.service.match.persistence.LeagueSeasonMapper;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
-import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
-import com.eastng.football.service.ScoreBoardFactory;
 import com.eastng.football.service.match.base.MatchBaseService;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.football.util.GenerateCodeUtil;
@@ -42,15 +34,6 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private MatchMapper matchMapper;
     
-    @Autowired
-    private LeagueInfoMapper leagueInfoMapper;
-    
-    @Autowired
-    private LeagueSeasonMapper leagueSeasonMapper;
-    
-    @Autowired
-    private TeamSeasonScoreMapper teamSeasonScoreMapper;
-
     @Autowired
     private MatchBaseService matchBaseService;
     /**
