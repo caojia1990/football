@@ -421,5 +421,6 @@
     from t_team_season_score t
     where t.season_no = #{seasonNo}
     and t.round = (select max(t1.ROUND) from t_team_season_score t1 where t.season_no = t1.season_no )
+    order by t.points desc,(t.GOALS - t.FUMBLE) desc,t.GOALS desc
   </select>
 </mapper>
