@@ -275,10 +275,12 @@ public class MatchController {
     
         List<WqueryScoreBoardResultVO> list2 = new ArrayList<WqueryScoreBoardResultVO>();
         
-        for(TeamSeasonScoreVO scoreVO:list ){
-            WqueryScoreBoardResultVO boardResultVO = new WqueryScoreBoardResultVO();
-            BeanUtils.copyProperties(scoreVO, boardResultVO);
-            list2.add(boardResultVO);
+        if(list != null){
+            for(TeamSeasonScoreVO scoreVO:list ){
+                WqueryScoreBoardResultVO boardResultVO = new WqueryScoreBoardResultVO();
+                BeanUtils.copyProperties(scoreVO, boardResultVO);
+                list2.add(boardResultVO);
+            }
         }
         
         return list2;
