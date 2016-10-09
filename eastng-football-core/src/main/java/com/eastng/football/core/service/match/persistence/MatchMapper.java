@@ -151,4 +151,16 @@ public interface MatchMapper {
             + "from t_match t where season_no = #{0} and guest_team_no = #{1} and round <= #{2} and t.match_status = '2'"
             + "group by case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end")
     List<Map<String, Object>> selectGuestResult(String seasonNo, String teamNo, Integer round);
+    
+    
+    /**
+     * 
+     * @param beginDate
+     * @return
+     */
+   // @Select("select * from t_match where match_time >= #{0} and season_no=#{1} order by match_time asc limit 15")
+    List<Match> selectMatchByBeginDateAndSeasonNo(Map<String,String> params);
+    
+    //@Select("select * from t_match where match_time <= #{0} and league_no=#{1} order by match_time desc limit 15")
+    List<Match> selectMatchByEndDateAndLeagueNo(Map<String,String> params);
 }

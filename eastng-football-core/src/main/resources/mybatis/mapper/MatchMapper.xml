@@ -655,4 +655,10 @@
             <if test="matchStatus">and MATCH_STATUS = #{matchStatus}</if>
         </where>
     </select>
+    <select id="selectMatchByBeginDateAndSeasonNo" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	 select * from t_match where match_time &gt;= #{beginDate} and season_no=#{seasonNo} order by match_time asc limit 15
+    </select>
+    <select id="selectMatchByEndDateAndLeagueNo" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	 select * from t_match where match_time  &lt;= #{endDate} and season_no=#{seasonNo} order by match_time desc limit 15
+    </select>
 </mapper>

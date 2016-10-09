@@ -1,6 +1,7 @@
 package com.eastng.football.core.service.match.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.eastng.football.core.entity.match.LeagueSeason;
 
@@ -59,4 +60,14 @@ public interface LeagueSeasonMapper {
      * @return
      */
     List<LeagueSeason> selectByCondition(LeagueSeason record);
+    
+    /**
+     * 根据联赛Number 获取最新的联赛
+     * 
+     * @param leagueNo
+     * @return
+     * @author laughing
+     */
+   // @Select("select * from t_league_season where LEAGUE_NO =#{0} order by  SEASON_NO desc limit 1")
+    LeagueSeason selectMaxLeagueSeasonByLeagueNo(Map<String, String> params);
 }

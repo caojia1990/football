@@ -49,6 +49,8 @@
 	        </list>
 	    </property>
 	</bean>
+	<!-- 异常处理类 -->
+	<bean class="com.eastng.football.web.controller.handler.FootballExceptionResolver"/>
 	
 	<import resource="classpath:dubbo-consumer.xml" />
 </beans>

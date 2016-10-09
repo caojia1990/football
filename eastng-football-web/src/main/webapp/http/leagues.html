@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	<title >全部联赛</title>
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		 <!--  
+		 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+		 -->
+		 <link href="./css/bootstrap.css" rel="stylesheet">
+		 <!--  
+		 <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>-->
+		 <script type="text/javascript" src="./js/jquery.js"></script>
+		 <!-- 
+		 <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+		 <script type="text/javascript" src="./js/bootstrap.min.js"></script>-->
+		 <script type="text/javascript" src="./js/sea.js"></script>
+		 <script type="text/javascript" src="./js/seaconfig.js"></script>
+		 <style type="text/css">	
+	 	  .nav-tabs
+            {
+                text-align: center;
+              	margin-top :5px;
+                line-height: 40px;
+                font-size:16px
+            }       		
+			/*** from http://www.divcss5.com/shili/s731.shtml **/		 
+			ul#nav-my	{ width:100%; height:40px; background:#00A2CA;margin:0 auto} 
+			ul#nav-my li{display:inline; height:40px ;  	} 
+			ul#nav-my li a{display:inline-block; padding:0 20px; height:40px;  display: table-cell;	vertical-align: middle;	text-align: center; color:#FFF;  font-size:16px} 
+			ul#nav-my li a:hover{background:#0095BB} 
+		 </style>
+	</head>
+	<body>
+		<!--  -->
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top" >		
+	     		<div class="container" align="center">
+	                <ul class="nav nav-tabs nav-tabs-justified ">
+	                    <div class="row" >
+	                        <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li></li></div>
+	                       	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#">赛事</a></li></div>
+	                        <div class="col-md-4 col-sm-4 col-xs-4" align="right"><li><a href="#">...</a></li></div>
+	                    </div>
+	                </ul>
+	            </div>
+			</nav>
+			<div class="row clearfix footballCarousel leagues" id="leagues" style="margin-top : 80px">
+				
+			</div>
+			<script id="leaguesContent" type="text/html">
+				
+				<div class="col-md-12 column">
+					<div class="row" >
+					{{each responseBody as value i}}
+					    <div class="col-sm-6 col-md-3 col-xs-6" align="center">
+					        <a href="#" class="thumbnail">
+					        	<table>
+					        		<tr><td><img src="./images/yc.jpg"  width="150px" height="135px" alt="{{value.leagueShortName}}"></td></tr>
+					        		<tr><td align="center"><span>{{value.leagueShortName}}</span></td></tr>
+					        	</table>		       
+					        </a>
+					    </div>
+					{{/each}}
+					</div>
+				</div>
+			</script>
+		</div>
+		<!-- 底部填充 -->
+		<div class="container">
+			<dir class="row">
+				<div class="col-md-12 column" class="display:none; height:40px;"></div>
+			</dir>
+		</div>
+		<script type="text/javascript">
+			seajs.use("football/leagues/leagues" ,function(leagues){
+				$(function(){
+					leagues.renderLeagues();
+				});
+			})
+		</script>
+	</body>
+</html>

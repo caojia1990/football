@@ -3,21 +3,22 @@ package com.eastng.football.api.exception;
 public class FootBallBizException extends Exception {
 
 	private static final long serialVersionUID = 5127459206447299438L;
-	
-	protected String errorCode ;
-	
+
+	protected String errorCode;
+
 	/**
 	 * 无参的构造方法
 	 */
-	public FootBallBizException(){
+	public FootBallBizException() {
 		super();
 	}
-	
+
 	/**
 	 * 构造方法
+	 * 
 	 * @param msg
 	 */
-	public FootBallBizException(String errorCode,String msg){
+	public FootBallBizException(String errorCode, String msg) {
 		super(msg);
 		this.errorCode = errorCode;
 	}
@@ -29,7 +30,4 @@ public class FootBallBizException extends Exception {
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
-	
-	
-	
 }

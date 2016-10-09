@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	<title >全部联赛</title>
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+		 <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+		 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+		 <style type="text/css">
+		 	
+	 	  .nav-tabs
+            {
+                text-align: center;
+              	margin-top :5px;
+                line-height: 40px;
+                font-size:16px
+            }
+           
+			.match-end{
+				font-size: 15px;
+			    color: #fff;
+			    background: #e0e0e0;
+			    border-radius: 18px;
+			    display: inline-block;
+			    line-height: 28px;
+			    height: 28px;
+			    width: 65px;
+			    text-align: center;
+			}
+			.my-table{
+				 background-color: transparent;
+				   border-spacing: 0;
+  				border-collapse: collapse;
+			}
+			.my-table td,
+			.my-table th {
+			    background-color: #fff !important;
+			}
+			/*** from http://www.divcss5.com/shili/s731.shtml **/		 
+			ul#nav-my	{ width:100%; height:40px; background:#00A2CA;margin:0 auto} 
+			ul#nav-my li{display:inline; height:40px ;  	} 
+			ul#nav-my li a{display:inline-block; padding:0 20px; height:40px;  display: table-cell;	vertical-align: middle;	text-align: center; color:#FFF;  font-size:16px} 
+			ul#nav-my li a:hover{background:#0095BB} 
+			.myActive {
+				color : #e6490e;
+				border-bottom: 1px solid #e6490e;
+			}
+			.myTab li:not(.myActive){
+				color: #337ab7; 
+			}
+			
+		 </style>
+	</head>
+	<body>
+		
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top" >
+		
+     		<div class="container" align="center">
+                        <ul class="nav nav-tabs nav-tabs-justified">
+                            <div class="row" >
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li><a href="#"><</a></li></div>
+                               	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#">英超</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="right"><li><a href="#">...</a></li></div>
+                            </div>
+                        </ul>
+                 </div>
+		</nav>
+
+
+	<div class="row clearfix footballCarousel" style="margin-top : 50px">
+		<ul class="nav nav-tabs myTab">
+			<div class ="col-md-3 col-sm-3 col-xs-3">
+				<li class="myActive" data-value="match">赛程</li>
+			</div>
+    		<div class ="col-md-3 col-sm-3 col-xs-3">
+				<li data-value="leagueTable">积分榜</li>
+			</div>
+    		<div class ="col-md-3 col-sm-3 col-xs-3">
+				<li data-value="score">射手榜</li>
+			</div>
+			<div class ="col-md-3 col-sm-3 col-xs-3">
+				<li data-value="score">球队</li>
+			</div>
+    	</ul>
+    	
+          
+		<div id="myTabContent" class="tab-content">
+			<!-- 赛程-->
+			<div class="tab-pane active" id="match">
+				<div class="well well-sm" align="center">2016-09-11</div>
+				<div class="list-group" style="margin-top:-20px">
+					<a href="#" class="list-group-item">
+						<table class="my-table" width="100%">
+								<tr>
+									<td>
+										<span style="font-size : 8px">第4轮</span>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
+									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
+									<td ></td>
+								</tr>														
+						</table>
+					</a>
+					<a href="#" class="list-group-item">
+						<table class="my-table" width="100%">
+								<tr>
+									<td>
+										<span style="font-size : 8px">第4轮</span>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
+									<td  rowspan ="2" style="font-size:18px ;" width="30%" align="center">20:30</td>
+									<td rowspan ="2" align="center"><span style="font-size:18px ;">未开赛</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
+									<td ></td>
+									<td ></td>
+								</tr>														
+						</table>
+					</a>
+				</div>
+	<div class="well well-sm" align="center">2016-09-11</div>
+				<div class="list-group" style="margin-top:-20px">
+					<a href="#" class="list-group-item">
+						<table class="my-table" width="100%">
+								<tr>
+									<td>
+										<span style="font-size : 8px">第4轮</span>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
+									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
+									<td ></td>
+								</tr>														
+						</table>
+					</a>
+					<a href="#" class="list-group-item">
+						<table class="my-table" width="100%">
+								<tr>
+									<td>
+										<span style="font-size : 8px">第4轮</span>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
+									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
+									<td ></td>
+								</tr>														
+						</table>
+					</a>
+				</div>
+			</div>
+			<!-- 积分榜 -->
+			<div class="tab-pane  " id="leagueTable">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>排名</th>
+							<th>球队</th>
+							<th>场次</th>
+							<th>胜/平/负</th>
+							<th>净胜球</th>
+							<th>积分</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="danger">
+							<td>1</td>
+							<td>曼城</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr class="warning">
+							<td>2</td>
+							<td>切尔西</td>
+							<td>3</td>
+							<td>3/0/0</td>
+							<td>5</td>
+							<td>19</td>
+						</tr>
+						<tr class="success">
+							<td>3</td>
+							<td>曼联</td>
+							<td>4</td>
+							<td>3/0/1</td>
+							<td>4</td>
+							<td>9</td>
+						</tr>
+						
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+						<tr >
+							<td>4</td>
+							<td>其他</td>
+							<td>4</td>
+							<td>4/0/0</td>
+							<td>7</td>
+							<td>12</td>
+						</tr>
+
+						
+					</tbody>
+				</table>
+			</div>
+			<!-- 射手榜 -->
+			<div class="tab-pane " id="score">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>射手榜</th>
+							<th>球员</th>
+							<th>球队</th>
+							<th>进球</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>安东尼奥</td>
+							<td>西汉姆联</td>
+							<td>4</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+	</body>
+
+	<script type="text/javascript">	
+	$(function() {
+		$(document).delegate('.myTab li', 'click', function(event) {
+			$("li").removeClass("myActive");
+			$(this).addClass("myActive");
+			var href = $(this).attr("data-value");
+			$(".tab-pane").removeClass("active");
+			$("#" + href).addClass("active");
+			
+		});
+	});
+	</script>
+</html>

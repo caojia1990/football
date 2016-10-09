@@ -37,5 +37,10 @@
 	
 	<dubbo:service interface="com.eastng.football.api.service.match.SeasonService" ref="seasonService" retries="0"/>
     <bean id="seasonService" class="com.eastng.football.service.match.businessImpl.SeasonServiceImpl"/>
+    
+    <!-- web开头都是页面使用 -->
+    <dubbo:service interface="com.eastng.football.api.service.match.WebLeaguesService" ref="webLeaguesService" retries="0"/>
+    <bean id="webLeaguesService" class="com.eastng.football.service.match.businessImpl.WebLeaguesServiceImpl"/>
+    
 	
 </beans>  

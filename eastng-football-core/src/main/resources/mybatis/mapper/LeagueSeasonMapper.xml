@@ -153,4 +153,8 @@
         <if test="leagueNo">and league_no = #{leagueNo}</if>
     </where>
   </select>
+  
+   <select id="selectMaxLeagueSeasonByLeagueNo" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	 select * from t_league_season where LEAGUE_NO =#{leagueNo} order by  SEASON_NO desc limit 1
+    </select>
 </mapper>
