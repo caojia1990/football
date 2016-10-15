@@ -18,10 +18,10 @@ import com.eastng.football.core.service.match.persistence.TeamMapper;
 import com.eastng.football.service.match.base.TeamSeasonScoreBaseService;
 import com.eastng.football.service.support.ScoreBoardService;
 
-@Service("englandPremierScoreBoard")
-public class EnglandPremierScoreBoardServiceImpl implements ScoreBoardService {
+@Service("scoreBoardService")
+public class ScoreBoardServiceImpl implements ScoreBoardService {
 
-    static Logger logger = Logger.getLogger(EnglandPremierScoreBoardServiceImpl.class);
+    static Logger logger = Logger.getLogger(ScoreBoardServiceImpl.class);
     
     @Autowired
     private MatchMapper matchMapper;

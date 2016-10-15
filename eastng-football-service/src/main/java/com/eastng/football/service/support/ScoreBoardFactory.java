@@ -1,6 +1,5 @@
-package com.eastng.football.service;
+package com.eastng.football.service.support;
 
-import com.eastng.football.service.support.ScoreBoardService;
 import com.eastng.football.util.SpringContextUtil;
 
 public class ScoreBoardFactory {
@@ -10,7 +9,7 @@ public class ScoreBoardFactory {
         
         //TODO 根据联赛编号创建不同的联赛积分榜计算实现
          
-        return (ScoreBoardService) SpringContextUtil.getBean("englandPremierScoreBoard");
+        return (ScoreBoardService) SpringContextUtil.getBean("scoreBoardService");
     }
 
 }

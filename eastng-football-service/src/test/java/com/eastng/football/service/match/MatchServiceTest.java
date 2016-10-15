@@ -22,7 +22,7 @@ public class MatchServiceTest extends BaseJunit4Test{
     static Logger logger = Logger.getLogger(MatchServiceTest.class);
     
     @Resource
-    private ScoreBoardService englandPremierScoreBoard;
+    private ScoreBoardService scoreBoardService;
     
     @Resource
     private MatchService matchService;
@@ -35,7 +35,7 @@ public class MatchServiceTest extends BaseJunit4Test{
     @Rollback(false)
     public void update(){
         try {
-            this.englandPremierScoreBoard.update("001005001201516", 7);
+            this.scoreBoardService.update("001005001201516", 7);
         } catch (FootBallBizException e) {
             logger.error("更新积分榜失败", e);
         }

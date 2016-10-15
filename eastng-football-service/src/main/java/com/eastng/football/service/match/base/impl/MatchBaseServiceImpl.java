@@ -68,12 +68,10 @@ public class MatchBaseServiceImpl implements MatchBaseService {
         String matchNo = null;
         if(list != null && list.size() >0){
             result = list.get(0);
-          //若库里存在，则根据状态来更新
-            if(!result.getMatchStatus().equals(match.getMatchStatus())){
+          //若库里存在，则更新
                 match.setId(result.getId());
                 logger.info("更新比赛信息入参"+ToStringBuilder.reflectionToString(match, ToStringStyle.MULTI_LINE_STYLE));
                 this.matchMapper.updateByPrimaryKeySelective(match);
-            }
             matchNo = result.getMatchNo();
         }else {
             match.setMatchNo(GenerateCodeUtil.generateMatchNo(""));

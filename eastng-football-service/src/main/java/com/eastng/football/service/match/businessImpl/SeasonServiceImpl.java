@@ -1,6 +1,5 @@
 package com.eastng.football.service.match.businessImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,7 +16,7 @@ import com.eastng.football.core.entity.match.TeamSeasonScore;
 import com.eastng.football.core.service.match.persistence.LeagueInfoMapper;
 import com.eastng.football.core.service.match.persistence.LeagueSeasonMapper;
 import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
-import com.eastng.football.service.ScoreBoardFactory;
+import com.eastng.football.service.support.ScoreBoardFactory;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.framework.common.utils.BeanUtil;
 
