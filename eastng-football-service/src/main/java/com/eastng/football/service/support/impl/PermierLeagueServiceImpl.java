@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Service;
 
 import com.eastng.football.api.service.crawler.LeagueCrawlerService;
 import com.eastng.football.service.support.SeasonFactory;
 
+@Service("permierLeagueService")
 public class PermierLeagueServiceImpl implements LeagueCrawlerService {
 
     
