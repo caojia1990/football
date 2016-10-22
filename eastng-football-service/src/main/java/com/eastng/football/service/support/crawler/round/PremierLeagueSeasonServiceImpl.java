@@ -1,4 +1,4 @@
-package com.eastng.football.service.support.impl;
+package com.eastng.football.service.support.crawler.round;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -9,8 +9,7 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,20 +19,21 @@ import org.springframework.stereotype.Service;
 
 import com.eastng.football.api.constant.CommonConstant;
 import com.eastng.football.api.exception.FootBallBizException;
-import com.eastng.football.api.service.crawler.SeasonCrawlerService;
 import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.service.match.TeamService;
+import com.eastng.football.api.vo.crawler.MatchCrawlerParamVO;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.SeasonVo;
 import com.eastng.football.api.vo.match.TeamVO;
+import com.eastng.football.service.support.crawler.CrawlerService;
 
 @Service("premierLeagueSeasonSerice")
-public class PremierLeagueSeasonServiceImpl implements SeasonCrawlerService {
+public class PremierLeagueSeasonServiceImpl implements CrawlerService {
 
-    private static final Log log = LogFactory.getLog(PremierLeagueSeasonServiceImpl.class);
+    private static final Logger log = Logger.getLogger(PremierLeagueSeasonServiceImpl.class);
     
     @Autowired
     private SeasonService seasonService;
@@ -48,14 +48,17 @@ public class PremierLeagueSeasonServiceImpl implements SeasonCrawlerService {
     private OddsService oddsService;
 
     @Override
-    public void crawler(String url, String seasonNo) throws IOException {
+    public void crawler(MatchCrawlerParamVO paramVO) throws FootBallBizException {
+        
+        String url = paramVO.getUrl();
+        String seasonNo = paramVO.getSeasonNo();
 
         Document doc = null;
         try {
             doc = Jsoup.connect(url).timeout(30000).get();
         } catch (IOException e) {
             log.error("获取地址失败" + url, e);
-            throw e;
+            throw new FootBallBizException("",e.getMessage());
         }
 
         SeasonVo seasonVo = seasonService.querySeasonBySeasonNo(seasonNo);

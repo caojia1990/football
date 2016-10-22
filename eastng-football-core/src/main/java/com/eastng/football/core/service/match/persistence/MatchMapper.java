@@ -152,6 +152,8 @@ public interface MatchMapper {
             + "group by case when t.HOST_GOAL>t.GUEST_GOAL then '3' when t.HOST_GOAL = t.GUEST_GOAL then '1' when t.HOST_GOAL < t.GUEST_GOAL then '0' else '9' end")
     List<Map<String, Object>> selectGuestResult(String seasonNo, String teamNo, Integer round);
     
+    @Select("select min(round) from t_match where season_no = #{0} and match_status = '0'")
+    Integer selectMinRoundBySeasonNo(String seasonNo);
     
     /**
      * 

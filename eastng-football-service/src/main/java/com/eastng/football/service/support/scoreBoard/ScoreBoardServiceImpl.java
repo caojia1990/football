@@ -1,4 +1,4 @@
-package com.eastng.football.service.support.impl;
+package com.eastng.football.service.support.scoreBoard;
 
 import java.math.BigDecimal;
 import java.util.List;

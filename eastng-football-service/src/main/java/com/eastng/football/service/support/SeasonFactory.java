@@ -1,19 +1,19 @@
 package com.eastng.football.service.support;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
-import com.eastng.football.api.service.crawler.SeasonCrawlerService;
-import com.eastng.football.service.support.impl.PremierLeagueSeasonServiceImpl;
+import com.eastng.football.service.support.crawler.CrawlerService;
+import com.eastng.football.util.SpringContextUtil;
 
+@Component("seasonFactory")
 public class SeasonFactory {
     
-    private static final Log log = LogFactory.getLog(SeasonFactory.class);
+    private static final Logger log = Logger.getLogger(SeasonFactory.class);
     
-    public SeasonCrawlerService createSeason(String seasonNo){
+    public CrawlerService createSeason(String seasonNo){
         log.info("创建赛季爬虫service" + seasonNo);
         
-        //return (SeasonCrawlerService) SpringContextUtil.getBean("premierLeagueSeason");
-        return new PremierLeagueSeasonServiceImpl();
+        return (CrawlerService) SpringContextUtil.getBean("premierLeagueSeasonSerice");
     }
 }

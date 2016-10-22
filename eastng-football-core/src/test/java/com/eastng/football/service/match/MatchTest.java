@@ -108,4 +108,16 @@ public class MatchTest {
         
     }
     
+    @Test
+    public void selectMaxRoundBySeasonNo(){
+        SqlSession session = sqlSessionFactory.openSession();
+        MatchMapper matchMapper = session.getMapper(MatchMapper.class);
+        try {
+            Integer round = matchMapper.selectMinRoundBySeasonNo("1001005001201617");
+            System.out.println(round);
+        } finally {
+            session.close();
+        }
+    }
+    
 }

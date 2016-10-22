@@ -35,8 +35,13 @@
 	<dubbo:service interface="com.eastng.football.api.service.lottery.OddsService" ref="oddsService" retries="0"/>
 	<bean id="oddsService" class="com.eastng.football.service.lottery.businessImpl.OddsServiceImpl"/>
 	
+	<!-- 赛季服务接口 -->
 	<dubbo:service interface="com.eastng.football.api.service.match.SeasonService" ref="seasonService" retries="0"/>
     <bean id="seasonService" class="com.eastng.football.service.match.businessImpl.SeasonServiceImpl"/>
+    
+    <!-- 爬虫接口 -->
+    <dubbo:service interface="com.eastng.football.api.service.crawler.MatchCrawlerService" ref="matchCrawlerService" retries="0"/>
+    <bean id="matchCrawlerService" class="com.eastng.football.service.crawler.MatchCrawlerServiceImpl"/>
     
     <!-- web开头都是页面使用 -->
     <dubbo:service interface="com.eastng.football.api.service.match.WebLeaguesService" ref="webLeaguesService" retries="0"/>

@@ -3,19 +3,22 @@ package com.eastng.football.service.support;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.eastng.football.api.service.crawler.LeagueCrawlerService;
 import com.eastng.football.api.service.match.LeagueInfoService;
 import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.match.LeagueInfoVO;
 import com.eastng.football.api.vo.match.SeasonVo;
-import com.eastng.football.service.support.impl.ChampionshipLeagueServiceImpl;
-import com.eastng.football.service.support.impl.FrenchLigue1ServiceImpl;
-import com.eastng.football.service.support.impl.GermanBundesligaServiceImpl;
-import com.eastng.football.service.support.impl.ItalianSerieAServiceImpl;
-import com.eastng.football.service.support.impl.PermierLeagueServiceImpl;
-import com.eastng.football.service.support.impl.SpanishPrimeraDivisionServiceImpl;
+import com.eastng.football.service.support.crawler.CrawlerService;
+import com.eastng.football.service.support.crawler.season.ChampionshipLeagueServiceImpl;
+import com.eastng.football.service.support.crawler.season.FrenchLigue1ServiceImpl;
+import com.eastng.football.service.support.crawler.season.GermanBundesligaServiceImpl;
+import com.eastng.football.service.support.crawler.season.ItalianSerieAServiceImpl;
+import com.eastng.football.service.support.crawler.season.PermierLeagueServiceImpl;
+import com.eastng.football.service.support.crawler.season.SpanishPrimeraDivisionServiceImpl;
+import com.eastng.football.util.SpringContextUtil;
 
+@Component("leagueFactory")
 public class LeagueFactory {
     
     private static final Log log = LogFactory.getLog(SeasonFactory.class);
@@ -26,7 +29,7 @@ public class LeagueFactory {
     @Autowired
     private LeagueInfoService leagueInfoService;
     
-    public LeagueCrawlerService createLeague(String seasonNo){
+    public CrawlerService createLeague(String seasonNo){
         log.info("创建爬虫service" + seasonNo);
         
         SeasonVo seasonVo = seasonService.querySeasonBySeasonNo(seasonNo);
@@ -38,32 +41,32 @@ public class LeagueFactory {
         if(leagueInfoVO == null){
             throw new RuntimeException("没有查到此联赛信息："+seasonVo.getLeagueNo());
         }
-        LeagueCrawlerService crawlerService = null;
+        CrawlerService crawlerService = null;
         
         if(leagueInfoVO.getLeagueNo().equals("001005001")){
           //英超001005001
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService =  new PermierLeagueServiceImpl();
+            crawlerService =  (CrawlerService) SpringContextUtil.getBean("permierLeagueService");
         }else if(leagueInfoVO.getLeagueNo().equals("001005002")){
             //英冠
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService = new ChampionshipLeagueServiceImpl();
+            crawlerService = (CrawlerService) SpringContextUtil.getBean("ChampionshipLeagueService");
         }else if (leagueInfoVO.getLeagueNo().equals("001003001")) {
             //德甲
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService = new GermanBundesligaServiceImpl();
+            crawlerService = (CrawlerService) SpringContextUtil.getBean("germanBundesligaService");
         }else if (leagueInfoVO.getLeagueNo().equals("001017001")) {
             //法甲
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService = new FrenchLigue1ServiceImpl();
+            crawlerService = (CrawlerService) SpringContextUtil.getBean("frenchLigue1Service");
         }else if (leagueInfoVO.getLeagueNo().equals("001009001")) {
             //意甲
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService = new ItalianSerieAServiceImpl();
+            crawlerService = (CrawlerService) SpringContextUtil.getBean("italianSerieAService");
         }else if (leagueInfoVO.getLeagueNo().equals("001002001")) {
             //西甲
             log.info("创建"+leagueInfoVO.getLeagueName()+"完成!");
-            crawlerService = new SpanishPrimeraDivisionServiceImpl();
+            crawlerService = (CrawlerService) SpringContextUtil.getBean("spanishPrimeraDivisionService");
         }
         return crawlerService;
     }
