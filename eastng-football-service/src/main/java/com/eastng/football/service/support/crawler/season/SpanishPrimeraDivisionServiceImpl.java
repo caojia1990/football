@@ -38,7 +38,8 @@ public class SpanishPrimeraDivisionServiceImpl implements CrawlerService {
             Integer endRound = Integer.parseInt(paramVO.getEndRound());
             for(int i=beginRound; i<=endRound; i++){
                 String roundUrl = url + i + "/";
-                log.info("第"+i+"轮：url"+roundUrl);
+                paramVO.setUrl(roundUrl);
+                log.info("第"+i+"轮：url "+roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);
                 } catch (FootBallBizException e) {
@@ -49,6 +50,7 @@ public class SpanishPrimeraDivisionServiceImpl implements CrawlerService {
         }else {
             for(int i=1; i<=38; i++){
                 String roundUrl = url + i + "/";
+                paramVO.setUrl(roundUrl);
                 log.info("第"+i+"轮：url"+roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);

@@ -34,6 +34,7 @@ public class FrenchLigue1ServiceImpl implements CrawlerService {
             for(int i=beginRound; i<=endRound; i++){
                 String roundUrl = url + i + "/";
                 log.info("第"+i+"轮：url"+roundUrl);
+                paramVO.setUrl(roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);
                 } catch (FootBallBizException e) {
@@ -45,6 +46,7 @@ public class FrenchLigue1ServiceImpl implements CrawlerService {
             for(int i=1; i<=38; i++){
                 String roundUrl = url + i + "/";
                 log.info("第"+i+"轮：url"+roundUrl);
+                paramVO.setUrl(roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);
                 } catch (FootBallBizException e) {
