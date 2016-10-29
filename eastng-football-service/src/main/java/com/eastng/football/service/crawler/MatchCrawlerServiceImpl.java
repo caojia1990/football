@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.crawler.MatchCrawlerService;
+import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.crawler.MatchCrawlerParamVO;
 import com.eastng.football.core.service.match.persistence.MatchMapper;
 import com.eastng.football.service.support.LeagueFactory;
@@ -23,6 +24,9 @@ public class MatchCrawlerServiceImpl implements MatchCrawlerService{
     
     @Autowired
     private MatchMapper matchMapper;
+    
+    @Autowired
+    private SeasonService seasonService;
 
     @Override
     public void crawlerRound(MatchCrawlerParamVO paramVO) throws FootBallBizException {
@@ -40,6 +44,8 @@ public class MatchCrawlerServiceImpl implements MatchCrawlerService{
         paramVO.setUrl(paramVO.getUrl()+round+ "/");
         try {
             this.seasonFactory.createSeason(paramVO.getSeasonNo()).crawler(paramVO);
+            //更新积分榜
+            this.seasonService.updateScoreBoard(paramVO.getSeasonNo(), round);
         } catch (FootBallBizException e) {
             logger.error("获取失败，URL： "+ paramVO.getUrl(),e);
             throw new FootBallBizException("", e.getMessage());

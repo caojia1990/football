@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.eastng.football.api.exception.FootBallBizException;
+import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.crawler.MatchCrawlerParamVO;
 import com.eastng.football.service.support.SeasonFactory;
 import com.eastng.football.service.support.crawler.CrawlerService;
@@ -18,6 +19,9 @@ public class PermierLeagueServiceImpl implements CrawlerService {
     
     @Autowired
     private SeasonFactory seasonFactory;
+    
+    @Autowired
+    private SeasonService seasonService;
 
     @Override
     public void crawler(MatchCrawlerParamVO paramVO) {
@@ -37,6 +41,8 @@ public class PermierLeagueServiceImpl implements CrawlerService {
                 log.info("第"+i+"轮：url"+roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);
+                    //更新积分榜
+                    this.seasonService.updateScoreBoard(seasonNo, i);
                 } catch (FootBallBizException e) {
                     log.error("获取失败，URL： "+ roundUrl,e);
                     continue;
@@ -50,6 +56,8 @@ public class PermierLeagueServiceImpl implements CrawlerService {
                 log.info("第"+i+"轮：url"+roundUrl);
                 try {
                     seasonFactory.createSeason(seasonNo).crawler(paramVO);
+                    //更新积分榜
+                    this.seasonService.updateScoreBoard(seasonNo, i);
                 } catch (FootBallBizException e) {
                     log.error("获取失败，URL： "+ roundUrl,e);
                     continue;
