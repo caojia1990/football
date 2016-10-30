@@ -1,6 +1,7 @@
 define( function(require, exports, module) {
     //引用jQuery模块
     var $ = require('jquery');
+    var dialog = require("football/utils/my-dialog");
     // 得到初始化的画布
     // 
     var width = $("#matchImage").parent().width();
@@ -12,7 +13,7 @@ define( function(require, exports, module) {
     // 初始化数据
     var canvasHeight = 0;
     var matchPercent = 0.3; //  30%
-    var textPercent = 0.05; //  5%
+    var textPercent = 0.035; //  5%
     var spacePercent = 0.01;//  1%
     /**
      * [calculatePosition description]
@@ -52,7 +53,15 @@ define( function(require, exports, module) {
             textSize    : textSize
         };
     };
-
+    var dramMiddleText = function(backgroundWith , backgroundHeigth ,ctx ,text){
+        var textSize = Math.round(backgroundWith * textPercent);
+        var spaceSize = Math.round(backgroundWith * spacePercent);
+        var textY = Math.round((backgroundHeigth) / 2);
+        ctx.font = "bold " + textSize + "px Arial";
+        var textWitdh = ctx.measureText(text).width;
+        var textX = Math.round((backgroundWith - textWitdh)/2);
+        ctx.fillText(text, textX, textY + Math.round(textSize/2));
+    }
     /**
      * [renderImage 比赛背景图片]
      * @param  {[type]} ctx  
@@ -71,7 +80,7 @@ define( function(require, exports, module) {
             ctx.drawImage(homeImage, startPointX, startPointY, picSize, picSize);
         };
         homeImage.onerror = function(){
-            alert("图片加载不成功！");
+        	dialog.myAlert("图片加载不成功！");
             console.log("图片加载不成功！");
             return false;
         };
@@ -95,7 +104,7 @@ define( function(require, exports, module) {
                 var backgroundImage = new Image();
                 
                 if(backgroundUrl == ""){
-                    alert("背景地址为空！");
+                	dialog.myAlert("背景地址为空！");
                     console.log("背景地址为空！");
                     return false;
                 }
@@ -122,25 +131,26 @@ define( function(require, exports, module) {
                     // 加载 主队图片
                     
                     if(homeUrl == ""){
-                        alert("主队图片为空！");
+                    	dialog.myAlert("主队图片为空！");
                         console.log("主队地址为空！");
                         return false;
                     }
                     if(visitUrl == ""){
-                        alert("客队图片为空！");
+                    	dialog.myAlert("客队图片为空！");
                         console.log("客队图片为空！");
                         return false;
                     };
                     drawMatchImage(ctx , homeUrl ,matchImageDrawInfo.homeBeginX ,matchImageDrawInfo.homeBeginY,matchImageDrawInfo.picSize);
                     drawMatchImage(ctx , visitUrl ,matchImageDrawInfo.visitBeginX ,matchImageDrawInfo.visitBeginY,matchImageDrawInfo.picSize);
                     // 这里有待改进   
-                    var textVal = calculateVSTextPosition(canvasWidth,canvasHeight);
-                    ctx.font = textVal.textSize + "PX Arial";
-                    ctx.fillText("V" ,textVal.textFirstX ,textVal.textFirstY );
-                    ctx.fillText("S" ,textVal.textSecondX ,textVal.textFirstY );  
+                    // var textVal = calculateVSTextPosition(canvasWidth,canvasHeight);
+                    // ctx.font = textVal.textSize + "PX Arial";
+                    // ctx.fillText("V" ,textVal.textFirstX ,textVal.textFirstY );
+                    // ctx.fillText("S" ,textVal.textSecondX ,textVal.textFirstY ); 
+                    dramMiddleText(canvasWidth, canvasHeight, ctx, matchText);
                 };
                 backgroundImage.onerror =function(){
-                    alert("图片加载不成功！");
+                	dialog.myAlert("图片加载不成功！");
                     return false;
                 };
             }

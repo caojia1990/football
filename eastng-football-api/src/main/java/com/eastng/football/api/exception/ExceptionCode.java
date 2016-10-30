@@ -22,7 +22,9 @@ public enum ExceptionCode implements Result {
 	// 缺少赛季成绩信息
 	MISS_TEAMSEASONSCORE(StatusConstant.Code.missTeamSeasonScore, StatusConstant.Message.missTeamSeasonScore),
 	// 缺少联赛信息
-	MISS_LEAGUES(StatusConstant.Code.missLeagues, StatusConstant.Message.missLeagues);
+	MISS_LEAGUES(StatusConstant.Code.missLeagues, StatusConstant.Message.missLeagues),
+	// 缺少比赛
+	MISS_MATCH(StatusConstant.Code.missMatch, StatusConstant.Message.missMatch);
 	/**
 	 * 
 	 */

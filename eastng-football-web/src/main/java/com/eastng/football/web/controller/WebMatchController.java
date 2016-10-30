@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.eastng.football.web.controller.bean.JsonResponse;
  */
 @Controller
 @RequestMapping(value = "web/m/")
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class WebMatchController {
 
 	@Autowired
@@ -47,15 +49,29 @@ public class WebMatchController {
 	 */
 	@RequestMapping(value = "findLeaguesByleagueNo")
 	@ResponseBody
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private JsonResponse findLeaguesByleagueNo(HttpServletRequest request) throws FootballWebException {
+
+	public JsonResponse findLeaguesByleagueNo(HttpServletRequest request) throws FootballWebException {
 		String leagueNo = request.getParameter("leagueNo");
-		if(null == leagueNo || leagueNo.trim().equals("")){
-			throw new FootballWebException(ExceptionCode.MISS_PARAM , "leagueNo is  null");
+		if (null == leagueNo || leagueNo.trim().equals("")) {
+			throw new FootballWebException(ExceptionCode.MISS_PARAM, "leagueNo is  null");
 		}
 		JsonResponse jsonResponse = new JsonResponse();
 		Map<String, Object> result = webLeaguesService.findLeagueInfo(leagueNo);
 		jsonResponse.setResponseBody(result);
 		return jsonResponse;
 	}
+
+	@RequestMapping(value="findHistoryMatch")
+	@ResponseBody
+	public JsonResponse findHistoryMatch(HttpServletRequest request) throws FootballWebException {
+		String matchNo = request.getParameter("matchNo");
+		if (StringUtils.isEmpty(matchNo)) {
+			throw new FootballWebException(ExceptionCode.MISS_PARAM, "matchNo is  null");
+		}
+		JsonResponse jsonResponse = new JsonResponse();
+		Map<String, Object> result = webLeaguesService.findTeamMatchHistory(matchNo);
+		jsonResponse.setResponseBody(result);
+		return jsonResponse;
+	}
+
 }

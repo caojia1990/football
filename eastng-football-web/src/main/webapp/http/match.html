@@ -61,8 +61,8 @@
      		<div class="container" align="center">
                         <ul class="nav nav-tabs nav-tabs-justified">
                             <div class="row" >
-                                <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li><a href="#"><</a></li></div>
-                               	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#">曼联 VS 曼城</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li class="back"><a href="#"><</a></li></div>
+                               	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#" id="matchInfo"></a></li></div>
                                 <div class="col-md-4 col-sm-4 col-xs-4" align="right"><li><a href="#">...</a></li></div>
                             </div>
                         </ul>
@@ -77,15 +77,6 @@
 			<canvas id="matchImage"  >
 			</canvas>
 		</div>
-<!--
-		<ul  class="nav nav-tabs">
-			<li class="active"><a href="#match" data-toggle="tab">赛程</a></li>
-			<li><a href="#leagueTable" data-toggle="tab">积分榜</a></li>
-			<li><a href="#score" data-toggle="tab">射手榜</a></li>
-			<li><a href="#score" data-toggle="tab">球队</a></li>
-
-		</ul>
--->
 		<ul class="nav nav-tabs myTab">
 			<div class ="col-md-6 col-sm-6 col-xs-6">
 				<li class="myActive" data-value="oldMatch">战绩</li>
@@ -93,14 +84,7 @@
     		<div class ="col-md-6 col-sm-6 col-xs-6">
 				<li data-value="odds">欧赔</li>
 			</div>
-			<!--
-    		<div class ="col-md-3 col-sm-3 col-xs-3">
-				<li data-value="score">射手榜</li>
-			</div>
-			-->
     	</ul>
-    	
-          
 		<div id="myTabContent" class="tab-content">
 			<!-- 战绩-->
 		
@@ -109,52 +93,80 @@
 						    <div class="panel-heading">
 						        <h3 class="panel-title">历史交锋</h3>
 						    </div>
-						    <div class="panel-body">
-						     
-								<table width="100%" class="table table-striped">
-									<tbody>
-									<tr style="font-size:7px">
-										<td width="13%" align="center">英超</td>
-										<td width="25%" align="center">2016-09-11</td>
-																			
-										<td width="20%" align="center">曼城</td>
-										<td width="15%" align="center">3:1</td>
-										<td width="20%" align="center">曼联</td>
-										<td width="7%" align="rigtht">></td>
-									</tr>
-									<tr style="font-size:7px">
-										<td width="13%" align="center">英超</td>
-										<td width="25%" align="center">2016-09-11</td>
-																			
-										<td width="20%" align="center">曼城</td>
-										<td width="15%" align="center">3:1</td>
-										<td width="20%" align="center">曼联</td>
-										<td width="7%" align="rigtht">></td>
-									</tr>
-									<tr style="font-size:7px">
-										<td width="13%" align="center">英超</td>
-										<td width="25%" align="center">2016-09-11</td>
-																			
-										<td width="20%" align="center">曼城</td>
-										<td width="15%" align="center">3:1</td>
-										<td width="20%" align="center">曼联</td>
-										<td width="7%" align="rigtht">></td>
-									</tr>
-									</tbody>
-								</table>
-										
+						    <div class="panel-body" id="historyHtml">
 									
 						    </div>
+						    <script type="text/html" id="historyContent">
+							<table width="100%" class="table table-striped">
+								<tbody>
+									{{each responseBody.historyMatch as match i}}
+									<tr style="font-size:7px" class="my-match" data-value="{{match.matchNo}}">
+										<td width="13%" align="center">{{match.leagueShortName}}</td>
+										<td width="25%" align="center">{{getMatchDateTime(match.matchTime)}}</td>
+																			
+										<td width="20%" align="center">{{match.hostShortName}}</td>
+										<td width="15%" align="center">{{match.hostGoal}}:{{match.guestGoal}}</td>
+										<td width="20%" align="center">{{match.guestShortName}}</td>
+										<td width="7%" align="rigtht">></td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+							</script>
 						</div>
 						<div class="panel panel-default">
 						    <div class="panel-heading">
 						        <h3 class="panel-title">
-						            带有 title 的面板标题
+						            主队历史
 						        </h3>
 						    </div>
-						    <div class="panel-body">
-						        面板内容
+						    <div class="panel-body" id="hostHistoryHtml">
+						        
 						    </div>
+						    <script type="text/html" id="hostHistoryContent">
+							<table width="100%" class="table table-striped">
+								<tbody>
+									{{each responseBody.hostRecentMacth as match i}}
+									<tr style="font-size:7px" class="my-match" data-value="{{match.matchNo}}">
+										<td width="13%" align="center">{{match.leagueShortName}}</td>
+										<td width="25%" align="center">{{getMatchDateTime(match.matchTime)}}</td>
+																			
+										<td width="20%" align="center">{{match.hostShortName}}</td>
+										<td width="15%" align="center">{{match.hostGoal}}:{{match.guestGoal}}</td>
+										<td width="20%" align="center">{{match.guestShortName}}</td>
+										<td width="7%" align="rigtht">></td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+							</script>
+						</div>
+						<div class="panel panel-default">
+						    <div class="panel-heading">
+						        <h3 class="panel-title">
+						            客队历史
+						        </h3>
+						    </div>
+						    <div class="panel-body" id="guestHistoryHtml">
+						        
+						    </div>
+						    <script type="text/html" id="guestHistoryContent">
+							<table width="100%" class="table table-striped">
+								<tbody>
+									{{each responseBody.guestRecentMatch as match i}}
+									<tr style="font-size:7px"  class="my-match" data-value="{{match.matchNo}}">
+										<td width="13%" align="center">{{match.leagueShortName}}</td>
+										<td width="25%" align="center">{{getMatchDateTime(match.matchTime)}}</td>
+																			
+										<td width="20%" align="center">{{match.hostShortName}}</td>
+										<td width="15%" align="center">{{match.hostGoal}}:{{match.guestGoal}}</td>
+										<td width="20%" align="center">{{match.guestShortName}}</td>
+										<td width="7%" align="rigtht">></td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+							</script>
 						</div>
 			</div>
 			<!-- 欧赔 -->
@@ -176,7 +188,7 @@
 					</tr>
 				</table>
 			</div>
-			<!-- <div class="tab-pane " id="score"> </div>-->
+	
 		</div>
 
 	</div>
@@ -204,8 +216,10 @@
 		});
 	
 	});
-	seajs.use("football/match/canvas-matchs" ,function(a) {
-		a.renderImage("http://localhost/images/background.jpg","http://localhost/images/yc.jpg","http://localhost/images/xj.jpg");
+	seajs.use( "football/match/match" ,function( match) {
+		match.renderLeagues();
 	});
+
+	
 	</script>
 </html>

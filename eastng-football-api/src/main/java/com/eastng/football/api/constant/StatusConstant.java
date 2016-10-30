@@ -29,6 +29,8 @@ public class StatusConstant {
 		
 		public static final int missTeamSeasonScore = -2002;
 		public static final int missLeagues = -2003;
+		
+		public static final int missMatch = -2004;
 
 	}
 
@@ -54,6 +56,8 @@ public class StatusConstant {
 		 */
 		public static final String missTeamSeasonScore = "missTeamSeasonScore : can't find  team season score";
 		public static final String missLeagues = "miss leagues : can't find leagues";
+		
+		public static final String missMatch = "miss match : cant't find match";
 	}
 
 }

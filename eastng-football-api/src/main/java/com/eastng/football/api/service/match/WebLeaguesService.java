@@ -37,4 +37,14 @@ public interface WebLeaguesService {
 	 * @return
 	 */
 	public Map<String, Object> findLeagueInfo(String leagueNo) throws FootballWebException;
+	
+	
+	/**
+	 * 获取比赛历史
+	 * 
+	 * @param hostTeamNo
+	 * @param guestTeamNo
+	 * @return
+	 */
+	public Map<String, Object> findTeamMatchHistory(String matchNo) throws FootballWebException;
 }

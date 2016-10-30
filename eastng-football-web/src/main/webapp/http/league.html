@@ -6,9 +6,10 @@
 		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 		 <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-		 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+		<script type="text/javascript" src="js/sea.js"></script>
+		<script type="text/javascript" src="js/seaconfig.js"></script>
 		 <style type="text/css">
 		 	
 	 	  .nav-tabs
@@ -62,8 +63,8 @@
      		<div class="container" align="center">
                         <ul class="nav nav-tabs nav-tabs-justified">
                             <div class="row" >
-                                <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li><a href="#"><</a></li></div>
-                               	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#">英超</a></li></div>
+                                <div class="col-md-4 col-sm-4 col-xs-4" align="left"><li class="back"><a href="#"><</a></li></div>
+                               	<div class="col-md-4 col-sm-4 col-xs-4" align="center"><li><a href="#" id="leagueInfo">..</a></li></div>
                                 <div class="col-md-4 col-sm-4 col-xs-4" align="right"><li><a href="#">...</a></li></div>
                             </div>
                         </ul>
@@ -91,100 +92,57 @@
 		<div id="myTabContent" class="tab-content">
 			<!-- 赛程-->
 			<div class="tab-pane active" id="match">
-				<div class="well well-sm" align="center">2016-09-11</div>
-				<div class="list-group" style="margin-top:-20px">
-					<a href="#" class="list-group-item">
-						<table class="my-table" width="100%">
-								<tr>
-									<td>
-										<span style="font-size : 8px">第4轮</span>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
-									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
-									<td ></td>
-								</tr>														
-						</table>
-					</a>
-					<a href="#" class="list-group-item">
-						<table class="my-table" width="100%">
-								<tr>
-									<td>
-										<span style="font-size : 8px">第4轮</span>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
-									<td  rowspan ="2" style="font-size:18px ;" width="30%" align="center">20:30</td>
-									<td rowspan ="2" align="center"><span style="font-size:18px ;">未开赛</span></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
-									<td ></td>
-									<td ></td>
-								</tr>														
-						</table>
-					</a>
-				</div>
-	<div class="well well-sm" align="center">2016-09-11</div>
-				<div class="list-group" style="margin-top:-20px">
-					<a href="#" class="list-group-item">
-						<table class="my-table" width="100%">
-								<tr>
-									<td>
-										<span style="font-size : 8px">第4轮</span>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
-									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
-									<td ></td>
-								</tr>														
-						</table>
-					</a>
-					<a href="#" class="list-group-item">
-						<table class="my-table" width="100%">
-								<tr>
-									<td>
-										<span style="font-size : 8px">第4轮</span>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">曼联</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">1</td>
-									<td rowspan ="2" align="center"><span class="match-end">已结束</span></td>
-								</tr>
-								<tr>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">曼城</td>
-									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">2</td>
-									<td ></td>
-								</tr>														
-						</table>
-					</a>
-				</div>
+				
 			</div>
+			<script id ="matchContent" type="text/html">
+				{{each responseBody.match as value i}}
+				<div class="well well-sm" align="center">{{value.date}}</div>
+				<div class="list-group" style="margin-top:-20px">
+					{{each value.matchs as match j}}
+					<a href="javascript:void(0);" class="list-group-item" >
+						<table class="my-table my-match" width="100%"  data-value="{{match.matchNo}}">
+								<tr >
+									<td>
+										<span style="font-size : 8px">第{{match.round}}轮</span>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+								{{if match.matchStatus != 0}}
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">{{match.hostShortName}}</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="30%" align="center">{{match.hostGoal}}</td>
+									<td rowspan ="2" align="center"><span class="match-end">{{getMatchStatus(match.matchStatus)}}</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">{{match.guestShortName}}</td>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" align="center">{{match.guestGoal}}</td>
+									<td ></td>
+								</tr>
+								{{else}}
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;" width="34%">{{match.hostShortName}}</td>
+									<td  rowspan ="2" style="font-size:18px ;" width="30%" align="center">{{getMatchTime(match.matchTime)}}</td>
+									<td rowspan ="2" align="center"><span style="font-size:18px ;">{{getMatchStatus(match.matchStatus)}}</span></td>
+								</tr>
+								<tr>
+									<td style="font-size:18px ;font-family: 'Microsoft Yahei',helvetica,arial;">{{match.guestShortName}}</td>
+									<td ></td>
+									<td ></td>
+								</tr>
+								{{/if}}													
+						</table>
+					</a>
+					{{/each}}
+				</div>
+				{{/each}}
+			</script>
 			<!-- 积分榜 -->
 			<div class="tab-pane  " id="leagueTable">
-				<table class="table table-striped">
+				
+			</div>
+			<script id="leagueTableContent" type="text/html">
+			<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>排名</th>
@@ -196,84 +154,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="danger">
-							<td>1</td>
-							<td>曼城</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
+						{{each responseBody.teamSeasonScore as value i}}
+						<tr {{if i==0 }} 
+								class="danger"
+							{{else if i==1 }}
+								class="warning"
+							{{else if i==2 }}
+								class="success"
+							{{/if}}>
+							<td>{{i+1}}</td>
+							<td>{{value.teamShortName}}</td>
+							<td>{{value.round}}</td>
+							<td>{{value.win}}/{{value.draw}}/{{value.lose}}</td>
+							<td>{{value.goals}}</td>
+							<td>{{value.points}}</td>
 						</tr>
-						<tr class="warning">
-							<td>2</td>
-							<td>切尔西</td>
-							<td>3</td>
-							<td>3/0/0</td>
-							<td>5</td>
-							<td>19</td>
-						</tr>
-						<tr class="success">
-							<td>3</td>
-							<td>曼联</td>
-							<td>4</td>
-							<td>3/0/1</td>
-							<td>4</td>
-							<td>9</td>
-						</tr>
-						
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-						<tr >
-							<td>4</td>
-							<td>其他</td>
-							<td>4</td>
-							<td>4/0/0</td>
-							<td>7</td>
-							<td>12</td>
-						</tr>
-
-						
+						{{/each}}
 					</tbody>
 				</table>
-			</div>
+			</script>
 			<!-- 射手榜 -->
 			<div class="tab-pane " id="score">
 				<table class="table">
@@ -349,6 +248,14 @@
 			$(".tab-pane").removeClass("active");
 			$("#" + href).addClass("active");
 			
+		});
+		
+	});
+	
+	seajs.use(['football/league/league','football/utils/utils'],function(league,utils){
+		$(function(){
+			var leagueNo = utils.getUrlParam("leagueNo");
+			league.renderLeague(leagueNo);
 		});
 	});
 	</script>
