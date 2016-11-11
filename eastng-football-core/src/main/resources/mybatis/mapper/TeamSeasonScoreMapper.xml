@@ -415,6 +415,19 @@
     </where>
   </select>
   
+    <!-- 根据条件查询球队积分榜信息 -->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.eastng.football.core.entity.match.TeamSeasonScore" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_team_season_score
+    <where>
+        <if test="teamNo">team_no = #{teamNo}</if>
+        <if test="seasonNo">and season_no = #{seasonNo}</if>
+        <if test="round">and round = #{round}</if>
+    </where>
+    order by round
+  </select>
+  
   <!-- 查询赛季最新积分榜 -->
   <select id="selectScoreBoardBySeasonNo" resultMap="BaseResultMap" parameterType="java.lang.String">
     select t.* 

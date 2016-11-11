@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.SeasonService;
@@ -73,7 +74,7 @@ public class SeasonServiceImpl implements SeasonService {
         LeagueInfo leagueInfo = this.leagueInfoMapper.selectByLeagueNo(list.get(0).getLeagueNo());
         
         if(leagueInfo == null){
-            logger.error("赛事编号不存在");
+            logger.warn("赛事编号不存在");
             throw new FootBallBizException("", "赛事编号不存在");
         }
         
@@ -104,10 +105,28 @@ public class SeasonServiceImpl implements SeasonService {
         List<LeagueSeason> list = this.leagueSeasonMapper.selectByCondition(record);
         
         List<SeasonVo> seasonVos = null;
-        if(list.size() >0){
+        if(list != null && list.size() >0){
             seasonVos = BeanUtil.copyList(list, SeasonVo.class);
         }
         return seasonVos;
     }
+
+	@Override
+	public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo) {
+
+		if(StringUtils.isEmpty(seasonNo)||StringUtils.isEmpty(teamNo)){
+			logger.warn("球队编号和赛季编号不能为空");
+		}
+		TeamSeasonScore score = new TeamSeasonScore();
+		score.setTeamNo(teamNo);
+		score.setSeasonNo(seasonNo);
+		List<TeamSeasonScore> list = this.teamSeasonScoreMapper.selectByCondition(score);
+		
+		List<TeamSeasonScoreVO> teamSeasonScoreVOs = null;
+		if(list != null && list.size()>0){
+			teamSeasonScoreVOs = BeanUtil.copyList(list, TeamSeasonScoreVO.class);
+		}
+		return teamSeasonScoreVOs;
+	}
 
 }

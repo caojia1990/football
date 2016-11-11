@@ -34,6 +34,14 @@ public interface SeasonService {
      * @param SeasonNo
      * @return 
      */
-    public List<TeamSeasonScoreVO> queryScoreBoard(String SeasonNo);
+    public List<TeamSeasonScoreVO> queryScoreBoard(String seasonNo);
+    
+    /**
+     * 查询球队某一赛季积分排名情况
+     * @param seasonNo
+     * @param teamNo
+     * @return
+     */
+    public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo);
 
 }

@@ -61,6 +61,13 @@ public interface TeamSeasonScoreMapper {
     TeamSeasonScore selectOneByCondition(TeamSeasonScore record);
     
     /**
+     * 根据条件查询积分信息
+     * @param record
+     * @return
+     */
+    List<TeamSeasonScore> selectByCondition(TeamSeasonScore record);
+    
+    /**
      * 查询赛季最新积分榜
      * @param seasonNo 赛季编号
      * @return

@@ -290,8 +290,6 @@ public class MatchController {
     @ResponseBody
     public String updateScoreBoard(@RequestParam(value="seasonNo" ,required=true)String seasonNo, 
             @RequestParam(value="round" ,required=true)Integer round){
-        
-        
         try {
             this.seasonService.updateScoreBoard(seasonNo, round);
         } catch (FootBallBizException e) {
