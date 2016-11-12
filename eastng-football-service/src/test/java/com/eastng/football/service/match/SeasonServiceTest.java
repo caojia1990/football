@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.match.SeasonVo;
+import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
 import com.eastng.football.test.BaseJunit4Test;
 
 public class SeasonServiceTest extends BaseJunit4Test {
@@ -38,6 +39,12 @@ public class SeasonServiceTest extends BaseJunit4Test {
     public void querySeasonByLeagueNo(){
         
         List<SeasonVo> list = this.seasonService.querySeasonByLeagueNo("001005001");
+        logger.info(JSON.toJSONString(list));
+    }
+    
+    @Test
+    public void queryTeamScoreByTeamNoAndSeasonNO(){
+        List<TeamSeasonScoreVO> list = this.seasonService.queryTeamScoreByTeamNoAndSeasonNO("001005001201516", "20160820140807468380814");
         logger.info(JSON.toJSONString(list));
     }
 }

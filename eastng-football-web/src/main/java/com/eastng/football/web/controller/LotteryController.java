@@ -16,40 +16,56 @@ import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.QueryOddsParamVO;
+import com.eastng.football.web.view.common.ListResponseBody;
 import com.eastng.football.web.view.easyui.DataGridResult;
 import com.eastng.football.web.view.lottery.OddsResultVO;
 
 @Controller
 public class LotteryController {
 
-	@Autowired
-	private OddsService oddsService;
-	
-	@RequestMapping(value="queryOdds" ,method = RequestMethod.POST)
-	@ResponseBody
-	public DataGridResult<OddsResultVO> queryOddsInfoByMatchNo(@RequestParam(value="matchNo" ,required=false)String matchNo,
-			@RequestParam(value="rows",required = false)int rows,
-			@RequestParam(value="page",required = false)int page){
-		
-		QueryOddsParamVO paramVO = new QueryOddsParamVO();
-		paramVO.setMatchNo(matchNo);
-		paramVO.setPage(page);
-		paramVO.setRows(rows);
-		PageResult<OddsVO> pageResult = oddsService.queryOddsByMatchNo(paramVO);
-		
-		DataGridResult<OddsResultVO> result= new DataGridResult<OddsResultVO>();
-		result.setTotal(pageResult.getTotal());
-		
-		//封装返回信息
-		List<OddsResultVO> list = new ArrayList<OddsResultVO>();
-		if(!StringUtils.isEmpty(pageResult)){
-			for(OddsVO oddsVO:pageResult.getResult()){
-				OddsResultVO oddsResultVO = new OddsResultVO();
-				BeanUtils.copyProperties(oddsVO, oddsResultVO);
-				list.add(oddsResultVO);
-			}
-		}
-		result.setRows(list);
-		return result;
-	}
+    @Autowired
+    private OddsService oddsService;
+    
+    @RequestMapping(value="queryOdds" ,method = RequestMethod.POST)
+    @ResponseBody
+    public DataGridResult<OddsResultVO> queryOddsInfoByMatchNo(@RequestParam(value="matchNo" ,required=false)String matchNo,
+            @RequestParam(value="rows",required = false)int rows,
+            @RequestParam(value="page",required = false)int page){
+        
+        QueryOddsParamVO paramVO = new QueryOddsParamVO();
+        paramVO.setMatchNo(matchNo);
+        paramVO.setPage(page);
+        paramVO.setRows(rows);
+        PageResult<OddsVO> pageResult = oddsService.queryOddsByMatchNo(paramVO);
+        
+        DataGridResult<OddsResultVO> result= new DataGridResult<OddsResultVO>();
+        result.setTotal(pageResult.getTotal());
+        
+        //封装返回信息
+        List<OddsResultVO> list = new ArrayList<OddsResultVO>();
+        if(!StringUtils.isEmpty(pageResult)){
+            for(OddsVO oddsVO:pageResult.getResult()){
+                OddsResultVO oddsResultVO = new OddsResultVO();
+                BeanUtils.copyProperties(oddsVO, oddsResultVO);
+                list.add(oddsResultVO);
+            }
+        }
+        result.setRows(list);
+        return result;
+    }
+    
+    
+    /**
+     * 查询赔率变化曲线
+     * @param matchNo
+     * @return
+     */
+    public ListResponseBody<OddsResultVO> queryOddsChangeByMatchNo(String matchNo){
+        ListResponseBody<OddsResultVO> responseBody = new ListResponseBody<OddsResultVO>();
+        
+        return responseBody;
+    }
+    
+        
+    
 }

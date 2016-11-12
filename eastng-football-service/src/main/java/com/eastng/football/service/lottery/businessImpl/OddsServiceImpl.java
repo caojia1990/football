@@ -4,71 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.eastng.football.api.service.lottery.OddsService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.QueryOddsParamVO;
 import com.eastng.football.api.vo.lottery.SaveOddsResultVO;
-import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.core.entity.lottery.Odds;
 import com.eastng.football.core.entity.lottery.OddsExample;
 import com.eastng.football.core.entity.lottery.OddsExample.Criteria;
-import com.eastng.football.core.entity.match.Match;
 import com.eastng.football.core.service.lottery.persistence.OddsMapper;
 import com.eastng.football.util.BeanUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+@Service("oddsService")
 public class OddsServiceImpl implements OddsService {
 
-	@Autowired
-	private OddsMapper oddsMapper;
-	
-	/**
-	 * 保存赔率信息
-	 * @param oddsVO
-	 * @return 保存返回结果
-	 */
-	public SaveOddsResultVO saveOdds(OddsVO oddsVO) {
-		
-		OddsExample example = new OddsExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andCompanyEqualTo(oddsVO.getCompany());
-		criteria.andChangeTimeEqualTo(oddsVO.getChangeTime());
-		criteria.andWinEqualTo(oddsVO.getWin());
-		criteria.andDrawEqualTo(oddsVO.getDraw());
-		criteria.andLoseEqualTo(oddsVO.getLose());
-		List<Odds> list = this.oddsMapper.selectByExample(example);
-		
-		if(list == null || list.size()==0){
-			Odds odds = new Odds();
-			BeanUtils.copyProperties(oddsVO, odds);
-			this.oddsMapper.insertSelective(odds);
-		}
-		SaveOddsResultVO resultVO = new SaveOddsResultVO();
-		return resultVO;
-	}
+    @Autowired
+    private OddsMapper oddsMapper;
+    
+    /**
+     * 保存赔率信息
+     * @param oddsVO
+     * @return 保存返回结果
+     */
+    public SaveOddsResultVO saveOdds(OddsVO oddsVO) {
+        
+        OddsExample example = new OddsExample();
+        Criteria criteria = example.createCriteria();
+        criteria.andCompanyEqualTo(oddsVO.getCompany());
+        criteria.andChangeTimeEqualTo(oddsVO.getChangeTime());
+        criteria.andWinEqualTo(oddsVO.getWin());
+        criteria.andDrawEqualTo(oddsVO.getDraw());
+        criteria.andLoseEqualTo(oddsVO.getLose());
+        List<Odds> list = this.oddsMapper.selectByExample(example);
+        
+        if(list == null || list.size()==0){
+            Odds odds = new Odds();
+            BeanUtils.copyProperties(oddsVO, odds);
+            this.oddsMapper.insertSelective(odds);
+        }
+        SaveOddsResultVO resultVO = new SaveOddsResultVO();
+        return resultVO;
+    }
 
-	public PageResult<OddsVO> queryOddsByMatchNo(QueryOddsParamVO paramVO) {
-		OddsExample example = new OddsExample();
-		example.createCriteria().andMatchNoEqualTo(paramVO.getMatchNo());
-		example.setOrderByClause("change_time desc");
-		//分页查询
-		PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
-		List<Odds> list = this.oddsMapper.selectByExample(example);
-		Page<Odds> page = (Page)list;
-		
-		PageResult<OddsVO> resultList = new PageResult<OddsVO>();
-		List<OddsVO> oddsVOList = new ArrayList<OddsVO>();
-		for(Odds Odds:list){
-			OddsVO oddVO = new OddsVO();
-			BeanUtils.copyProperties(Odds, oddVO);
-			oddsVOList.add(oddVO);
-		}
-		resultList.setTotal(page.getTotal());
-		resultList.setResult(oddsVOList);
-		return resultList;
-	}
+    public PageResult<OddsVO> queryOddsByMatchNo(QueryOddsParamVO paramVO) {
+        OddsExample example = new OddsExample();
+        example.createCriteria().andMatchNoEqualTo(paramVO.getMatchNo());
+        example.setOrderByClause("change_time desc");
+        //分页查询
+        PageHelper.startPage(paramVO.getPage(), paramVO.getRows());
+        List<Odds> list = this.oddsMapper.selectByExample(example);
+        Page<Odds> page = (Page)list;
+        
+        PageResult<OddsVO> resultList = new PageResult<OddsVO>();
+        List<OddsVO> oddsVOList = new ArrayList<OddsVO>();
+        for(Odds Odds:list){
+            OddsVO oddVO = new OddsVO();
+            BeanUtils.copyProperties(Odds, oddVO);
+            oddsVOList.add(oddVO);
+        }
+        resultList.setTotal(page.getTotal());
+        resultList.setResult(oddsVOList);
+        return resultList;
+    }
 
 }
