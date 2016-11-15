@@ -2,7 +2,7 @@ package com.eastng.football.web.view.common;
 
 import java.util.List;
 
-public class ListResponseBody<T> extends CommonResponseHead {
+public class ListResponse<T> extends CommonResponseHead {
 
 	private List<T> responseBody;
 

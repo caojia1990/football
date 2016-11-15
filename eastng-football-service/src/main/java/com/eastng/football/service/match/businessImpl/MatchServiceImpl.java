@@ -163,8 +163,10 @@ public class MatchServiceImpl implements MatchService {
      * @return
      */
     public MatchVO queryMatchByMatchNo(String matchNo) {
-        this.matchMapper.selectMatchByMatchNo("123");
-        return null;
+        Match match = this.matchMapper.selectMatchByMatchNo(matchNo);
+        MatchVO matchVO = new MatchVO();
+        BeanUtils.copyProperties(match, matchVO);
+        return matchVO;
     }
 
 

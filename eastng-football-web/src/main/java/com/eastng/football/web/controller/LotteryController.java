@@ -1,6 +1,7 @@
 package com.eastng.football.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eastng.football.api.service.lottery.OddsService;
+import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.lottery.OddsVO;
 import com.eastng.football.api.vo.lottery.QueryOddsParamVO;
-import com.eastng.football.web.view.common.ListResponseBody;
+import com.eastng.football.api.vo.match.MatchVO;
+import com.eastng.football.web.view.common.ListResponse;
 import com.eastng.football.web.view.easyui.DataGridResult;
 import com.eastng.football.web.view.lottery.OddsResultVO;
 
@@ -25,6 +28,9 @@ public class LotteryController {
 
     @Autowired
     private OddsService oddsService;
+    
+    @Autowired
+    private MatchService matchService;
     
     @RequestMapping(value="queryOdds" ,method = RequestMethod.POST)
     @ResponseBody
@@ -36,7 +42,7 @@ public class LotteryController {
         paramVO.setMatchNo(matchNo);
         paramVO.setPage(page);
         paramVO.setRows(rows);
-        PageResult<OddsVO> pageResult = oddsService.queryOddsByMatchNo(paramVO);
+        PageResult<OddsVO> pageResult = oddsService.queryOddsPageByMatchNo(paramVO);
         
         DataGridResult<OddsResultVO> result= new DataGridResult<OddsResultVO>();
         result.setTotal(pageResult.getTotal());
@@ -60,10 +66,34 @@ public class LotteryController {
      * @param matchNo
      * @return
      */
-    public ListResponseBody<OddsResultVO> queryOddsChangeByMatchNo(String matchNo){
-        ListResponseBody<OddsResultVO> responseBody = new ListResponseBody<OddsResultVO>();
+    @RequestMapping("queryOddsChangeByMatchNo")
+    @ResponseBody
+    public ListResponse<OddsResultVO> queryOddsChangeByMatchNo(String matchNo){
+        ListResponse<OddsResultVO> response = new ListResponse<OddsResultVO>();
         
-        return responseBody;
+        MatchVO matchVO = this.matchService.queryMatchByMatchNo(matchNo);
+        Date matchTime = matchVO.getMatchTime();
+        QueryOddsParamVO paramVO = new QueryOddsParamVO();
+        paramVO.setMatchNo(matchNo);
+        List<OddsVO> list = this.oddsService.queryOdds(paramVO);
+        
+        List<OddsResultVO> responseBody = new ArrayList<OddsResultVO>();
+        if(list != null && list.size() > 0){
+            for(OddsVO oddsVO:list){
+                OddsResultVO oddsResultVO = new OddsResultVO();
+                BeanUtils.copyProperties(oddsVO, oddsResultVO);
+                
+                Long diff = matchTime.getTime() - oddsVO.getChangeTime().getTime();
+                //时间差
+                String timeLeftDigit = "-"+(diff/86400) + "D" + ((diff % 86400) / 3600) + "H" + ((diff % 3600) / 60) + "M";
+                oddsResultVO.setTimeLeftDigit(timeLeftDigit);
+                responseBody.add(oddsResultVO);
+            }
+        }
+        
+        response.setResponseBody(responseBody);
+        
+        return response;
     }
     
         

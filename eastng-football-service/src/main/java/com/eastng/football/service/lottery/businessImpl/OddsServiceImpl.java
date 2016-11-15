@@ -50,7 +50,7 @@ public class OddsServiceImpl implements OddsService {
         return resultVO;
     }
 
-    public PageResult<OddsVO> queryOddsByMatchNo(QueryOddsParamVO paramVO) {
+    public PageResult<OddsVO> queryOddsPageByMatchNo(QueryOddsParamVO paramVO) {
         OddsExample example = new OddsExample();
         example.createCriteria().andMatchNoEqualTo(paramVO.getMatchNo());
         example.setOrderByClause("change_time desc");
@@ -70,5 +70,15 @@ public class OddsServiceImpl implements OddsService {
         resultList.setResult(oddsVOList);
         return resultList;
     }
+
+	@Override
+	public List<OddsVO> queryOdds(QueryOddsParamVO paramVO) {
+		OddsExample example = new OddsExample();
+        example.createCriteria().andMatchNoEqualTo(paramVO.getMatchNo());
+        example.setOrderByClause("change_time desc");
+        List<Odds> list = this.oddsMapper.selectByExample(example);
+        List<OddsVO> oddsVOs = BeanUtils.copyList(list, OddsVO.class);
+		return oddsVOs;
+	}
 
 }
