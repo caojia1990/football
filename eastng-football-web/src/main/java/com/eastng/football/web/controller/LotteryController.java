@@ -83,9 +83,18 @@ public class LotteryController {
                 OddsResultVO oddsResultVO = new OddsResultVO();
                 BeanUtils.copyProperties(oddsVO, oddsResultVO);
                 
-                Long diff = matchTime.getTime() - oddsVO.getChangeTime().getTime();
+                Long diff = (matchTime.getTime() - oddsVO.getChangeTime().getTime())/1000;
                 //时间差
-                String timeLeftDigit = "-"+(diff/86400) + "D" + ((diff % 86400) / 3600) + "H" + ((diff % 3600) / 60) + "M";
+                String timeLeftDigit = "-";
+                if((diff/86400)>0){
+                	timeLeftDigit += (diff/86400) + "D";
+                }
+                if(((diff % 86400) / 3600) > 0){
+                	timeLeftDigit += ((diff % 86400) / 3600) + "H";
+                }
+                if(((diff % 3600) / 60) > 0){
+                	timeLeftDigit += ((diff % 3600) / 60) + "M";
+                }
                 oddsResultVO.setTimeLeftDigit(timeLeftDigit);
                 responseBody.add(oddsResultVO);
             }

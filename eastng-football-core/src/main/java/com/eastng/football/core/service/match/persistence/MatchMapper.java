@@ -41,7 +41,6 @@ public interface MatchMapper {
      * @param matchNo
      * @return
      */
-    @Select("select * from t_match where match_no = #{matchNo}")
     Match selectMatchByMatchNo(String matchNo);
     
     /**
