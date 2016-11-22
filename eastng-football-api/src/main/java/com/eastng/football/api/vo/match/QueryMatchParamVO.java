@@ -50,6 +50,11 @@ public class QueryMatchParamVO extends PageParam implements Serializable {
     private String seasonName;
     
     /**
+     * 赛季编号
+     */
+    private String seasonNo;
+    
+    /**
      * 开始时间
      */
     private Date beginDate;
@@ -223,13 +228,15 @@ public class QueryMatchParamVO extends PageParam implements Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "QueryMatchParamVO [matchNo=" + matchNo + ", hostTeamNo=" + hostTeamNo + ", hostShortName="
-				+ hostShortName + ", guestTeamNo=" + guestTeamNo + ", guestShortName=" + guestShortName + ", leagueNo="
-				+ leagueNo + ", seasonName=" + seasonName + ", beginDate=" + beginDate + ", endDate=" + endDate
-				+ ", round=" + round + ", matchStatus=" + matchStatus + ", toString()=" + super.toString() + "]";
+	public String getSeasonNo() {
+		return seasonNo;
+	}
+
+	public void setSeasonNo(String seasonNo) {
+		this.seasonNo = seasonNo;
 	}
 	
 }

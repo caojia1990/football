@@ -24,7 +24,10 @@ import com.eastng.football.api.service.match.MatchService;
 import com.eastng.football.api.vo.common.PageResult;
 import com.eastng.football.api.vo.match.MatchVO;
 import com.eastng.football.api.vo.match.QueryMatchParamVO;
+import com.eastng.football.web.view.common.Response;
 import com.eastng.football.web.view.match.QueryRecentMatchParamVO;
+import com.eastng.football.web.view.match.WqueryRecentMatchChartParamVO;
+import com.eastng.football.web.view.match.WqueryRecentMatchChartResultVO;
 
 @Controller
 public class EchartsController {
@@ -38,7 +41,7 @@ public class EchartsController {
 	@ResponseBody
     public String queryRecentMatch(QueryRecentMatchParamVO paramVO) throws FootBallBizException{
 		
-		logger.info("查询球队近况WEB层入参"+ToStringBuilder.reflectionToString(paramVO, ToStringStyle.MULTI_LINE_STYLE));
+		logger.info("查询球队近况WEB层入参"+JSON.toJSONString(paramVO));
 		//QueryMatchParamVO innerparamVO = JSON.parseObject(paramVO, QueryMatchParamVO.class);
 		if(paramVO == null){
 			paramVO = new QueryRecentMatchParamVO();
@@ -123,5 +126,55 @@ public class EchartsController {
 		String opString = JSON.toJSONString(option, true);
 		logger.info("转换Echarts option为字符串："+opString);
 		return opString;
+	}
+	
+	@RequestMapping(value="queryRecentMatchChart")
+	@ResponseBody
+	public Response<WqueryRecentMatchChartResultVO> queryRecentMatchChart(WqueryRecentMatchChartParamVO paramVO) throws FootBallBizException{
+		Response<WqueryRecentMatchChartResultVO> response = new Response<>();
+		QueryMatchParamVO innerparamVO = new QueryMatchParamVO();
+		//球队编号
+		innerparamVO.setHostTeamNo(paramVO.getTeamNo());
+		//赛季编号
+		innerparamVO.setSeasonNo(paramVO.getSeasonNo());
+		//比赛时间
+		innerparamVO.setBeginDate(paramVO.getMatchDate());
+		innerparamVO.setPage(1);
+		innerparamVO.setRows(10);
+		PageResult<MatchVO> pageResult = this.matchService.queryRecentMatch(innerparamVO);
+		int win = 0;
+		int draw = 0;
+		int lose = 0;
+		List<MatchVO> list = pageResult.getResult();
+		if(list != null){
+			for(MatchVO matchVO:list){
+				//主队
+				if(matchVO.getHostTeamNo().equals(paramVO.getTeamNo())){
+					if(matchVO.getHostGoal()>matchVO.getGuestGoal()){
+						win +=1;
+					}else if(matchVO.getHostGoal()<matchVO.getGuestGoal()){
+						lose +=1;
+					}else {
+						draw +=1;
+					}
+				}else {
+					//客队
+					if(matchVO.getHostGoal()>matchVO.getGuestGoal()){
+						lose +=1;
+					}else if(matchVO.getHostGoal()<matchVO.getGuestGoal()){
+						win +=1;
+					}else {
+						draw +=1;
+					}
+				}
+			}
+		}
+		WqueryRecentMatchChartResultVO responseBody = new WqueryRecentMatchChartResultVO();
+		responseBody.setWin(win);
+		responseBody.setDraw(draw);
+		responseBody.setLose(lose);
+		response.setResponseBody(responseBody);
+		
+		return response;
 	}
 }

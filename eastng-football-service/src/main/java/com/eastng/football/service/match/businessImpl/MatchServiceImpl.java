@@ -198,6 +198,10 @@ public class MatchServiceImpl implements MatchService {
             record.setLeagueNo(paramVO.getLeagueNo());
         }
         
+        if(!StringUtils.isEmpty(paramVO.getSeasonNo())){
+        	record.setSeasonNo(paramVO.getSeasonNo());
+        }
+        
         //比赛状态
         record.setMatchStatus(CommonConstant.MATCH_STATUS_END);
         

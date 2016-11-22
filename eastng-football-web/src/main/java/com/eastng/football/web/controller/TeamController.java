@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
 import com.eastng.football.web.view.common.ListResponse;
@@ -23,9 +24,15 @@ public class TeamController {
     public ListResponse<TeamSeasonScoreVO> queryTeamScoreHistory(WqueryTeamHistoryScoreParamVO paramVO){
         ListResponse<TeamSeasonScoreVO> response = new ListResponse<TeamSeasonScoreVO>();
         
-        List<TeamSeasonScoreVO> list = this.seasonService.queryTeamScoreByTeamNoAndSeasonNO(paramVO.getSeasonNo(), paramVO.getTeamNo());
+        List<TeamSeasonScoreVO> list;
+		try {
+			list = this.seasonService.queryTeamScoreByTeamNoAndSeasonNO(paramVO.getSeasonNo(), paramVO.getTeamNo());
+			response.setResponseBody(list);
+		} catch (FootBallBizException e) {
+			response.setResponseCode(e.getErrorCode());
+			response.setErrorMessage(e.getMessage());
+		}
         
-        response.setResponseBody(list);
         return response;
     }
 }

@@ -1,6 +1,6 @@
 package com.eastng.football.web.view.common;
 
-public class ResponseBody<T> extends CommonResponseHead {
+public class Response<T> extends CommonResponseHead {
 
 	private T responseBody;
 

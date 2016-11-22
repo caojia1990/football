@@ -20,6 +20,8 @@ import com.eastng.football.core.service.match.persistence.TeamSeasonScoreMapper;
 import com.eastng.football.service.support.ScoreBoardFactory;
 import com.eastng.football.util.BeanUtils;
 import com.eastng.framework.common.utils.BeanUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Service("seasonService")
 public class SeasonServiceImpl implements SeasonService {
@@ -112,14 +114,17 @@ public class SeasonServiceImpl implements SeasonService {
     }
 
 	@Override
-	public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo) {
+	public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo) throws FootBallBizException {
 
 		if(StringUtils.isEmpty(seasonNo)||StringUtils.isEmpty(teamNo)){
 			logger.warn("球队编号和赛季编号不能为空");
+			throw new FootBallBizException("", "球队编号和赛季编号不能为空");
 		}
 		TeamSeasonScore score = new TeamSeasonScore();
 		score.setTeamNo(teamNo);
 		score.setSeasonNo(seasonNo);
+		//查询最近五轮联赛排名
+		PageHelper.startPage(1, 5);
 		List<TeamSeasonScore> list = this.teamSeasonScoreMapper.selectByCondition(score);
 		
 		List<TeamSeasonScoreVO> teamSeasonScoreVOs = null;

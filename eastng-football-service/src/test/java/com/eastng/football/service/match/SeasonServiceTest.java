@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
+import com.eastng.football.api.exception.FootBallBizException;
 import com.eastng.football.api.service.match.SeasonService;
 import com.eastng.football.api.vo.match.SeasonVo;
 import com.eastng.football.api.vo.match.TeamSeasonScoreVO;
@@ -43,7 +44,7 @@ public class SeasonServiceTest extends BaseJunit4Test {
     }
     
     @Test
-    public void queryTeamScoreByTeamNoAndSeasonNO(){
+    public void queryTeamScoreByTeamNoAndSeasonNO() throws FootBallBizException{
         List<TeamSeasonScoreVO> list = this.seasonService.queryTeamScoreByTeamNoAndSeasonNO("001005001201516", "20160820140807468380814");
         logger.info(JSON.toJSONString(list));
     }

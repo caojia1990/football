@@ -41,7 +41,8 @@ public interface SeasonService {
      * @param seasonNo
      * @param teamNo
      * @return
+     * @throws FootBallBizException 
      */
-    public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo);
+    public List<TeamSeasonScoreVO> queryTeamScoreByTeamNoAndSeasonNO(String seasonNo, String teamNo) throws FootBallBizException;
 
 }
